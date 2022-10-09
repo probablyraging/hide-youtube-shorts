@@ -15,7 +15,7 @@ function hideShorts() {
         shorts.forEach(short => {
             short.parentNode.parentNode.parentNode.style.display = 'none';
         });
-    }, 1000);
+    }, 100);
 }
 
 // function hideShorts() {
