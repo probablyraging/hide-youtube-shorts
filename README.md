@@ -3,14 +3,25 @@
 # Hide YouTube Shorts
 Automatically hides all YouTube Shorts videos on channel pages
 
+# Download
+1. Download the .zip file
+2. Extract the contents
+
+<img width=350 style="align: center" src="https://i.imgur.com/uJJnLNr.png">
+
 # Installation
+
+### Video Explanation
+https://www.youtube.com/watch?v=hIRX1dpfqHc
+
+### Written Explanation
 1. Go to the Extensions page by entering ``chrome://extensions`` into the address bar
     1. Alternatively, click on the Extensions menu puzzle button and select **Manage Extensions** at the bottom of the menu.
     2. Or, click the Chrome menu, hover over **More Tools**, then select **Extensions**.
 
 2. Enable Developer Mode by clicking the toggle switch next to **Developer mode**.
 
-3. Click the **Load unpacked** button and select the extension directory.
+3. Click the **Load unpacked** button and select the folder you extracted.
 
 [Learn more here](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked)
 
