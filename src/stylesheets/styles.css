@@ -1,0 +1,65 @@
+html {
+    width: 242px;
+    height: fit-content;
+}
+
+body {
+    color: rgb(246, 246, 246);
+    background-color: rgb(27, 27, 35);
+    height: fit-content;
+}
+
+a {
+    color: rgb(246, 246, 246);
+}
+
+a:hover {
+    color: unset;
+    filter: brightness(0.9);
+}
+
+.toggle {
+    display: flex;
+    justify-content: center;
+}
+
+.toggleBtn {
+    height: 100px;
+    width: 100px;
+    background-size: 100px;
+    background-image: url(../images/power-button-on.svg);
+    margin: 12px;
+    cursor: pointer;
+}
+
+.bi-power {
+    color: rgb(144, 255, 151); 
+    margin: 8px;
+    font-size: 100px;
+    cursor: pointer;
+}
+
+.reload {
+    display: flex;
+    justify-content: center;
+}
+
+.reload-text {
+    display: none;
+    color: rgb(141, 141, 255);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(50, 53, 67);
+    width: 100%;
+}
+
+.footer-text {
+    font-size: 12px;
+    margin-top: 12px;
+}
