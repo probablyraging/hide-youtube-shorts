@@ -1,7 +1,7 @@
 {
     "name": "Hide YouTube Shorts",
     "manifest_version": 3,
-    "version": "1.0",
+    "version": "0.0.6",
     "description": "Automatically hides all YouTube Shorts videos on channel pages",
     "permissions": [
         "activeTab",
