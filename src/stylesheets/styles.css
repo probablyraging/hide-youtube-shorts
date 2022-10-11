@@ -1,16 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 html {
     width: 242px;
     height: fit-content;
 }
 
 body {
-    color: rgb(246, 246, 246);
-    background-color: rgb(27, 27, 35);
+    font-family: "Red Hat Display", sans-serif;
+    color: #f6f6f6;
+    background-color: #1b1b23;
     height: fit-content;
+    margin: 0;
 }
 
 a {
-    color: rgb(246, 246, 246);
+    color: #f6f6f6;
 }
 
 a:hover {
@@ -18,25 +22,33 @@ a:hover {
     filter: brightness(0.9);
 }
 
+.header {
+    display: flex;
+    justify-content: center;
+    user-select: none;
+}
+
+.header img {
+    width: 220px;
+    margin: 12px;
+    margin-bottom: 0;
+}
+
 .toggle {
     display: flex;
     justify-content: center;
+    margin: 10px;
+    user-select: none;
 }
 
 .toggleBtn {
-    height: 100px;
-    width: 100px;
-    background-size: 100px;
-    background-image: url(../images/power-button-on.svg);
+    width: 75px;
     margin: 12px;
     cursor: pointer;
 }
 
-.bi-power {
-    color: rgb(144, 255, 151); 
-    margin: 8px;
-    font-size: 100px;
-    cursor: pointer;
+.toggleBtn:hover {
+    filter: drop-shadow(0px 0px 4px rgb(180, 180, 180));
 }
 
 .reload {
@@ -46,20 +58,60 @@ a:hover {
 
 .reload-text {
     display: none;
-    color: rgb(141, 141, 255);
+    color: #8d8dff;
     font-size: 12px;
     cursor: pointer;
+    margin-top: 0;
 }
 
 .footer {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgb(50, 53, 67);
+    background: #323543;
     width: 100%;
 }
 
-.footer-text {
-    font-size: 12px;
-    margin-top: 12px;
+.footer-inner {
+    width: 100%;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background: #323543;
+}
+
+.footer-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 18px;
+    padding: 14px;
+    background: #323543;
+    cursor: pointer;
+}
+
+.footer-btn:hover {
+    filter: brightness(1.5);
+}
+
+.footer .bi {
+    font-size: 22px;
+}
+
+.footer a {
+    width: 100%;
+}
+
+.page-end {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-end p {
+    margin: 6px;
 }

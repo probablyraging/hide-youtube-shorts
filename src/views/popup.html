@@ -1,19 +1,46 @@
 <html>
 
 <head>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../stylesheets/styles.css">
 </head>
 
 <body>
+    <div class="header">
+        <img src="../images/logo.svg">
+    </div>
+
     <div class="toggle">
-        <i id="toggleBtn" class="toggleBtn"></i>
+        <img id="toggleBtn" class="toggleBtn" src="../images/power-button-on.svg">
     </div>
+
     <div class="reload">
-        <p id="reloadBtn" class="reload-text">Reload page</p>
+        <p id="reloadBtn" class="reload-text"><i class="bi bi-arrow-clockwise"></i> Reload page</p>
     </div>
-    <div class="footer">
-        <p class="footer-text"><a id="supportBtn" href="https://github.com/ProbablyRaging/hide-yt-shorts" target="_blank">Hide YouTube Shorts</a> by ProbablyRaging</p>
+
+    <div id="footer" class="footer">
+        <div id="footer-inner" class="footer-inner">
+            <div class="footer-links">
+                <a href="https://github.com/ProbablyRaging/hide-youtube-shorts" target="_blank">
+                    <div class="footer-btn" title="Github"><i class="bi bi-github"></i></div>
+                </a>
+                <a href="https://chrome.google.com/webstore/detail/hide-youtube-shorts/aljlkinhomaaahfdojalfmimeidofpih" target="_blank">
+                    <div class="footer-btn" title="Support"><i class="bi bi-chat-dots"></i></div>
+                </a>
+                <a href="https://chrome.google.com/webstore/detail/hide-youtube-shorts/aljlkinhomaaahfdojalfmimeidofpih" target="_blank">
+                    <div class="footer-btn" title="Website"><i class="bi bi-globe2"></i></div>
+                </a>
+                <a href="https://forthecontent.xyz/privacy" target="_blank">
+                    <div class="footer-btn" title="Privacy Policy"><i class="bi bi-shield-check"></i></div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-end">
+        <p>Created by ProbablyRaging</p>
     </div>
 
     <!-- Scripts -->

@@ -16,7 +16,7 @@
         "type": "module"
     },
     "action": {
-        "default_title": "Hide YouTube Shorts - Menu",
+        "default_title": "Hide YouTube Shorts",
         "default_popup": "src/views/popup.html"
     },
     "icons": {

@@ -1,11 +1,9 @@
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     if (tab.url.includes("https://www.youtube.com/")) {
-        if (changeInfo.status == 'complete') {
-            chrome.scripting.executeScript({
-                target: { tabId: tab.id },
-                function: hideShorts
-            });
-        }
+        chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            function: hideShorts
+        });
     }
 });
 
