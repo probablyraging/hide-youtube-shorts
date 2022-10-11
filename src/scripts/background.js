@@ -9,13 +9,6 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     }
 });
 
-chrome.action.onClicked.addListener((tab) => {
-    chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        function: dropDownMenu
-    });
-});
-
 function hideShorts() {
     setInterval(() => {
         chrome.storage.sync.get(['toggleState'], function (result) {
