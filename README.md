@@ -3,6 +3,8 @@
 # Hide YouTube Shorts
 A Chrome extension for automatically hiding all YouTube Shorts videos in most areas on YouTube, such as, home page, search pages, channel pages, and the recommended list
 
+Download it on the [Chrome Web Store](https://chrome.google.com/webstore/detail/aljlkinhomaaahfdojalfmimeidofpih)
+
 # Download
 1. Download the .zip file
 2. Extract the contents
