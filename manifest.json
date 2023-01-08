@@ -1,7 +1,7 @@
 {
     "name": "Hide YouTube Shorts",
     "manifest_version": 3,
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "Automatically hides all shorts videos everywhere that they appear on YouTube",
     "permissions": [
         "scripting",
