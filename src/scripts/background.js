@@ -10,15 +10,24 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 });
 
 function hideShorts() {
+    console.log(chrome.storage.sync.get(['toggleHomeFeedState']));
     // Check for shorts videos and tabs every 100 milliseconds
     setInterval(() => {
         chrome.storage.sync.get(['toggleState'], function (result) {
             if (result.toggleState === 'on') {
-                // If the toggle state is set to "on", hide the shorts videos, menu tabs, and shelf
-                hideElements('.tab-content', 'shorts');
-                hideElements('[href^="/shorts/"]');
-                hideElements('#endpoint[title="Shorts"]');
-                hideElements('#title.style-scope.ytd-rich-shelf-renderer');
+                // Nav menu
+                chrome.storage.sync.get(['toggleNavState'], function (result) {
+                    if (result.toggleNavState === 'on') hideElements('#endpoint[title="Shorts"]');
+                });
+                // Home Feed
+                chrome.storage.sync.get(['toggleHomeFeedState'], function (result) {
+                    if (result.toggleHomeFeedState === 'on') hideElements('#title.style-scope.ytd-rich-shelf-renderer');
+                    if (result.toggleHomeFeedState === 'on' && tab.url === 'https://www.youtube.com/') hideElements('[href^="/shorts/"]');
+                });
+                // Home Feed
+                chrome.storage.sync.get(['toggleTabState'], function (result) {
+                    if (result.toggleTabState === 'on') hideElements('.tab-content', 'shorts');
+                });
             }
         });
     }, 100);

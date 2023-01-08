@@ -45,10 +45,91 @@ a:hover {
     width: 75px;
     margin: 12px;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .toggleBtn:hover {
     filter: drop-shadow(0px 0px 4px rgb(180, 180, 180));
+}
+
+.settings {
+    display: flex;
+    justify-content: center;
+    margin: 12px;
+}
+
+.settings-switches {
+    width: 100%;
+}
+
+.switch-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.switch-wrapper .bi {
+    margin-left: 2px;
+    font-size: 12px;
+    color: rgb(150, 150, 150);
+}
+
+.toggle-container {
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    width: 32px;
+    height: 12px;
+    border-radius: 34px;
+    background-color: #555;
+}
+
+.toggle-container:hover .toggle-button {
+    filter: drop-shadow(0px 0px 4px rgb(255, 255, 255));
+}
+
+.toggle-button {
+    position: absolute;
+    top: -1px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 30px;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.toggle-container:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.toggle-container:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: #fff;
+    font-weight: bold;
+    opacity: 0;
+}
+
+.toggle-button.toggled {
+    left: calc(100% - 17px);
+    background-color: #90FF97;
+}
+
+.toggle-button.toggled+.toggle-container:before {
+    opacity: 0;
+}
+
+.toggle-button.toggled+.toggle-container:after {
+    opacity: 1;
 }
 
 .reload {
@@ -92,6 +173,7 @@ a:hover {
     padding: 14px;
     background: #323543;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .footer-btn:hover {
@@ -104,6 +186,7 @@ a:hover {
 
 .footer a {
     width: 100%;
+    transition: all 0.2s ease;
 }
 
 .page-end {
@@ -114,4 +197,33 @@ a:hover {
 
 .page-end p {
     margin: 6px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip::before {
+    content: attr(tooltip);
+    position: absolute;
+    top: -43px;
+    left: 81px;
+    transform: translateX(-50%);
+    background-color: #43475A;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    white-space: break-spaces;
+    word-wrap: break-word;
+    min-width: 155px;
+    z-index: 1;
+}
+
+.tooltip:hover::before {
+    opacity: 1;
 }
