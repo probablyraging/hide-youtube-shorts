@@ -10,7 +10,6 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 });
 
 function hideShorts() {
-    console.log(chrome.storage.sync.get(['toggleHomeFeedState']));
     // Check for shorts videos and tabs every 100 milliseconds
     setInterval(() => {
         chrome.storage.sync.get(['toggleState'], function (result) {
@@ -22,7 +21,7 @@ function hideShorts() {
                 // Home Feed
                 chrome.storage.sync.get(['toggleHomeFeedState'], function (result) {
                     if (result.toggleHomeFeedState === 'on') hideElements('#title.style-scope.ytd-rich-shelf-renderer');
-                    if (result.toggleHomeFeedState === 'on' && tab.url === 'https://www.youtube.com/') hideElements('[href^="/shorts/"]');
+                    if (result.toggleHomeFeedState === 'on') hideElements('[href^="/shorts/"]');
                 });
                 // Home Feed
                 chrome.storage.sync.get(['toggleTabState'], function (result) {
@@ -33,6 +32,12 @@ function hideShorts() {
     }, 100);
 
     function hideElements(selector, text) {
+        if (selector === '[href^="/shorts/"]') {
+            const shorts = document.querySelectorAll('[href^="/shorts/"]');
+            shorts.forEach(short => {
+                short.parentNode.parentNode.parentNode.style.display = 'none';
+            });
+        }
         // Find all elements matching the provided selector and hide them if they contain the provided text
         const elements = document.querySelectorAll(selector);
         elements.forEach(element => {

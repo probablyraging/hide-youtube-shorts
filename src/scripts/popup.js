@@ -16,8 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mainResult.toggleState === undefined) {
             // Update toggle state in storage
             chrome.storage.sync.set({ toggleState: 'on' });
+            toggleNavButton.classList.add('toggled');
+            toggleHomeFeedButton.classList.add('toggled');
+            toggleTabButton.classList.add('toggled');
         } else if (mainResult.toggleState === 'on') {
             toggleBtn.src = '../images/power-button-on.svg';
+            toggleNavButton.classList.add('toggled');
+            toggleHomeFeedButton.classList.add('toggled');
+            toggleTabButton.classList.add('toggled');
         } else {
             toggleBtn.src = '../images/power-button-off.svg';
             toggleNavButton.classList.remove('toggled');
@@ -94,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Toggle nav hiding
         // When popup window is opened, check the toggle state and update the UI accordingly
         chrome.storage.sync.get(['toggleNavState'], result => {
-            console.log(mainResult.toggleState);
             if (result.toggleNavState === undefined) {
                 // Update toggle state in storage
                 chrome.storage.sync.set({ toggleNavState: 'on' });
@@ -123,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Toggle home feed hiding
         // When popup window is opened, check the toggle state and update the UI accordingly
         chrome.storage.sync.get(['toggleHomeFeedState'], result => {
-            console.log(result);
             if (result.toggleHomeFeedState === undefined) {
                 // Update toggle state in storage
                 chrome.storage.sync.set({ toggleHomeFeedState: 'on' });
