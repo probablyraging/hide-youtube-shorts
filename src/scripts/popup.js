@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleBtn.addEventListener('click', () => {
             chrome.storage.sync.get(['toggleState'], result => {
                 if (result.toggleState === 'on') {
+                    chrome.action.setIcon({ path: { "48": '/icon/icon48_disabled.png' } });
                     toggleBtn.src = '../images/power-button-off.svg';
                     chrome.storage.sync.set({ toggleState: 'off' });
                     toggleNavButton.classList.remove('toggled');
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     toggleTabContainer.style.pointerEvents = "none";
                     reloadBtn.style.display = 'block';
                 } else {
+                    chrome.action.setIcon({ path: { "48": '/icon/icon48.png' } });
                     toggleBtn.src = '../images/power-button-on.svg';
                     chrome.storage.sync.set({ toggleState: 'on' });
                     toggleNavButton.disabled = false;
