@@ -13,5 +13,8 @@ Install the extension directly from the [Chrome Web Store](https://chrome.google
 
 2. Extract and install - [Video Demonstration](https://www.youtube.com/watch?v=hIRX1dpfqHc) | [Written Demonstration](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked)
 
+## Previous Versions
+[Click here](https://github.com/ProbablyRaging/hide-youtube-shorts/releases) if you're looking for a previous version of Hide YouTube Shorts
+
 # License
 Hide YouTube Shorts is licensed under the **[GPL-3.0 License](./LICENSE)**
