@@ -35,6 +35,7 @@ function hideShorts() {
         if (selector === '[href^="/shorts/"]') {
             const shorts = document.querySelectorAll('[href^="/shorts/"]');
             shorts.forEach(short => {
+                if (short.parentNode.id === 'item' || short.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
                 short.parentNode.parentNode.parentNode.style.display = 'none';
             });
         }
@@ -56,9 +57,7 @@ function hideShorts() {
     function removeParentNodes(element, n) {
         for (let i = 0; i < n; i++) {
             element = element.parentNode;
-            if (!element) {
-                return;
-            }
+            if (!element || element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
         }
         element.parentNode.removeChild(element);
     }

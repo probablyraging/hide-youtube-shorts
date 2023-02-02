@@ -81,6 +81,7 @@ a:hover {
     height: 12px;
     border-radius: 34px;
     background-color: #555;
+    cursor: pointer;
 }
 
 .toggle-container:hover .toggle-button {
@@ -96,6 +97,7 @@ a:hover {
     border-radius: 30px;
     border: none;
     transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .toggle-container:before {
@@ -202,7 +204,6 @@ a:hover {
 .tooltip {
     position: relative;
     display: inline-block;
-    cursor: pointer;
 }
 
 .tooltip::before {
