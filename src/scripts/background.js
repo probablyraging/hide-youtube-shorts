@@ -16,49 +16,74 @@ function hideShorts() {
             if (result.toggleState === 'on') {
                 // Nav menu
                 chrome.storage.sync.get(['toggleNavState'], function (result) {
-                    if (result.toggleNavState === 'on') hideElements('#endpoint[title="Shorts"]');
+                    if (result.toggleNavState === 'on') hideShortsNavButton();
                 });
                 // Home Feed
                 chrome.storage.sync.get(['toggleHomeFeedState'], function (result) {
-                    if (result.toggleHomeFeedState === 'on') hideElements('#title.style-scope.ytd-rich-shelf-renderer');
-                    if (result.toggleHomeFeedState === 'on') hideElements('[href^="/shorts/"]');
+                    if (result.toggleHomeFeedState === 'on') hideShortsShelfHomeFeed(), hideShortsVideosHomeSubscriptionFeed();
                 });
-                // Home Feed
+                // Channel tab
                 chrome.storage.sync.get(['toggleTabState'], function (result) {
-                    if (result.toggleTabState === 'on') hideElements('.tab-content', 'shorts');
+                    if (result.toggleTabState === 'on') hideShortsTabOnChannel();
                 });
             }
         });
-    }, 100);
+    }, 1000);
 
-    function hideElements(selector, text) {
-        if (selector === '[href^="/shorts/"]') {
-            const shorts = document.querySelectorAll('[href^="/shorts/"]');
-            shorts.forEach(short => {
-                if (short.parentNode.id === 'item' || short.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
-                short.parentNode.parentNode.parentNode.style.display = 'none';
-            });
-        }
-        // Find all elements matching the provided selector and hide them if they contain the provided text
-        const elements = document.querySelectorAll(selector);
+    // Hide the shorts button in the navigation menu
+    function hideShortsNavButton() {
+        const elements = document.querySelectorAll('#endpoint[title="Shorts"]');
         elements.forEach(element => {
-            if (!text || element.textContent.toLowerCase().replace(/\s/g, '').replace(/\n/g, '') === text) {
-                if (selector === '#title.style-scope.ytd-rich-shelf-renderer') {
-                    // Remove 5 parent nodes for the shorts shelf element
-                    removeParentNodes(element, 5);
-                } else {
-                    const parent = element.parentNode;
-                    parent.parentNode.removeChild(parent);
-                }
-            }
+            const parent = element.parentNode;
+            parent.parentNode.removeChild(parent);
         });
     }
 
-    function removeParentNodes(element, n) {
-        for (let i = 0; i < n; i++) {
-            element = element.parentNode;
-            if (!element || element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+    // Hide the shorts shelf in the home/subscriptions feed
+    function hideShortsShelfHomeFeed() {
+        if (document.title.toLowerCase() === 'youtube' || document.title.toLowerCase() === 'subscriptions - youtube') {
+            const elements = document.querySelectorAll('.style-scope ytd-rich-shelf-renderer');
+            elements.forEach(element => {
+                const parent = element.parentNode;
+                parent.parentNode.removeChild(parent);
+            });
         }
-        element.parentNode.removeChild(element);
+    }
+
+    // Hide shorts video elements in the home/subscription feeds
+    function hideShortsVideosHomeSubscriptionFeed() {
+        if (document.title.toLowerCase() == 'youtube') {
+            const elements = document.querySelectorAll('[href^="/shorts/"]');
+            elements.forEach(element => {
+                // Ignore shorts in the notification menu
+                if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+                const parent = element.parentNode;
+                parent.parentNode.removeChild(parent);
+            });
+        }
+        if (document.title.toLowerCase() == 'subscriptions - youtube') {
+            const elements = document.querySelectorAll('[href^="/shorts/"]');
+            elements.forEach(element => {
+                // Ignore shorts in the notification menu
+                if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+                const parent = element.parentNode;
+                // When the subscription feed is being viewed in gride view
+                if (parent.parentNode.parentNode.parentNode.parentNode.nodeName === 'YTD-GRID-VIDEO-RENDERER')
+                    parent.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
+                // When the subscription feed is being viewed in list view
+                if (parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName === 'YTD-EXPANDED-SHELF-CONTENTS-RENDERER')
+                    parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
+            });
+        }
+    }
+
+    // Hide the shorts tab on the channel page tab menu
+    function hideShortsTabOnChannel() {
+        const elements = document.querySelectorAll('.tab-content');
+        const filteredElements = Array.from(elements).filter(element => element.textContent.replace(/\s/g, '').replace(/\n/g, '') === 'Shorts');
+        filteredElements.forEach(element => {
+            const parent = element.parentNode;
+            parent.parentNode.removeChild(parent);
+        });
     }
 }
