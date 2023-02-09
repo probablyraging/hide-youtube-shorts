@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleNavButton = document.querySelector('.nav-toggle');
     const toggleHomeFeedContainer = document.querySelector('.homefeed-container');
     const toggleHomeFeedButton = document.querySelector('.homefeed-toggle');
+    const toggleSubscriptionFeedContainer = document.querySelector('.subscriptionfeed-container');
+    const toggleSubscriptionFeedButton = document.querySelector('.subscriptionfeed-toggle');
     const toggleTabContainer = document.querySelector('.tab-container');
     const toggleTabButton = document.querySelector('.tab-toggle');
 
@@ -18,11 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
             chrome.storage.sync.set({ toggleState: 'on' });
             toggleNavButton.classList.add('toggled');
             toggleHomeFeedButton.classList.add('toggled');
+            toggleSubscriptionFeedButton.classList.add('toggled');
             toggleTabButton.classList.add('toggled');
         } else if (mainResult.toggleState === 'on') {
             toggleBtn.src = '../images/power-button-on.svg';
             toggleNavButton.classList.add('toggled');
             toggleHomeFeedButton.classList.add('toggled');
+            toggleSubscriptionFeedButton.classList.add('toggled');
             toggleTabButton.classList.add('toggled');
         } else {
             toggleBtn.src = '../images/power-button-off.svg';
@@ -32,6 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleHomeFeedButton.classList.remove('toggled');
             toggleHomeFeedButton.disabled = true;
             toggleHomeFeedContainer.style.pointerEvents = "none";
+            toggleSubscriptionFeedButton.classList.remove('toggled');
+            toggleSubscriptionFeedButton.disabled = true;
+            toggleSubscriptionFeedContainer.style.pointerEvents = "none";
             toggleTabButton.classList.remove('toggled');
             toggleTabButton.disabled = true;
             toggleTabContainer.style.pointerEvents = "none";
@@ -50,6 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     toggleHomeFeedButton.classList.remove('toggled');
                     toggleHomeFeedButton.disabled = true;
                     toggleHomeFeedContainer.style.pointerEvents = "none";
+                    toggleSubscriptionFeedButton.classList.remove('toggled');
+                    toggleSubscriptionFeedButton.disabled = true;
+                    toggleSubscriptionFeedContainer.style.pointerEvents = "none";
                     toggleTabButton.classList.remove('toggled');
                     toggleTabButton.disabled = true;
                     toggleTabContainer.style.pointerEvents = "none";
@@ -62,6 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     toggleNavContainer.style.pointerEvents = "auto";
                     toggleHomeFeedButton.disabled = false;
                     toggleHomeFeedContainer.style.pointerEvents = "auto";
+                    toggleSubscriptionFeedButton.disabled = false;
+                    toggleSubscriptionFeedContainer.style.pointerEvents = "auto";
                     toggleTabButton.disabled = false;
                     toggleTabContainer.style.pointerEvents = "auto";
                     chrome.storage.sync.get(['toggleNavState'], result => {
@@ -82,6 +94,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             toggleHomeFeedButton.classList.add('toggled');
                         } else {
                             toggleHomeFeedButton.classList.remove('toggled');
+                        }
+                    });
+                    chrome.storage.sync.get(['toggleSubscriptionFeedState'], result => {
+                        if (result.toggleSubscriptionFeedState === undefined) {
+                            // Update toggle state in storage
+                            chrome.storage.sync.set({ toggleSubscriptionFeedState: 'on' });
+                        } else if (result.toggleSubscriptionFeedState === 'on') {
+                            toggleSubscriptionFeedButton.classList.add('toggled');
+                        } else {
+                            toggleSubscriptionFeedButton.classList.remove('toggled');
                         }
                     });
                     chrome.storage.sync.get(['toggleTabState'], result => {
@@ -155,6 +177,34 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+        // Toggle subscription feed hiding
+        // When popup window is opened, check the toggle state and update the UI accordingly
+        chrome.storage.sync.get(['toggleSubscriptionFeedState'], result => {
+            if (result.toggleSubscriptionFeedState === undefined) {
+                // Update toggle state in storage
+                chrome.storage.sync.set({ toggleSubscriptionFeedState: 'on' });
+            } else if (result.toggleSubscriptionFeedState === 'on' && mainResult.toggleState === 'on') {
+                toggleSubscriptionFeedButton.classList.add('toggled');
+            } else {
+                toggleSubscriptionFeedButton.classList.remove('toggled');
+            }
+        });
+
+        // When toggle button is clicked, toggle the extension state and update the storage key
+        toggleSubscriptionFeedContainer.addEventListener('click', () => {
+            chrome.storage.sync.get(['toggleSubscriptionFeedState'], result => {
+                if (result.toggleSubscriptionFeedState === 'on') {
+                    toggleSubscriptionFeedButton.classList.remove('toggled');
+                    chrome.storage.sync.set({ toggleSubscriptionFeedState: 'off' });
+                    reloadBtn.style.display = 'block';
+                } else {
+                    toggleSubscriptionFeedButton.classList.add('toggled');
+                    chrome.storage.sync.set({ toggleSubscriptionFeedState: 'on' });
+                    if (hasRefreshed) reloadBtn.style.display = 'none';
+                }
+            });
+        });
+
         // Toggle channel tab hiding
         // When popup window is opened, check the toggle state and update the UI accordingly
         chrome.storage.sync.get(['toggleTabState'], result => {
@@ -186,8 +236,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // When reload button is clicked, find the active tab and reload it
     reloadBtn.addEventListener('click', () => {
-        chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-            chrome.tabs.update(tabs[0].id, { url: tabs[0].url });
+        chrome.tabs.query({ url: "https://www.youtube.com/*" }, function (tabs) {
+            tabs.forEach(function (tab) {
+                chrome.tabs.reload(tab.id);
+            });
         });
         window.close();
     });
