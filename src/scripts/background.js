@@ -1,6 +1,22 @@
+// On initial install, set the state of the extension
+// and the toggle buttons in popup.js
+chrome.runtime.onInstalled.addListener((details) => {
+    if (details.reason === 'install') {
+        chrome.storage.sync.set({ toggleState: 'on' });
+        chrome.storage.sync.set({ toggleNavState: 'on' });
+        chrome.storage.sync.set({ toggleHomeFeedState: 'on' });
+        chrome.storage.sync.set({ toggleTabState: 'on' });
+        chrome.tabs.query({ url: "https://www.youtube.com/*" }, function (tabs) {
+            tabs.forEach(function (tab) {
+                chrome.tabs.reload(tab.id);
+            });
+        });
+    }
+});
+
+// Listen for updates to the current tab and if the tab's URL
+// includes "https://www.youtube.com/", execute the hideShorts function
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-    // Listen for updates to the current tab and if the tab's URL
-    // includes "https://www.youtube.com/", execute the hideShorts function
     if (tab.url.includes("https://www.youtube.com/")) {
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
