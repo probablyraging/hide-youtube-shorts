@@ -1,5 +1,8 @@
 // Check for shorts videos and tabs every 100 milliseconds
 setInterval(() => {
+    // If the extension is unloaded or updated, reload the page to terminate orphaned scripts
+    if (!chrome.runtime.id) return location.reload();
+    // Check chrome storage to get extension states
     chrome.storage.sync.get(['toggleState'], function (result) {
         if (result.toggleState === 'on') {
             // Nav menu
