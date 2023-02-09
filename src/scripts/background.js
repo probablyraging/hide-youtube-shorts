@@ -44,7 +44,7 @@ function hideShorts() {
                 });
             }
         });
-    }, 1000);
+    }, 100);
 
     // Hide the shorts button in the navigation menu
     function hideShortsNavButton() {
