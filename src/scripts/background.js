@@ -37,9 +37,13 @@ function hideShorts() {
                 chrome.storage.sync.get(['toggleNavState'], function (result) {
                     if (result.toggleNavState === 'on') hideShortsNavButton();
                 });
-                // Home Feed
+                // Home feed
                 chrome.storage.sync.get(['toggleHomeFeedState'], function (result) {
-                    if (result.toggleHomeFeedState === 'on') hideShortsShelfHomeFeed(), hideShortsVideosHomeSubscriptionFeed();
+                    if (result.toggleHomeFeedState === 'on') hideShortsShelfHomeFeed(), hideShortsVideosHomeFeed()
+                });
+                // Subscriptions feed
+                chrome.storage.sync.get(['toggleSubscriptionFeedState'], function (result) {
+                    if (result.toggleSubscriptionFeedState === 'on') hideShortsVideosSubscriptionFeed();
                 });
                 // Channel tab
                 chrome.storage.sync.get(['toggleTabState'], function (result) {
@@ -70,16 +74,20 @@ function hideShorts() {
     }
 
     // Hide shorts video elements in the home/subscription feeds
-    function hideShortsVideosHomeSubscriptionFeed() {
+    function hideShortsVideosHomeFeed() {
         if (document.title.toLowerCase() == 'youtube') {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
                 if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
                 const parent = element.parentNode;
-                parent.parentNode.removeChild(parent);
+                if (parent.hasAttribute('rich-grid-thumbnail')) parent.parentNode.parentNode.style.display = 'none';
             });
         }
+    }
+
+    // Hide shorts video elements in the home/subscription feeds
+    function hideShortsVideosSubscriptionFeed() {
         if (document.title.toLowerCase() == 'subscriptions - youtube') {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
