@@ -4,8 +4,6 @@
     "version": "1.3.0",
     "description": "Automatically hides all shorts videos everywhere that they appear on YouTube",
     "permissions": [
-        "scripting",
-        "tabs",
         "storage"
     ],
     "host_permissions": [
@@ -15,6 +13,16 @@
         "service_worker": "src/scripts/background.js",
         "type": "module"
     },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.youtube.com/*"
+            ],
+            "js": [
+                "src/scripts/main.js"
+            ]
+        }
+    ],
     "action": {
         "default_title": "Hide YouTube Shorts",
         "default_popup": "src/views/popup.html"
