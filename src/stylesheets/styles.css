@@ -7,10 +7,134 @@ html {
 
 body {
     font-family: "Red Hat Display", sans-serif;
-    color: #f6f6f6;
-    background-color: #17181a;
+    color: var(--font);
+    font-weight: var(--fweight);
+    background-color: var(--bg);
     height: fit-content;
     margin: 0;
+}
+
+/* THEMES */
+/* Dark */
+.luxury {
+    --mainColor: #ffff9f;
+    --logo: url('../images/logo-luxury.svg');
+    --bg: rgb(23, 24, 26);
+    --font: #f6f6f6;
+    --fweight: 400;
+    --footerbg: #2b2c2e;
+    --icon: #f6f6f6;
+    --btngrad: linear-gradient(217deg, #cc9e36, #ffff9f, #cc9e36);
+    --btnbg: rgb(85, 85, 85);
+    --btnhov: brightness(1.5);
+    --btndis: #838383;
+    --powerglow: drop-shadow(0px 0px 13px rgb(255, 255, 159));
+    --powerhov: drop-shadow(0px 0px 9px rgb(255, 255, 159));
+    --ttbg: linear-gradient(217deg, #cc9e36, #ffff9f, #cc9e36);
+    --ttfont: rgb(33, 33, 33);
+    --ttaltbg: var(--footerbg);
+    --ttaltfont: var(--font);
+}
+
+.enigma {
+    --mainColor: #53b4e8;
+    --logo: url('../images/logo-enigma.svg');
+    --bg: rgb(27, 27, 35);
+    --font: #f6f6f6;
+    --fweight: 400;
+    --footerbg: #323543;
+    --icon: #f6f6f6;
+    --btngrad: linear-gradient(217deg, #3698cc, #53b4e8, #3698cc);
+    --btnbg: rgb(85, 85, 85);
+    --btnhov: brightness(1.5);
+    --btndis: #838383;
+    --powerglow: drop-shadow(0px 0px 13px rgb(83, 180, 232));
+    --powerhov: drop-shadow(0px 0px 9px rgb(83, 180, 232));
+    --ttbg: #53b4e8;
+    --ttfont: rgb(33, 33, 33);
+    --ttaltbg: var(--footerbg);
+    --ttaltfont: var(--font);
+}
+
+.scarlet {
+    --mainColor: #c83349;
+    --logo: url('../images/logo-scarlet.svg');
+    --bg: rgb(23, 24, 26);
+    --font: #f6f6f6;
+    --fweight: 400;
+    --footerbg: #9b2234;
+    --icon: #f6f6f6;
+    --btngrad: linear-gradient(217deg, #7b1625, #c83349, #7b1625);
+    --btnbg: rgb(85, 85, 85);
+    --btnhov: brightness(1.5);
+    --btndis: #838383;
+    --powerglow: drop-shadow(0px 0px 13px #9b2234);
+    --powerhov: drop-shadow(0px 0px 9px #9b2234);
+    --ttbg: #c83349;
+    --ttfont: #f6f6f6;
+    --ttaltbg: var(--footerbg);
+    --ttaltfont: var(--font);
+}
+
+/* Light */
+.azure {
+    --mainColor: #53b4e8;
+    --logo: url('../images/logo-azure.svg');
+    --bg: rgb(252, 252, 252);
+    --font: #212325;
+    --fweight: 600;
+    --footerbg: #53b4e8;
+    --icon: #f6f6f6;
+    --btngrad: linear-gradient(217deg, #3698cc, #53b4e8, #3698cc);
+    --btnbg: rgb(226 222 222);
+    --btnhov: brightness(1);
+    --btndis: #838383;
+    --powerglow: drop-shadow(0px 0px 13px rgb(83, 180, 232));
+    --powerhov: drop-shadow(0px 0px 9px rgb(83, 180, 232));
+    --ttbg: #53b4e8;
+    --ttfont: #f6f6f6;
+    --ttaltbg: var(--footerbg);
+    --ttaltfont: #f6f6f6;
+}
+
+.blossom {
+    --mainColor: #ef9fcf;
+    --logo: url('../images/logo-blossom.svg');
+    --bg: rgb(252, 252, 252);
+    --font: #212325;
+    --fweight: 600;
+    --footerbg: #ef9fcf;
+    --icon: #f6f6f6;
+    --btngrad: linear-gradient(217deg, #e576b8, #ef9fcf, #e576b8);
+    --btnbg: rgb(226 222 222);
+    --btnhov: brightness(1);
+    --btndis: #838383;
+    --powerglow: drop-shadow(0px 0px 13px #ef9fcf);
+    --powerhov: drop-shadow(0px 0px 9px #ef9fcf);
+    --ttbg: #ef9fcf;
+    --ttfont: #f6f6f6;
+    --ttaltbg: var(--footerbg);
+    --ttaltfont: #f6f6f6;
+}
+
+.eden {
+    --mainColor: #8cd17d;
+    --logo: url('../images/logo-eden.svg');
+    --bg: rgb(252, 252, 252);
+    --font: #212325;
+    --fweight: 600;
+    --footerbg: #6fb95f;
+    --icon: #f6f6f6;
+    --btngrad: linear-gradient(217deg, #90d581, #8cd17d, #90d581);
+    --btnbg: rgb(226 222 222);
+    --btnhov: brightness(1);
+    --btndis: #838383;
+    --powerglow: drop-shadow(0px 0px 13px #99e488);
+    --powerhov: drop-shadow(0px 0px 9px #99e488);
+    --ttbg: #8cd17d;
+    --ttfont: #f6f6f6;
+    --ttaltbg: var(--footerbg);
+    --ttaltfont: #f6f6f6;
 }
 
 a {
@@ -28,10 +152,13 @@ a:hover {
     user-select: none;
 }
 
-.header img {
-    width: 220px;
+.header-img {
+    height: 24px;
+    width: 205px;
     margin: 12px;
     margin-bottom: 0;
+    background-image: var(--logo);
+    background-size: contain;
 }
 
 .toggle {
@@ -41,23 +168,23 @@ a:hover {
     user-select: none;
 }
 
-.toggleBtn {
+.power-btn {
     width: 75px;
     margin: 12px;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
-.toggleBtn.hoverable {
-    filter: drop-shadow(0px 0px 13px rgb(255, 255, 159));
+.power-btn.hoverable {
+    filter: var(--powerglow);
 }
 
-.toggleBtn.hoverable:hover {
-    filter: drop-shadow(0px 0px 9px rgb(255, 255, 159));
-    transform: scale(1);
+.power-btn.hoverable:hover {
+    filter: var(--powerhov);
+    transform: scale(1.05);
 }
 
-.toggleBtn:hover {
+.power-btn:hover {
     transform: scale(1.05);
 }
 
@@ -89,15 +216,17 @@ a:hover {
     width: 32px;
     height: 12px;
     border-radius: 34px;
-    background-color: #555;
+    background-color: var(--btnbg);
     cursor: pointer;
 }
 
 .toggle-container:hover .toggle-button {
-    filter: drop-shadow(0px 0px 4px rgb(255, 255, 159));
+    /* filter: drop-shadow(0px 0px 4px rgb(255, 255, 159)); */
+    transform: scale(1.2);
 }
 
 .toggle-button {
+    background: var(--btndis);
     position: absolute;
     top: -1px;
     left: 2px;
@@ -133,7 +262,7 @@ a:hover {
 .toggle-button.toggled {
     left: calc(100% - 17px);
     /* background-color: #90FF97; */
-    background-image: linear-gradient(217deg, #cc9e36, #ffff9f, #cc9e36);
+    background-image: var(--btngrad);
 }
 
 .toggle-button.toggled+.toggle-container:before {
@@ -142,6 +271,33 @@ a:hover {
 
 .toggle-button.toggled+.toggle-container:after {
     opacity: 1;
+}
+
+.themes {
+    display: flex;
+    justify-content: center;
+    margin: 12px;
+}
+
+.color-switch {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    height: 100%;
+    align-items: center;
+    padding: 0 15px;
+    gap: 18px;
+}
+
+.color-switch .bi {
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.color-switch .bi:hover {
+    color: var(--mainColor);
+    transform: scale(1.2);
 }
 
 .reload {
@@ -183,16 +339,17 @@ a:hover {
     align-items: center;
     height: 18px;
     padding: 14px;
-    background: #2b2c2e;
+    background: var(--footerbg);
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .footer-btn:hover {
-    filter: brightness(1.5);
+    filter: var(--btnhov);
 }
 
 .footer .bi {
+    color: var(--icon);
     font-size: 22px;
 }
 
@@ -222,8 +379,9 @@ a:hover {
     top: -43px;
     left: 81px;
     transform: translateX(-50%);
-    background-color: #2b2c2e;
-    color: #fff;
+    background: var(--ttbg);
+    color: var(--ttfont);
+    font-weight: 600;
     padding: 4px 8px;
     border-radius: 4px;
     opacity: 0;
@@ -245,9 +403,8 @@ a:hover {
     top: -19px;
     left: 40px;
     transform: translateX(-50%);
-    background-color: #2b2c2e;
-    filter: brightness(1);
-    color: #fff;
+    background-color: var(--ttaltbg);
+    color: var(--ttaltfont);
     padding: 4px 8px;
     border: none;
     border-radius: 4px;

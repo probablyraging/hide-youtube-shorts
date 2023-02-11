@@ -9,11 +9,11 @@
 
 <body>
     <div class="header">
-        <img src="../images/logo.svg">
+        <div class="header-img"></div>
     </div>
 
     <div class="toggle">
-        <img id="toggleBtn" class="toggleBtn" src="../images/power-button-on.svg">
+        <img id="power-btn" class="power-btn" src="../images/default/power-button-on.svg">
     </div>
 
     <div class="settings">
@@ -44,6 +44,15 @@
             </div>
         </div>
     </div>
+
+    <div class="themes">
+        <div class="color-switch">
+            <i id="color-previous" class="bi bi-caret-left color-switches color-previous"></i>
+            <p id="current-color" class="current-color">Loading..</p>
+            <i id="color-next" class="bi bi-caret-right color-switches color-next"></i>
+        </div>
+    </div>
+
 
     <div class="reload">
         <p id="reloadBtn" class="reload-text"><i class="bi bi-arrow-clockwise"></i> Reload YouTube tabs</p>
