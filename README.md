@@ -1,4 +1,4 @@
-<img width="120" height="120" align="left" style="float: left" src="https://i.imgur.com/JL0PN9q.png">
+<img width="120" height="120" align="left" style="float: left" src="https://imgur.com/pkdXR0G.png">
 
 # Hide YouTube Shorts
 A Chrome extension for automatically hiding all YouTube Shorts videos in most areas on YouTube, such as, home page, search pages, channel pages, and the recommended list
