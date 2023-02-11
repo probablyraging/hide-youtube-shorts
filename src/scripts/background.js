@@ -5,6 +5,7 @@ chrome.runtime.onInstalled.addListener((details) => {
         chrome.storage.sync.set({ toggleState: 'on' });
         chrome.storage.sync.set({ toggleNavState: 'on' });
         chrome.storage.sync.set({ toggleHomeFeedState: 'on' });
+        chrome.storage.sync.set({ toggleSubscriptionFeedState: 'on' });
         chrome.storage.sync.set({ toggleTabState: 'on' });
         chrome.tabs.query({ url: "https://www.youtube.com/*" }, function (tabs) {
             tabs.forEach(function (tab) {
@@ -27,9 +28,12 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 
 function hideShorts() {
     // Check for shorts videos and tabs every 100 milliseconds
-    setInterval(() => {
+    const int = setInterval(() => {
         // If the extension is unloaded or updated, reload the page to terminate orphaned scripts
-        if (!chrome.runtime.id) return location.reload();
+        if (!chrome.runtime.id) {
+            clearInterval(int);
+            return location.reload();
+        }
         // Check chrome storage to get extension states
         chrome.storage.sync.get(['toggleState'], function (result) {
             if (result.toggleState === 'on') {
@@ -51,7 +55,7 @@ function hideShorts() {
                 });
             }
         });
-    }, 100);
+    }, 500);
 
     // Hide the shorts button in the navigation menu
     function hideShortsNavButton() {

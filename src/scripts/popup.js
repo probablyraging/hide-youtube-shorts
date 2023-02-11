@@ -24,12 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleTabButton.classList.add('toggled');
         } else if (mainResult.toggleState === 'on') {
             toggleBtn.src = '../images/power-button-on.svg';
+            toggleBtn.classList.add('hoverable');
             toggleNavButton.classList.add('toggled');
             toggleHomeFeedButton.classList.add('toggled');
             toggleSubscriptionFeedButton.classList.add('toggled');
             toggleTabButton.classList.add('toggled');
         } else {
             toggleBtn.src = '../images/power-button-off.svg';
+            toggleBtn.classList.remove('hoverable');
             toggleNavButton.classList.remove('toggled');
             toggleNavButton.disabled = true;
             toggleNavContainer.style.pointerEvents = "none";
@@ -50,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (result.toggleState === 'on') {
                     chrome.action.setIcon({ path: { "48": '/icon/icon48_disabled.png' } });
                     toggleBtn.src = '../images/power-button-off.svg';
+                    toggleBtn.classList.remove('hoverable');
                     chrome.storage.sync.set({ toggleState: 'off' });
                     toggleNavButton.classList.remove('toggled');
                     toggleNavButton.disabled = true;
@@ -67,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     chrome.action.setIcon({ path: { "48": '/icon/icon48.png' } });
                     toggleBtn.src = '../images/power-button-on.svg';
+                    toggleBtn.classList.add('hoverable');
                     chrome.storage.sync.set({ toggleState: 'on' });
                     toggleNavButton.disabled = false;
                     toggleNavContainer.style.pointerEvents = "auto";

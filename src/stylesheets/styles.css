@@ -8,7 +8,7 @@ html {
 body {
     font-family: "Red Hat Display", sans-serif;
     color: #f6f6f6;
-    background-color: #1b1b23;
+    background-color: #17181a;
     height: fit-content;
     margin: 0;
 }
@@ -48,8 +48,17 @@ a:hover {
     transition: all 0.2s ease;
 }
 
+.toggleBtn.hoverable {
+    filter: drop-shadow(0px 0px 13px rgb(255, 255, 159));
+}
+
+.toggleBtn.hoverable:hover {
+    filter: drop-shadow(0px 0px 9px rgb(255, 255, 159));
+    transform: scale(1);
+}
+
 .toggleBtn:hover {
-    filter: drop-shadow(0px 0px 4px rgb(180, 180, 180));
+    transform: scale(1.05);
 }
 
 .settings {
@@ -85,7 +94,7 @@ a:hover {
 }
 
 .toggle-container:hover .toggle-button {
-    filter: drop-shadow(0px 0px 4px rgb(255, 255, 255));
+    filter: drop-shadow(0px 0px 4px rgb(255, 255, 159));
 }
 
 .toggle-button {
@@ -123,7 +132,8 @@ a:hover {
 
 .toggle-button.toggled {
     left: calc(100% - 17px);
-    background-color: #90FF97;
+    /* background-color: #90FF97; */
+    background-image: linear-gradient(217deg, #cc9e36, #ffff9f, #cc9e36);
 }
 
 .toggle-button.toggled+.toggle-container:before {
@@ -173,7 +183,7 @@ a:hover {
     align-items: center;
     height: 18px;
     padding: 14px;
-    background: #323543;
+    background: #2b2c2e;
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -212,7 +222,7 @@ a:hover {
     top: -43px;
     left: 81px;
     transform: translateX(-50%);
-    background-color: #43475A;
+    background-color: #2b2c2e;
     color: #fff;
     padding: 4px 8px;
     border-radius: 4px;
@@ -235,7 +245,7 @@ a:hover {
     top: -19px;
     left: 40px;
     transform: translateX(-50%);
-    background-color: #323543;
+    background-color: #2b2c2e;
     filter: brightness(1);
     color: #fff;
     padding: 4px 8px;
