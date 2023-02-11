@@ -16,10 +16,12 @@ chrome.runtime.onInstalled.addListener((details) => {
     }
 });
 
-// Listen for updates to the current tab and if the tab's URL
-// includes "https://www.youtube.com/", execute the hideShorts function
+// Execute the script on target tabs as soon as the tab's status
+// is "loading". This allows the script to be ran immediately and
+// unsures functions are only ran once
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-    if (tab.url?.includes("https://www.youtube.com/")) {
+    if (tab.url?.includes("https://www.youtube.com/") && changeInfo.status === 'loading') {
+        console.log(changeInfo);
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
             function: hideShorts
