@@ -11,7 +11,7 @@
         "https://www.youtube.com/"
     ],
     "background": {
-        "service_worker": "js/background.min.js",
+        "service_worker": "js/background.js",
         "type": "module"
     },
     "content_scripts": [
@@ -20,7 +20,7 @@
                 "https://www.youtube.com/*"
             ],
             "js": [
-                "js/main.min.js"
+                "js/main.js"
             ]
         }
     ],

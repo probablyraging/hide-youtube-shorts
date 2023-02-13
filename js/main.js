@@ -1,7 +1,7 @@
 window.addEventListener("load", async function () {
     // Check if turbo is enabled - turbo mode runs a more resource hungry version
     const turboState = await checkTurboState();
-    if (turboState === 'on') {
+    if (turboState) {
         if (document.body.classList.contains('intLoaded')) clearInterval(int);
         document.body.classList.add('intLoaded');
         // Check for shorts videos and tabs every 100 milliseconds
@@ -42,45 +42,45 @@ function hideShorts(turboState) {
     // Check for cooldown to prevent function spam
     if (!preventFuncSpam) {
         // Set the cooldown to try and remove it after 3 seconds
-        if (turboState === 'off') preventFuncSpam = true;
+        if (!turboState) preventFuncSpam = true;
         setTimeout(() => {
             preventFuncSpam = false;
         }, 3000);
 
         // Check chrome storage to get extension states
         chrome.storage.sync.get(['toggleState'], function (result) {
-            if (result.toggleState === 'on') {
+            if (result.toggleState) {
                 // Nav menu
                 chrome.storage.sync.get(['toggleNavState'], function (result) {
-                    if (result.toggleNavState === 'on') hideShortsNavButton();
+                    if (result.toggleNavState) hideShortsNavButton();
                 });
                 // Home feed
                 chrome.storage.sync.get(['toggleHomeFeedState'], function (result) {
-                    if (result.toggleHomeFeedState === 'on') hideShortsShelf(), hideShortsVideosHomeFeed();
+                    if (result.toggleHomeFeedState) hideShortsShelf(), hideShortsVideosHomeFeed();
                 });
                 // Subscriptions feed
                 chrome.storage.sync.get(['toggleSubscriptionFeedState'], function (result) {
-                    if (result.toggleSubscriptionFeedState === 'on') hideShortsVideosSubscriptionFeed();
+                    if (result.toggleSubscriptionFeedState) hideShortsVideosSubscriptionFeed();
                 });
                 // Trending feed
                 chrome.storage.sync.get(['toggleTrendingFeedState'], function (result) {
-                    if (result.toggleTrendingFeedState === 'on') hideShortsVideosTrendingFeed();
+                    if (result.toggleTrendingFeedState) hideShortsVideosTrendingFeed();
                 });
                 // Search results
                 chrome.storage.sync.get(['toggleSearchState'], function (result) {
-                    if (result.toggleSearchState === 'on') hideShortsVideosSearchResults();
+                    if (result.toggleSearchState) hideShortsVideosSearchResults();
                 });
                 // Channel tab
                 chrome.storage.sync.get(['toggleTabState'], function (result) {
-                    if (result.toggleTabState === 'on') hideShortsTabOnChannel();
+                    if (result.toggleTabState) hideShortsTabOnChannel();
                 });
                 // Notification menu
                 chrome.storage.sync.get(['toggleNotificationState'], function (result) {
-                    if (result.toggleNotificationState === 'on') hideShortsNotificationMenu();
+                    if (result.toggleNotificationState) hideShortsNotificationMenu();
                 });
                 // Home tab
                 chrome.storage.sync.get(['toggleHomeTabState'], function (result) {
-                    if (result.toggleHomeTabState === 'on') hideShortsHomeTab();
+                    if (result.toggleHomeTabState) hideShortsHomeTab();
                 });
             }
         });
@@ -125,25 +125,27 @@ function hideShorts(turboState) {
 
         // Hide shorts video elements in the subscription feed
         function hideShortsVideosSubscriptionFeed() {
-            if (document.title.toLowerCase() == 'subscriptions - youtube') {
+            if (document.title.toLowerCase() === 'subscriptions - youtube') {
                 const elements = document.querySelectorAll('[href^="/shorts/"]');
                 elements.forEach(element => {
                     // Ignore shorts in the notification menu
                     if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
                     const parent = element.parentNode;
                     // When the subscription feed is being viewed in gride view
-                    if (parent.parentNode.parentNode.parentNode.parentNode.nodeName === 'YTD-GRID-VIDEO-RENDERER')
-                        parent.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
+                    if (parent.parentNode.parentNode.parentNode.parentNode.nodeName === 'YTD-GRID-VIDEO-RENDERER' || parent.parentNode.parentNode.parentNode.parentNode.classList.contains('ytd-shelf-renderer')) {
+                        parent.parentNode.parentNode.style.display = 'none';
+                    }
                     // When the subscription feed is being viewed in list view
-                    if (parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName === 'YTD-EXPANDED-SHELF-CONTENTS-RENDERER')
+                    if (parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName === 'YTD-EXPANDED-SHELF-CONTENTS-RENDERER') {
                         parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
+                    }
                 });
             }
         }
 
         // Hide shorts videos elements and shorts shelf elements on the trending feed
         function hideShortsVideosTrendingFeed() {
-            if (document.title.toLowerCase() == 'trending - youtube') {
+            if (document.title.toLowerCase() === 'trending - youtube') {
                 const elementsGroupOne = document.querySelectorAll('[href^="/shorts/"]');
                 elementsGroupOne.forEach(element => {
                     // Ignore shorts in the notification menu

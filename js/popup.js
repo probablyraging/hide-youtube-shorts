@@ -37,14 +37,14 @@ function toggleContainerStates(containers, state) {
  * @param {HTMLElement} button The element to be manipulated
  */
 async function setStorageValues(key, button) {
-    const power = (await chrome.storage.sync.get(['toggleState'])).toggleState;
+    const { toggleState } = await chrome.storage.sync.get(['toggleState']);
     chrome.storage.sync.get([key], result => {
         if (result[key] === undefined) {
             // Update toggle state in storage
-            chrome.storage.sync.set({ [key]: 'on' }).catch(() => { console.log(`[STORAGE] Could not set storage item for ${key}`) });
-        } else if (result[key] === 'on' && power === 'on') {
+            chrome.storage.sync.set({ [key]: true }).catch(() => { console.log(`[STORAGE] Could not set storage item for ${key}`) });
+        } else if (result[key] && toggleState) {
             button.classList.add('toggled');
-        } else if (result[key] === 'off') {
+        } else if (!result[key]) {
             button.classList.remove('toggled');
         }
     });
@@ -59,97 +59,109 @@ async function setStorageValues(key, button) {
 function onToggleSwitchClick(key, button, hasRefreshed) {
     const reloadBtn = document.getElementById('reloadBtn');
     chrome.storage.sync.get([key], result => {
-        if (result[key] === 'on') {
+        if (result[key]) {
             button.classList.remove('toggled');
-            chrome.storage.sync.set({ [key]: 'off' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+            chrome.storage.sync.set({ [key]: false }).catch(() => { console.log('[STORAGE] Could not set storage item') });
             reloadBtn.style.display = 'block';
-        } else if (result[key] === 'off') {
+        } else if (!result[key]) {
             button.classList.add('toggled');
-            chrome.storage.sync.set({ [key]: 'on' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+            chrome.storage.sync.set({ [key]: true }).catch(() => { console.log('[STORAGE] Could not set storage item') });
             reloadBtn.style.display = 'block';
             if (hasRefreshed) reloadBtn.style.display = 'none';
         }
     });
 }
 
-const themes = {
-    'luxury': '<b style="color: #ffff9f;">Luxury</b>Dark',
-    'enigma': '<b style="color: #53b4e8;">Enigma</b>Dark',
-    'scarlet': '<b style="color: #9b2234;">Scarlet</b>Dark',
-    'azure': '<b style="color: #53b4e8;">Azure</b>Light',
-    'blossom': '<b style="color: #ef9fcf;">Blossom</b>Light',
-    'eden': '<b style="color: #6fb95f;">Eden</b>Light'
-};
+// Theme key pairs
+let themes;
 
 document.addEventListener('DOMContentLoaded', () => {
     const hasRefreshed = false;
     // Power button
     const toggleBtn = document.getElementById('power-btn');
     const reloadBtn = document.getElementById('reloadBtn');
-    // Toggle buttons
-    const toggleNavButton = document.querySelector('.nav-toggle');
-    const toggleHomeFeedButton = document.querySelector('.homefeed-toggle');
-    const toggleSubscriptionFeedButton = document.querySelector('.subscriptionfeed-toggle');
-    const toggleTrendingFeedButton = document.querySelector('.trendingfeed-toggle');
-    const toggleSearchButton = document.querySelector('.search-toggle');
-    const toggleTabButton = document.querySelector('.tab-toggle');
-    const toggleNotificationButton = document.querySelector('.notification-toggle');
-    const toggleHomeTabButton = document.querySelector('.hometab-toggle');
-    const toggleTurboButton = document.querySelector('.turbo-toggle');
-    // Button containers
-    const toggleNavContainer = document.querySelector('.nav-container');
-    const toggleHomeFeedContainer = document.querySelector('.homefeed-container');
-    const toggleSubscriptionFeedContainer = document.querySelector('.subscriptionfeed-container');
-    const toggleTrendingFeedContainer = document.querySelector('.trendingfeed-container');
-    const toggleSearchContainer = document.querySelector('.search-container');
-    const toggleTabContainer = document.querySelector('.tab-container');
-    const toggleNotificationContainer = document.querySelector('.notification-container');
-    const toggleHomeTabContainer = document.querySelector('.hometab-container');
-    const toggleTurboContainer = document.querySelector('.turbo-container');
-    // Array of selector elements
-    const toggleButtons = [toggleNavButton, toggleHomeFeedButton, toggleSubscriptionFeedButton, toggleTrendingFeedButton, toggleSearchButton, toggleTabButton, toggleNotificationButton, toggleHomeTabButton, toggleTurboButton];
-    const toggleContainers = [toggleNavContainer, toggleHomeFeedContainer, toggleSubscriptionFeedContainer, toggleTrendingFeedContainer, toggleSearchContainer, toggleTabContainer, toggleNotificationContainer, toggleHomeTabContainer, toggleTurboContainer];
-    const storageKeys = ['toggleNavState', 'toggleHomeFeedState', 'toggleSubscriptionFeedState', 'toggleTrendingFeedState', 'toggleSearchState', 'toggleTabState', 'toggleNotificationState', 'toggleHomeTabState', 'toggleTurboState'];
+    // Switch container elements
+    const toggleButtons = [
+        toggleNavButton = document.querySelector('.nav-toggle'),
+        toggleHomeFeedButton = document.querySelector('.homefeed-toggle'),
+        toggleSubscriptionFeedButton = document.querySelector('.subscriptionfeed-toggle'),
+        toggleTrendingFeedButton = document.querySelector('.trendingfeed-toggle'),
+        toggleSearchButton = document.querySelector('.search-toggle'),
+        toggleTabButton = document.querySelector('.tab-toggle'),
+        toggleNotificationButton = document.querySelector('.notification-toggle'),
+        toggleHomeTabButton = document.querySelector('.hometab-toggle'),
+        toggleTurboButton = document.querySelector('.turbo-toggle')
+    ];
+    // State switch elements
+    const toggleContainers = [
+        toggleNavContainer = document.querySelector('.nav-container'),
+        toggleHomeFeedContainer = document.querySelector('.homefeed-container'),
+        toggleSubscriptionFeedContainer = document.querySelector('.subscriptionfeed-container'),
+        toggleTrendingFeedContainer = document.querySelector('.trendingfeed-container'),
+        toggleSearchContainer = document.querySelector('.search-container'),
+        toggleTabContainer = document.querySelector('.tab-container'),
+        toggleNotificationContainer = document.querySelector('.notification-container'),
+        toggleHomeTabContainer = document.querySelector('.hometab-container'),
+        toggleTurboContainer = document.querySelector('.turbo-container')
+    ];
+    // Storage key names
+    const storageKeys = [
+        'toggleNavState',
+        'toggleHomeFeedState',
+        'toggleSubscriptionFeedState',
+        'toggleTrendingFeedState',
+        'toggleSearchState',
+        'toggleTabState',
+        'toggleNotificationState',
+        'toggleHomeTabState',
+        'toggleTurboState'
+    ];
+    // Theme key pairs
+    themes = {
+        'luxury': '<b style="color: #ffff9f;">Luxury</b>Dark',
+        'enigma': '<b style="color: #53b4e8;">Enigma</b>Dark',
+        'scarlet': '<b style="color: #9b2234;">Scarlet</b>Dark',
+        'azure': '<b style="color: #53b4e8;">Azure</b>Light',
+        'blossom': '<b style="color: #ef9fcf;">Blossom</b>Light',
+        'eden': '<b style="color: #6fb95f;">Eden</b>Light'
+    };
 
     // When popup window is opened, check the toggle state and update the UI accordingly
     chrome.storage.sync.get(['toggleState'], mainResult => {
         // Update storage values and button states based on the main toggle state
         if (mainResult.toggleState === undefined) {
-            chrome.storage.sync.set({ toggleState: 'on' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+            chrome.storage.sync.set({ toggleState: true }).catch(() => { console.log('[STORAGE] Could not set storage item') });
             chrome.storage.sync.set({ themeIndex: 0 }).catch(() => { console.log('[STORAGE] Could not set storage item') });
             toggleButtons.forEach(button => {
                 button.classList.add('toggled');
             });
-        } else if (mainResult.toggleState === 'on') {
+        } else if (mainResult.toggleState) {
             toggleBtn.classList.add('hoverable');
             toggleButtonStates(toggleButtons, 1);
-        } else if (mainResult.toggleState === 'off') {
+        } else if (!mainResult.toggleState) {
             toggleBtn.src = '../assets/power-button-off.svg';
             toggleBtn.classList.remove('hoverable');
-
             toggleButtonStates(toggleButtons, 2);
             toggleContainerStates(toggleContainers, 2);
         }
-
         // When the power button is clicked, toggle the extension state and update the storage key
         toggleBtn.addEventListener('click', async () => {
-            // Theme values
-            const themeIndex = (await chrome.storage.sync.get(['themeIndex'])).themeIndex;
+            const { themeIndex } = await chrome.storage.sync.get(['themeIndex']);
             const themeKey = Object.keys(themes);
             chrome.storage.sync.get(['toggleState'], result => {
-                if (result.toggleState === 'on') {
+                if (result.toggleState) {
                     chrome.action.setIcon({ path: { "48": '/icons/icon48_disabled.png' } }).catch(() => { });
                     toggleBtn.src = '../assets/power-button-off.svg';
                     toggleBtn.classList.remove('hoverable');
-                    chrome.storage.sync.set({ toggleState: 'off' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+                    chrome.storage.sync.set({ toggleState: false }).catch(() => { console.log('[STORAGE] Could not set storage item') });
                     reloadBtn.style.display = 'block';
                     toggleButtonStates(toggleButtons, 2);
                     toggleContainerStates(toggleContainers, 2);
-                } else if (result.toggleState === 'off') {
+                } else if (!result.toggleState) {
                     chrome.action.setIcon({ path: { "48": `/icons/icon48-${themeKey[themeIndex]}.png` } }).catch(() => { });
                     toggleBtn.src = `../assets/power-button-on-${themeIndex}.svg`;
                     toggleBtn.classList.add('hoverable');
-                    chrome.storage.sync.set({ toggleState: 'on' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+                    chrome.storage.sync.set({ toggleState: true }).catch(() => { console.log('[STORAGE] Could not set storage item') });
                     reloadBtn.style.display = 'none';
                     toggleButtonStates(toggleButtons, 3);
                     toggleContainerStates(toggleContainers, 1);
@@ -159,12 +171,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
-
-        // When popup window is opened, check the toggle state of each button and update the UI accordingly
+        // When the popup window is opened, check the toggle state of each button and update the UI accordingly
         toggleButtons.forEach((button, index) => {
             setStorageValues(storageKeys[index], button);
         });
-
         // When a toggle switch is clicked, update the relevant key and element state
         toggleContainers.forEach((container, index) => {
             container.addEventListener('click', () => {
@@ -172,19 +182,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
-
     // Set the theme
     chrome.storage.sync.get(['themeIndex'], async function (result) {
-        const toggleState = (await chrome.storage.sync.get(['toggleState'])).toggleState;
+        const { toggleState } = await chrome.storage.sync.get(['toggleState']);
         const themeKey = Object.keys(themes);
         const themeValue = Object.values(themes);
-        if (toggleState !== 'off') chrome.action.setIcon({ path: { "48": `/icons/icon48-${themeKey[result.themeIndex]}.png` } }).catch(() => { });
+        if (toggleState) chrome.action.setIcon({ path: { "48": `/icons/icon48-${themeKey[result.themeIndex]}.png` } }).catch(() => { });
         document.body.classList.add(themeKey[result.themeIndex]);
-        if (toggleState !== 'off') document.getElementById('power-btn').src = `../assets/power-button-on-${result.themeIndex}.svg`;
+        if (toggleState) document.getElementById('power-btn').src = `../assets/power-button-on-${result.themeIndex}.svg`;
         console.log(document.getElementById('current-color'));
         document.getElementById('current-color').innerHTML = themeValue[result.themeIndex];
     });
-
     // When reload button is clicked, find the active tab and reload it
     reloadBtn.addEventListener('click', () => {
         chrome.tabs.query({ url: "https://www.youtube.com/*" }, function (tabs) {
@@ -198,29 +206,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Handle theme stepper
 const handleColorChange = async (increment) => {
-    const toggleState = (await chrome.storage.sync.get(['toggleState'])).toggleState;
+    const { toggleState } = await chrome.storage.sync.get(['toggleState']);
     const themeKey = Object.keys(themes);
     const themeValue = Object.values(themes);
     // Get the current theme index and color
-    let currentIndex = (await chrome.storage.sync.get(['themeIndex'])).themeIndex;
+    let { themeIndex } = await chrome.storage.sync.get(['themeIndex']);
     let currentColor;
     document.body.classList.forEach(color => {
         currentColor = color;
     });
     // Update the current index by adding inc to it and keeping it within the range of theme keys
-    currentIndex = (currentIndex + increment + themeKey.length) % themeKey.length;
+    themeIndex = (themeIndex + increment + themeKey.length) % themeKey.length;
     // If the toggle state is not 'off', update the badge icon and power button
-    if (toggleState !== 'off') {
-        chrome.action.setIcon({ path: { "48": `/icons/icon48-${themeKey[currentIndex]}.png` } }).catch(() => { });
-        document.getElementById('power-btn').src = `../assets/power-button-on-${currentIndex}.svg`;
+    if (toggleState) {
+        chrome.action.setIcon({ path: { "48": `/icons/icon48-${themeKey[themeIndex]}.png` } }).catch(() => { });
+        document.getElementById('power-btn').src = `../assets/power-button-on-${themeIndex}.svg`;
     }
     // Apply the relevant classes
     document.body.classList.remove(currentColor);
-    document.body.classList.add(themeKey[currentIndex]);
-    document.getElementById('current-color').innerHTML = themeValue[currentIndex];
+    document.body.classList.add(themeKey[themeIndex]);
+    document.getElementById('current-color').innerHTML = themeValue[themeIndex];
     // Set the new theme color in storage
-    chrome.storage.sync.set({ themeColor: themeKey[currentIndex] }).catch(() => { console.log('[STORAGE] Could not set storage item') });
-    chrome.storage.sync.set({ themeIndex: currentIndex }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+    chrome.storage.sync.set({ themeColor: themeKey[themeIndex] }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+    chrome.storage.sync.set({ themeIndex: themeIndex }).catch(() => { console.log('[STORAGE] Could not set storage item') });
 }
 document.getElementById('color-next').addEventListener('click', () => handleColorChange(1));
 document.getElementById('color-previous').addEventListener('click', () => handleColorChange(-1));
