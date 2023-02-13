@@ -1,8 +1,6 @@
 window.addEventListener("load", async function () {
     // Check if turbo is enabled - turbo mode runs a more resource hungry version
     const turboState = await checkTurboState();
-    console.log(turboState);
-
     if (turboState === 'on') {
         if (document.body.classList.contains('intLoaded')) clearInterval(int);
         document.body.classList.add('intLoaded');

@@ -11,7 +11,7 @@
         "https://www.youtube.com/"
     ],
     "background": {
-        "service_worker": "src/scripts/background.js",
+        "service_worker": "js/background.min.js",
         "type": "module"
     },
     "content_scripts": [
@@ -20,18 +20,18 @@
                 "https://www.youtube.com/*"
             ],
             "js": [
-                "src/scripts/main.js"
+                "js/main.min.js"
             ]
         }
     ],
     "action": {
         "default_title": "Hide YouTube Shorts",
-        "default_popup": "src/views/popup.html"
+        "default_popup": "views/popup.html"
     },
     "icons": {
-        "16": "icon/icon16.png",
-        "32": "icon/icon48.png",
-        "48": "icon/icon48_store.png",
-        "128": "icon/icon128.png"
+        "16": "icons/icon16.png",
+        "32": "icons/icon48.png",
+        "48": "icons/icon48_store.png",
+        "128": "icons/icon128.png"
     }
 }

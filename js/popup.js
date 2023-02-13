@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleBtn.classList.add('hoverable');
             toggleButtonStates(toggleButtons, 1);
         } else if (mainResult.toggleState === 'off') {
-            toggleBtn.src = '../images/power-button-off.svg';
+            toggleBtn.src = '../assets/power-button-off.svg';
             toggleBtn.classList.remove('hoverable');
 
             toggleButtonStates(toggleButtons, 2);
@@ -138,16 +138,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const themeKey = Object.keys(themes);
             chrome.storage.sync.get(['toggleState'], result => {
                 if (result.toggleState === 'on') {
-                    chrome.action.setIcon({ path: { "48": '/icon/icon48_disabled.png' } }).catch(() => { });
-                    toggleBtn.src = '../images/power-button-off.svg';
+                    chrome.action.setIcon({ path: { "48": '/icons/icon48_disabled.png' } }).catch(() => { });
+                    toggleBtn.src = '../assets/power-button-off.svg';
                     toggleBtn.classList.remove('hoverable');
                     chrome.storage.sync.set({ toggleState: 'off' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
                     reloadBtn.style.display = 'block';
                     toggleButtonStates(toggleButtons, 2);
                     toggleContainerStates(toggleContainers, 2);
                 } else if (result.toggleState === 'off') {
-                    chrome.action.setIcon({ path: { "48": `/icon/icon48-${themeKey[themeIndex]}.png` } }).catch(() => { });
-                    toggleBtn.src = `../images/power-button-on-${themeIndex}.svg`;
+                    chrome.action.setIcon({ path: { "48": `/icons/icon48-${themeKey[themeIndex]}.png` } }).catch(() => { });
+                    toggleBtn.src = `../assets/power-button-on-${themeIndex}.svg`;
                     toggleBtn.classList.add('hoverable');
                     chrome.storage.sync.set({ toggleState: 'on' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
                     reloadBtn.style.display = 'none';
@@ -178,9 +178,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const toggleState = (await chrome.storage.sync.get(['toggleState'])).toggleState;
         const themeKey = Object.keys(themes);
         const themeValue = Object.values(themes);
-        if (toggleState !== 'off') chrome.action.setIcon({ path: { "48": `/icon/icon48-${themeKey[result.themeIndex]}.png` } }).catch(() => { });
+        if (toggleState !== 'off') chrome.action.setIcon({ path: { "48": `/icons/icon48-${themeKey[result.themeIndex]}.png` } }).catch(() => { });
         document.body.classList.add(themeKey[result.themeIndex]);
-        if (toggleState !== 'off') document.getElementById('power-btn').src = `../images/power-button-on-${result.themeIndex}.svg`;
+        if (toggleState !== 'off') document.getElementById('power-btn').src = `../assets/power-button-on-${result.themeIndex}.svg`;
         console.log(document.getElementById('current-color'));
         document.getElementById('current-color').innerHTML = themeValue[result.themeIndex];
     });
@@ -211,8 +211,8 @@ const handleColorChange = async (increment) => {
     currentIndex = (currentIndex + increment + themeKey.length) % themeKey.length;
     // If the toggle state is not 'off', update the badge icon and power button
     if (toggleState !== 'off') {
-        chrome.action.setIcon({ path: { "48": `/icon/icon48-${themeKey[currentIndex]}.png` } }).catch(() => { });
-        document.getElementById('power-btn').src = `../images/power-button-on-${currentIndex}.svg`;
+        chrome.action.setIcon({ path: { "48": `/icons/icon48-${themeKey[currentIndex]}.png` } }).catch(() => { });
+        document.getElementById('power-btn').src = `../assets/power-button-on-${currentIndex}.svg`;
     }
     // Apply the relevant classes
     document.body.classList.remove(currentColor);
