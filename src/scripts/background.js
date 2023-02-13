@@ -7,7 +7,12 @@ chrome.runtime.onInstalled.addListener((details) => {
         chrome.storage.sync.set({ toggleNavState: 'on' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
         chrome.storage.sync.set({ toggleHomeFeedState: 'on' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
         chrome.storage.sync.set({ toggleSubscriptionFeedState: 'on' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+        chrome.storage.sync.set({ toggleTrendingFeedState: 'on' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+        chrome.storage.sync.set({ toggleSearchState: 'on' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
         chrome.storage.sync.set({ toggleTabState: 'on' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+        chrome.storage.sync.set({ toggleNotificationState: 'on' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+        chrome.storage.sync.set({ toggleHomeTabState: 'on' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+        chrome.storage.sync.set({ toggleTurboState: 'off' }).catch(() => { console.log('[STORAGE] Could not set storage item') });
         chrome.tabs.query({ url: "https://www.youtube.com/*" }, function (tabs) {
             tabs.forEach(function (tab) {
                 chrome.tabs.reload(tab.id);
@@ -16,22 +21,12 @@ chrome.runtime.onInstalled.addListener((details) => {
     }
 });
 
-// Execute the script on target tabs as soon as the tab's status
-// is "loading". This allows the script to be ran immediately and
-// unsures functions are only ran once
-chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-    if (tab.url?.includes("https://www.youtube.com/") && changeInfo.status === 'loading') {
-        console.log(changeInfo);
-        chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            function: hideShorts
-        });
-    }
-});
-
 function hideShorts() {
+    if (document.body.classList.contains('intLoaded')) clearInterval(int);
+    document.body.classList.add('intLoaded');
+
     // Check for shorts videos and tabs every 100 milliseconds
-    const int = setInterval(() => {
+    int = setInterval(() => {
         // If the extension is unloaded or updated, reload the page to terminate orphaned scripts
         if (!chrome.runtime.id) {
             clearInterval(int);
@@ -46,15 +41,31 @@ function hideShorts() {
                 });
                 // Home feed
                 chrome.storage.sync.get(['toggleHomeFeedState'], function (result) {
-                    if (result.toggleHomeFeedState === 'on') hideShortsShelfHomeFeed(), hideShortsVideosHomeFeed()
+                    if (result.toggleHomeFeedState === 'on') hideShortsShelf(), hideShortsVideosHomeFeed();
                 });
                 // Subscriptions feed
                 chrome.storage.sync.get(['toggleSubscriptionFeedState'], function (result) {
                     if (result.toggleSubscriptionFeedState === 'on') hideShortsVideosSubscriptionFeed();
                 });
+                // Trending feed
+                chrome.storage.sync.get(['toggleTrendingFeedState'], function (result) {
+                    if (result.toggleTrendingFeedState === 'on') hideShortsVideosTrendingFeed();
+                });
+                // Search results
+                chrome.storage.sync.get(['toggleSearchState'], function (result) {
+                    if (result.toggleSearchState === 'on') hideShortsVideosSearchResults();
+                });
                 // Channel tab
                 chrome.storage.sync.get(['toggleTabState'], function (result) {
                     if (result.toggleTabState === 'on') hideShortsTabOnChannel();
+                });
+                // Notification menu
+                chrome.storage.sync.get(['toggleNotificationState'], function (result) {
+                    if (result.toggleNotificationState === 'on') hideShortsNotificationMenu();
+                });
+                // Home tab
+                chrome.storage.sync.get(['toggleHomeTabState'], function (result) {
+                    if (result.toggleHomeTabState === 'on') hideShortsHomeTab();
                 });
             }
         });
@@ -69,20 +80,25 @@ function hideShorts() {
         });
     }
 
-    // Hide the shorts shelf in the home/subscriptions feed
-    function hideShortsShelfHomeFeed() {
-        if (document.title.toLowerCase() === 'youtube' || document.title.toLowerCase() === 'subscriptions - youtube') {
-            const elements = document.querySelectorAll('.style-scope ytd-rich-shelf-renderer');
-            elements.forEach(element => {
+    // Hide the shorts shelf in home and gaming feeds
+    function hideShortsShelf() {
+        if (document.title.toLowerCase() === 'youtube') {
+            const elementsHomePage = document.querySelectorAll('.style-scope ytd-rich-shelf-renderer');
+            elementsHomePage.forEach(element => {
+                const parent = element.parentNode;
+                parent.parentNode.removeChild(parent);
+            });
+            const elementsExplorePages = document.querySelectorAll('.style-scope ytd-reel-shelf-renderer');
+            elementsExplorePages.forEach(element => {
                 const parent = element.parentNode;
                 parent.parentNode.removeChild(parent);
             });
         }
     }
 
-    // Hide shorts video elements in the home/subscription feeds
+    // Hide shorts video elements in the home feed
     function hideShortsVideosHomeFeed() {
-        if (document.title.toLowerCase() == 'youtube') {
+        if (document.title.toLowerCase() === 'youtube') {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
@@ -93,7 +109,7 @@ function hideShorts() {
         }
     }
 
-    // Hide shorts video elements in the home/subscription feeds
+    // Hide shorts video elements in the subscription feed
     function hideShortsVideosSubscriptionFeed() {
         if (document.title.toLowerCase() == 'subscriptions - youtube') {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
@@ -111,6 +127,42 @@ function hideShorts() {
         }
     }
 
+    // Hide shorts videos elements and shorts shelf elements on the trending feed
+    function hideShortsVideosTrendingFeed() {
+        if (document.title.toLowerCase() == 'trending - youtube') {
+            const elementsGroupOne = document.querySelectorAll('[href^="/shorts/"]');
+            elementsGroupOne.forEach(element => {
+                // Ignore shorts in the notification menu
+                if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+                const parent = element.parentNode;
+                parent.parentNode.parentNode.style.display = 'none';
+            });
+            const elementsGroupTwo = document.querySelectorAll('.style-scope ytd-reel-shelf-renderer');
+            elementsGroupTwo.forEach(element => {
+                const parent = element.parentNode;
+                parent.parentNode.removeChild(parent);
+            });
+        }
+    }
+
+    // Hide shorts video elements in search results
+    function hideShortsVideosSearchResults() {
+        const searchResultsElement = document.querySelector('.style-scope ytd-two-column-search-results-renderer');
+        if (!searchResultsElement) return;
+        const elementsGroupOne = document.querySelectorAll('.style-scope yt-horizontal-list-renderer');
+        elementsGroupOne.forEach(element => {
+            const parent = element.parentNode;
+            parent.parentNode.style.display = 'none';
+        });
+        const elementsGroupTwo = document.querySelectorAll('[href^="/shorts/"]');
+        elementsGroupTwo.forEach(element => {
+            // Ignore shorts in the notification menu
+            if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+            const parent = element.parentNode;
+            parent.parentNode.parentNode.style.display = 'none';
+        });
+    }
+
     // Hide the shorts tab on the channel page tab menu
     function hideShortsTabOnChannel() {
         const elements = document.querySelectorAll('.tab-content');
@@ -119,5 +171,36 @@ function hideShorts() {
             const parent = element.parentNode;
             parent.parentNode.removeChild(parent);
         });
+    }
+
+    // Hide shorts video elements in the notification menu
+    function hideShortsNotificationMenu() {
+        const elements = document.querySelectorAll('[href^="/shorts/"]');
+        elements.forEach(element => {
+            // Ignore shorts in the notification menu
+            if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') {
+                const parent = element.parentNode;
+                parent.parentNode.style.display = 'none';
+            }
+        });
+    }
+
+    // Hide shorts video elements in the home tab on channel pages
+    function hideShortsHomeTab() {
+        if (location.href.includes('/channel/') || location.href.includes('@') || location.href.includes('/user/') || location.href.includes('/c/')) {
+            const el = document.querySelectorAll('.ytd-c4-tabbed-header-renderer')
+            el.forEach(elem => {
+                // Don't shorts when the 'shorts' tab is selected
+                if (elem.getAttribute('role') === 'tab' && elem.getAttribute('aria-selected') === 'true' && elem.innerText.toLowerCase() !== 'shorts') {
+                    const elements = document.querySelectorAll('[href^="/shorts/"]');
+                    elements.forEach(element => {
+                        // Ignore shorts in the notification menu
+                        if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+                        const parent = element.parentNode;
+                        parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
+                    });
+                }
+            });
+        }
     }
 }

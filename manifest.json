@@ -14,6 +14,16 @@
         "service_worker": "src/scripts/background.js",
         "type": "module"
     },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.youtube.com/*"
+            ],
+            "js": [
+                "src/scripts/main.js"
+            ]
+        }
+    ],
     "action": {
         "default_title": "Hide YouTube Shorts",
         "default_popup": "src/views/popup.html"

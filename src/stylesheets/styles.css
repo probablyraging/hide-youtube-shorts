@@ -6,12 +6,13 @@ html {
 }
 
 body {
-    font-family: "Red Hat Display", sans-serif;
-    color: var(--font);
-    font-weight: var(--fweight);
-    background-color: var(--bg);
-    height: fit-content;
-    margin: 0;
+    font-family: "Red Hat Display", sans-serif !important;
+    color: var(--font) !important;
+    font-weight: var(--fweight) !important;
+    background-color: var(--bg) !important;
+    height: fit-content !important;
+    margin: 0 !important;
+    font-size: 12px !important;
 }
 
 /* THEMES */
@@ -34,6 +35,9 @@ body {
     --ttfont: rgb(33, 33, 33);
     --ttaltbg: var(--footerbg);
     --ttaltfont: var(--font);
+    --bordercolor: #2b2727;
+    --border: 1px var(--bordercolor) solid;
+    --bodybg: rgb(29, 30, 33);
 }
 
 .enigma {
@@ -54,6 +58,9 @@ body {
     --ttfont: rgb(33, 33, 33);
     --ttaltbg: var(--footerbg);
     --ttaltfont: var(--font);
+    --bordercolor: #2b2727;
+    --border: 1px var(--bordercolor) solid;
+    --bodybg: rgb(40, 43, 55);
 }
 
 .scarlet {
@@ -74,6 +81,9 @@ body {
     --ttfont: #f6f6f6;
     --ttaltbg: var(--footerbg);
     --ttaltfont: var(--font);
+    --bordercolor: #2b2727;
+    --border: 1px var(--bordercolor) solid;
+    --bodybg: rgb(29, 30, 33);
 }
 
 /* Light */
@@ -95,6 +105,9 @@ body {
     --ttfont: #f6f6f6;
     --ttaltbg: var(--footerbg);
     --ttaltfont: #f6f6f6;
+    --bordercolor: #c3c3c3;
+    --border: 1px var(--bordercolor) solid;
+    --bodybg: var(--bg);
 }
 
 .blossom {
@@ -115,6 +128,9 @@ body {
     --ttfont: #f6f6f6;
     --ttaltbg: var(--footerbg);
     --ttaltfont: #f6f6f6;
+    --bordercolor: #c3c3c3;
+    --border: 1px var(--bordercolor) solid;
+    --bodybg: var(--bg);
 }
 
 .eden {
@@ -135,6 +151,13 @@ body {
     --ttfont: #f6f6f6;
     --ttaltbg: var(--footerbg);
     --ttaltfont: #f6f6f6;
+    --bordercolor: #c3c3c3;
+    --border: 1px var(--bordercolor) solid;
+    --bodybg: var(--bg);
+}
+
+* {
+    box-sizing: revert;
 }
 
 a {
@@ -144,6 +167,10 @@ a {
 a:hover {
     color: unset;
     filter: brightness(0.9);
+}
+
+p {
+    margin-block: 1rem;
 }
 
 .header {
@@ -191,27 +218,69 @@ a:hover {
 .settings {
     display: flex;
     justify-content: center;
-    margin: 12px;
+    margin: 14px 12px;
+    margin-bottom: 0;
 }
 
-.settings-switches {
+.settings-wrapper {
     width: 100%;
+}
+
+.settings-group {
+    border: var(--border);
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 10px;
+    background-color: var(--footerbg);
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--icon);
+    font-size: 13px;
+    margin: 4px 10px;
+    cursor: pointer;
+}
+
+.settings-header .rotate {
+    transform: rotate(180deg);
+    transition: all 0.2 ease;
+}
+
+.collapsible-group {
+    display: none;
+    background-color: var(--bodybg);
+    transition: display 1s ease;
 }
 
 .switch-wrapper {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    height: 36px;
+    padding: 0 10px;
 }
 
 .switch-wrapper .bi {
-    margin-left: 2px;
-    font-size: 12px;
+    margin-left: 6px;
+    font-size: 10px;
     color: rgb(150, 150, 150);
+}
+
+.switch-label {
+    display: flex;
+    align-items: center;
+}
+
+.switch-label img {
+    width: 18px;
+    margin-right: 4px;
 }
 
 .toggle-container {
     display: inline-block;
-    position: absolute;
+    position: sticky;
     right: 10px;
     width: 32px;
     height: 12px;
@@ -221,7 +290,6 @@ a:hover {
 }
 
 .toggle-container:hover .toggle-button {
-    /* filter: drop-shadow(0px 0px 4px rgb(255, 255, 159)); */
     transform: scale(1.2);
 }
 
@@ -276,7 +344,7 @@ a:hover {
 .themes {
     display: flex;
     justify-content: center;
-    margin: 12px;
+    margin-bottom: 10px;
 }
 
 .color-switch {
@@ -358,43 +426,9 @@ a:hover {
     transition: all 0.2s ease;
 }
 
-.page-end {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.page-end p {
-    margin: 6px;
-}
-
 .tooltip {
-    position: relative;
-    display: inline-block;
-}
-
-.tooltip::before {
-    content: attr(tooltip);
-    position: absolute;
-    top: -43px;
-    left: 81px;
-    transform: translateX(-50%);
-    background: var(--ttbg);
-    color: var(--ttfont);
-    font-weight: 600;
-    padding: 4px 8px;
-    border-radius: 4px;
-    opacity: 0;
-    transition: all 0.3s ease;
-    pointer-events: none;
-    white-space: break-spaces;
-    word-wrap: break-word;
-    min-width: 155px;
-    z-index: 1;
-}
-
-.tooltip:hover::before {
-    opacity: 1;
+    font-size: 12px;
+    --bs-tooltip-bg: #131314;
 }
 
 .tooltip-alt::before {
@@ -418,4 +452,23 @@ a:hover {
 
 .tooltip-alt:hover::before {
     opacity: 1;
+}
+
+.gradient-anim {
+    background: radial-gradient(circle, #d44242 0%, #ffea00 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-size: 600%;
+    animation: gradient 3s linear infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 100%;
+    }
+
+    100% {
+        background-position: 0%;
+    }
 }
