@@ -8,7 +8,8 @@
         "storage"
     ],
     "host_permissions": [
-        "https://www.youtube.com/"
+        "https://www.youtube.com/",
+        "https://m.youtube.com/"
     ],
     "background": {
         "service_worker": "js/background.js",
@@ -17,7 +18,8 @@
     "content_scripts": [
         {
             "matches": [
-                "https://www.youtube.com/*"
+                "https://www.youtube.com/*",
+                "https://m.youtube.com/*"
             ],
             "js": [
                 "js/main.js"

@@ -200,6 +200,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 chrome.tabs.reload(tab.id);
             });
         });
+        // Mobile site
+        chrome.tabs.query({ url: "https://m.youtube.com/*" }, function (tabs) {
+            tabs.forEach(function (tab) {
+                chrome.tabs.reload(tab.id);
+            });
+        });
         window.close();
     });
 });
