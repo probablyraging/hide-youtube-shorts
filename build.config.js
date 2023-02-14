@@ -83,12 +83,6 @@ async function runWebpack(dstPath) {
         'C:\\Users\\proba\\AppData\\Roaming\\npm\\webpack.cmd',
         ['--mode', 'production', '--env', 'dstPath=' + dstPath]
     );
-    webpack.on('data', async (data) => {
-        console.log(`${data}`);
-    });
-    webpack.on('error', (err) => {
-        console.log(`${err}`);
-    });
     webpack.on('close', async (code) => {
         console.log(colors.green.bold('✔'), 'Successfully minified and copied .js and .css files');
         await cleanUp(dstPath);
