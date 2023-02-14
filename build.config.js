@@ -105,19 +105,28 @@ async function archiveToZip(dstPath) {
     const srcDir = `./${dstPath}`;
     const zipFilePath = `./${dstPath}/hide-youtube-shorts-${version}.zip`;
     const zip = new JSZip();
-    const files = fs.readdirSync(srcDir);
-    for (const file of files) {
-        const filePath = path.join(srcDir, file);
-        const fileStat = fs.statSync(filePath);
-        if (fileStat.isFile()) {
-            const content = fs.readFileSync(filePath);
-            zip.file(file, content);
+    const addFileToZip = async (filePath, zipPath) => {
+        const content = await fs.promises.readFile(filePath);
+        zip.file(zipPath, content);
+    };
+    const addDirectoryToZip = async (dirPath, zipPath) => {
+        const files = await fs.promises.readdir(dirPath);
+        for (const file of files) {
+            const filePath = path.join(dirPath, file);
+            const fileStat = await fs.promises.stat(filePath);
+            const fileZipPath = path.join(zipPath, file);
+            if (fileStat.isFile()) {
+                await addFileToZip(filePath, fileZipPath);
+            } else if (fileStat.isDirectory()) {
+                await addDirectoryToZip(filePath, fileZipPath);
+            }
         }
-    }
+    };
+    await addDirectoryToZip(srcDir, '');
     const zipContent = await zip.generateAsync({ type: 'nodebuffer' });
-    fs.writeFileSync(zipFilePath, zipContent);
+    await fs.promises.writeFile(zipFilePath, zipContent);
     console.log(colors.green.bold('✔'), 'Successfully created distributable .zip package');
-    console.timeEnd('StBuild process finished inart');
+    console.timeEnd('Build process finished in');
 }
 
 async function main() {
