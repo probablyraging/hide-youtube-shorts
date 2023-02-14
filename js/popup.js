@@ -127,7 +127,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // When popup window is opened, check the toggle state and update the UI accordingly
-    chrome.storage.sync.get(['toggleState'], mainResult => {
+    chrome.storage.sync.get(['toggleState'], async mainResult => {
+        // Set the logo based on the current theme
+        const { themeIndex } = await chrome.storage.sync.get(['themeIndex']);
+        const themeKey = Object.keys(themes)
+        document.getElementById('logo').src = `../assets/logo-${themeKey[themeIndex]}.svg`;
         // Update storage values and button states based on the main toggle state
         if (mainResult.toggleState === undefined) {
             chrome.storage.sync.set({ toggleState: true }).catch(() => { console.log('[STORAGE] Could not set storage item') });
@@ -232,6 +236,7 @@ const handleColorChange = async (increment) => {
     document.body.classList.remove(currentColor);
     document.body.classList.add(themeKey[themeIndex]);
     document.getElementById('current-color').innerHTML = themeValue[themeIndex];
+    document.getElementById('logo').src = `../assets/logo-${themeKey[themeIndex]}.svg`;
     // Set the new theme color in storage
     chrome.storage.sync.set({ themeColor: themeKey[themeIndex] }).catch(() => { console.log('[STORAGE] Could not set storage item') });
     chrome.storage.sync.set({ themeIndex: themeIndex }).catch(() => { console.log('[STORAGE] Could not set storage item') });

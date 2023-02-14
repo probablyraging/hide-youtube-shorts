@@ -19,7 +19,6 @@ body {
 /* Dark */
 .luxury {
     --mainColor: #ffff9f;
-    --logo: url('../assets/logo-luxury.svg');
     --bg: rgb(23, 24, 26);
     --font: #f6f6f6;
     --fweight: 400;
@@ -42,7 +41,6 @@ body {
 
 .enigma {
     --mainColor: #53b4e8;
-    --logo: url('../assets/logo-enigma.svg');
     --bg: rgb(27, 27, 35);
     --font: #f6f6f6;
     --fweight: 400;
@@ -65,7 +63,6 @@ body {
 
 .scarlet {
     --mainColor: #c83349;
-    --logo: url('../assets/logo-scarlet.svg');
     --bg: rgb(23, 24, 26);
     --font: #f6f6f6;
     --fweight: 400;
@@ -89,7 +86,6 @@ body {
 /* Light */
 .azure {
     --mainColor: #53b4e8;
-    --logo: url('../assets/logo-azure.svg');
     --bg: rgb(252, 252, 252);
     --font: #212325;
     --fweight: 600;
@@ -112,7 +108,6 @@ body {
 
 .blossom {
     --mainColor: #ef9fcf;
-    --logo: url('../assets/logo-blossom.svg');
     --bg: rgb(252, 252, 252);
     --font: #212325;
     --fweight: 600;
@@ -135,7 +130,6 @@ body {
 
 .eden {
     --mainColor: #8cd17d;
-    --logo: url('../assets/logo-eden.svg');
     --bg: rgb(252, 252, 252);
     --font: #212325;
     --fweight: 600;
@@ -179,13 +173,9 @@ p {
     user-select: none;
 }
 
-.header-img {
-    height: 24px;
-    width: 205px;
-    margin: 12px;
-    margin-bottom: 0;
-    background-image: var(--logo);
-    background-size: contain;
+.header img {
+    width: 188px;
+    margin-top: 14px;
 }
 
 .toggle {
@@ -329,7 +319,6 @@ p {
 
 .toggle-button.toggled {
     left: calc(100% - 17px);
-    /* background-color: #90FF97; */
     background-image: var(--btngrad);
 }
 

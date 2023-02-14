@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = (env, argv) => {
+    const dstPath = argv.env.dstPath;
     const isProduction = argv.mode === 'production';
 
     return {
@@ -14,7 +15,7 @@ module.exports = (env, argv) => {
             styles: './css/styles.css'
         },
         output: {
-            path: path.resolve(__dirname, './dist/js'),
+            path: path.resolve(__dirname, `./${dstPath}/js`),
             filename: isProduction ? '[name].min.js' : '[name].js'
         },
         optimization: {
@@ -29,10 +30,7 @@ module.exports = (env, argv) => {
                 {
                     test: /\.svg$/,
                     use: {
-                        loader: 'svg-url-loader',
-                        options: {
-                            encoding: 'base64'
-                        }
+                        loader: 'raw-loader',
                     }
                 }
             ]
