@@ -1,3 +1,19 @@
+function checkStates() {
+    // Get extension toggle states from chrome storage
+    return chrome.storage.sync.get([
+        'toggleState',
+        'toggleNavState',
+        'toggleHomeFeedState',
+        'toggleSubscriptionFeedState',
+        'toggleTrendingFeedState',
+        'toggleSearchState',
+        'toggleTabState',
+        'toggleNotificationState',
+        'toggleHomeTabState',
+        'toggleTurboState'
+    ]);
+}
+
 /**
  * Toggles the state of the switch based on the state value passed in
  * @param {Array} buttons An array of elements to be manipulated
@@ -51,44 +67,80 @@ async function setStorageValues(key, button) {
 }
 
 /**
+ * Shows or hides the reload button depending on whether the switch states hav changed
+ * @param {Object} staticSwitchStates The initial switch states
+ * @param {Object} updatedSwitchStates The updated switch states
+ */
+async function showReloadButton(staticSwitchStatess, updatedSwitchStates) {
+    const reloadBtn = document.getElementById('reloadBtn');
+    const newSwitchStates = await checkStates();
+    if ((JSON.stringify(newSwitchStates) !== JSON.stringify(updatedSwitchStates)) !== JSON.stringify(staticSwitchStatess)) {
+        reloadBtn.style.display = 'block'
+    }
+    if (JSON.stringify(newSwitchStates) === JSON.stringify(staticSwitchStatess)) {
+        reloadBtn.style.display = 'none'
+    }
+}
+
+/**
  * Toggles the state of the switch when it is clicked
  * @param {string} key The key for the storage item
  * @param {HTMLElement} button The element to be manipulated
- * @param {Boolean} hasRefreshed A variable representing the refresh state of the DOM
  */
-function onToggleSwitchClick(key, button, hasRefreshed) {
-    const reloadBtn = document.getElementById('reloadBtn');
-    chrome.storage.sync.get([key], result => {
+function onToggleSwitchClick(key, button, staticSwitchStatess, updatedSwitchStates) {
+    chrome.storage.sync.get([key], async result => {
         if (result[key]) {
             button.classList.remove('toggled');
-            chrome.storage.sync.set({ [key]: false }).catch(() => { console.log('[STORAGE] Could not set storage item') });
-            reloadBtn.style.display = 'block';
+            await chrome.storage.sync.set({ [key]: false }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+            showReloadButton(staticSwitchStatess, updatedSwitchStates)
         } else if (!result[key]) {
             button.classList.add('toggled');
-            chrome.storage.sync.set({ [key]: true }).catch(() => { console.log('[STORAGE] Could not set storage item') });
-            reloadBtn.style.display = 'block';
-            if (hasRefreshed) reloadBtn.style.display = 'none';
+            await chrome.storage.sync.set({ [key]: true }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+            showReloadButton(staticSwitchStatess, updatedSwitchStates)
         }
     });
+    chrome.runtime.sendMessage({ checkStates: true });
+}
+
+/**
+ * Check the states of switches as they're updated
+ * @returns {Object} The updated switch states
+ */
+async function updatedSwitchStates() {
+    return await checkStates();
 }
 
 // Theme key pairs
 let themes;
-document.addEventListener('DOMContentLoaded', () => {
-    const hasRefreshed = false;
+document.addEventListener('DOMContentLoaded', async () => {
+    const staticSwitchStates = await checkStates();
     // Power button
     const toggleBtn = document.getElementById('power-btn');
     const reloadBtn = document.getElementById('reloadBtn');
     // Switch container elements
-    const toggleButtons = Array.from(
-        document.querySelectorAll('.nav-toggle, .homefeed-toggle, .subscriptionfeed-toggle, .trendingfeed-toggle, .search-toggle, .tab-toggle, .notification-toggle, .hometab-toggle, .turbo-toggle'),
-        button => button
-    );
-
-    const toggleContainers = Array.from(
-        document.querySelectorAll('.nav-container, .homefeed-container, .subscriptionfeed-container, .trendingfeed-container, .search-container, .tab-container, .notification-container, .hometab-container, .turbo-container'),
-        container => container
-    );
+    const toggleButtons = [
+        toggleNavButton = document.querySelector('.nav-toggle'),
+        toggleHomeFeedButton = document.querySelector('.homefeed-toggle'),
+        toggleSubscriptionFeedButton = document.querySelector('.subscriptionfeed-toggle'),
+        toggleTrendingFeedButton = document.querySelector('.trendingfeed-toggle'),
+        toggleSearchButton = document.querySelector('.search-toggle'),
+        toggleTabButton = document.querySelector('.tab-toggle'),
+        toggleNotificationButton = document.querySelector('.notification-toggle'),
+        toggleHomeTabButton = document.querySelector('.hometab-toggle'),
+        toggleTurboButton = document.querySelector('.turbo-toggle')
+    ];
+    // State switch elements
+    const toggleContainers = [
+        toggleNavContainer = document.querySelector('.nav-container'),
+        toggleHomeFeedContainer = document.querySelector('.homefeed-container'),
+        toggleSubscriptionFeedContainer = document.querySelector('.subscriptionfeed-container'),
+        toggleTrendingFeedContainer = document.querySelector('.trendingfeed-container'),
+        toggleSearchContainer = document.querySelector('.search-container'),
+        toggleTabContainer = document.querySelector('.tab-container'),
+        toggleNotificationContainer = document.querySelector('.notification-container'),
+        toggleHomeTabContainer = document.querySelector('.hometab-container'),
+        toggleTurboContainer = document.querySelector('.turbo-container')
+    ];
     // Storage key names
     const storageKeys = [
         'toggleNavState',
@@ -147,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ? 'none'
                     : 'block';
                 chrome.action.setIcon({ path: { "48": iconPath } }).catch(() => { });
-                chrome.runtime.sendMessage({ toggleState: toggleStateToSet });
+                chrome.runtime.sendMessage({ checkStates: true });
                 toggleBtn.classList.toggle('hoverable', toggleStateToSet);
                 chrome.storage.sync.set({ toggleState: toggleStateToSet }).catch(() => { console.log('[STORAGE] Could not set storage item') });
                 toggleButtonStates(...toggleStateToSet ? [toggleButtons, 3] : [toggleButtons, 2]);
@@ -163,8 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         // When a toggle switch is clicked, update the relevant key and element state
         toggleContainers.forEach((container, index) => {
-            container.addEventListener('click', () => {
-                onToggleSwitchClick(storageKeys[index], toggleButtons[index], hasRefreshed);
+            container.addEventListener('click', async () => {
+                onToggleSwitchClick(storageKeys[index], toggleButtons[index], staticSwitchStates, await updatedSwitchStates());
             });
         });
     });

@@ -1,67 +1,3 @@
-
-
-chrome.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
-    if (message.toggleState) {
-        const isMobile = location.href.includes('https://m.youtube.com/');
-        const states = await checkStates();
-        // If the main state is on, un functions once initially - this helps with the delay in the observer
-        if (states.toggleNavState) hideShortsNavButton(isMobile);
-        if (states.toggleHomeFeedState) hideShortsShelf(isMobile), hideShortsVideosHomeFeed(isMobile);
-        if (states.toggleSubscriptionFeedState) hideShortsVideosSubscriptionFeed(isMobile);
-        if (states.toggleTrendingFeedState) hideShortsVideosTrendingFeed(isMobile);
-        if (states.toggleSearchState) hideShortsVideosSearchResults(isMobile);
-        if (states.toggleTabState) hideShortsTabOnChannel(isMobile);
-        if (states.toggleNotificationState) hideShortsNotificationMenu(isMobile);
-        if (states.toggleHomeTabState) hideShortsHomeTab(isMobile);
-    }
-});
-
-window.addEventListener("load", async function () {
-    waitForElementToDisplay();
-});
-
-async function waitForElementToDisplay() {
-    // Check if turbo is enabled - turbo mode runs a more resource hungry version
-    const { toggleTurboState } = await checkStates();
-    if (toggleTurboState) {
-        if (document.body.classList.contains('intLoaded')) clearInterval(int);
-        document.body.classList.add('intLoaded');
-        // Check for shorts videos and tabs every 100 milliseconds
-        int = setInterval(() => {
-            hideShorts(toggleTurboState);
-        }, 500);
-    } else {
-        const parentElement = document.body;
-        if (parentElement != null) {
-            const isMobile = location.href.includes('https://m.youtube.com/');
-            // The parent element has been found, get extension toggle states
-            const states = await checkStates();
-            // If the main state is on, un functions once initially - this helps with the delay in the observer
-            if (states.toggleState) {
-                if (states.toggleNavState) hideShortsNavButton(isMobile);
-                if (states.toggleHomeFeedState) hideShortsShelf(isMobile), hideShortsVideosHomeFeed(isMobile);
-                if (states.toggleSubscriptionFeedState) hideShortsVideosSubscriptionFeed(isMobile);
-                if (states.toggleTrendingFeedState) hideShortsVideosTrendingFeed(isMobile);
-                if (states.toggleSearchState) hideShortsVideosSearchResults(isMobile);
-                if (states.toggleTabState) hideShortsTabOnChannel(isMobile);
-                if (states.toggleNotificationState) hideShortsNotificationMenu(isMobile);
-                if (states.toggleHomeTabState) hideShortsHomeTab(isMobile);
-            }
-            // Create new mutation observer
-            const observer = new MutationObserver(function (mutations, observer) {
-                hideShorts(toggleTurboState);
-            });
-            observer.observe(parentElement, { childList: true, subtree: true });
-            return;
-        } else {
-            // The parent element has not been found, wait and try again
-            setTimeout(function () {
-                waitForElementToDisplay();
-            }, 1000);
-        }
-    }
-}
-
 function checkStates() {
     // If the extension is unloaded or updated, reload the page to terminate orphaned scripts
     if (!chrome.runtime.id) return location.reload();
@@ -80,20 +16,16 @@ function checkStates() {
     ]);
 }
 
-let preventFuncSpam = false;
-async function hideShorts(turboState) {
+async function hideShorts() {
+    // If the extension is unloaded or updated, reload the page to terminate orphaned scripts
+    if (!chrome.runtime.id) return;
     // Get extension toggle states
     const states = await checkStates();
     // If the main state is off, return
     if (!states.toggleState) return;
+    // Check if using mobile site
     const isMobile = location.href.includes('https://m.youtube.com/');
-    // Check for cooldown to prevent function spam
-    if (preventFuncSpam) return;
-    // Set the cooldown to try and remove it after 3 seconds
-    if (!turboState) preventFuncSpam = true;
-    setTimeout(() => {
-        preventFuncSpam = false;
-    }, 3000);
+    if (states.toggleNavState) hideShortsNavButton(isMobile);
     if (states.toggleHomeFeedState) hideShortsShelf(isMobile), hideShortsVideosHomeFeed(isMobile);
     if (states.toggleSubscriptionFeedState) hideShortsVideosSubscriptionFeed(isMobile);
     if (states.toggleTrendingFeedState) hideShortsVideosTrendingFeed(isMobile);
@@ -168,7 +100,7 @@ function hideShortsVideosHomeFeed(isMobile) {
             });
         }
     } else {
-        if (location.href === 'https://www.youtube.com/') {
+        if (location.href === 'https://m.youtube.com/') {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
@@ -229,7 +161,7 @@ function hideShortsVideosTrendingFeed(isMobile) {
             });
         }
     } else {
-        if (location.href.includes('youtube.com/feed/explore')) {
+        if (location.href.includes('youtube.com/feed/explore') || location.href.includes('youtube.com/gaming')) {
             const elementsGroupOne = document.querySelectorAll('[href^="/shorts/"]');
             elementsGroupOne.forEach(element => {
                 const parent = element.parentNode;
@@ -353,3 +285,70 @@ function hideShortsHomeTab(isMobile) {
         }
     }
 }
+
+let observer;
+let int;
+async function waitForElementToDisplay() {
+    // Check if turbo is enabled - turbo mode runs a more resource hungry version
+    const states = await checkStates();
+    if (!states.toggleState) return;
+    const parentElement = document.body;
+    if (parentElement != null) {
+        // If the main state is on, run functions once initially - this helps with the delay in the observer
+        hideShorts(true);
+        // If turbo state is on, use more agressive method
+        if (states.toggleTurboState) {
+            int = setInterval(() => {
+                hideShorts();
+            }, 500);
+        } else {
+            // Create new mutation observer
+            observer = new MutationObserver(throttle(async function (mutations, observer) {
+                // Delay to allow pages to finish loading when navigating on site
+                setTimeout(() => {
+                    hideShorts();
+                }, 1500);
+            }, 3000));
+            observer.observe(parentElement, { childList: true, subtree: true });
+            // Limit how many times the observer will run the hideShorts function per mutation
+            function throttle(func, limit) {
+                let lastFunc;
+                let lastRan;
+                return function () {
+                    const context = this;
+                    const args = arguments;
+                    if (!lastRan) {
+                        func.apply(context, args);
+                        lastRan = Date.now();
+                    } else {
+                        clearTimeout(lastFunc);
+                        lastFunc = setTimeout(function () {
+                            if ((Date.now() - lastRan) >= limit) {
+                                func.apply(context, args);
+                                lastRan = Date.now();
+                            }
+                        }, limit - (Date.now() - lastRan));
+                    }
+                }
+            }
+        }
+        return;
+    } else {
+        // The parent element has not been found, wait and try again
+        setTimeout(function () {
+            waitForElementToDisplay();
+        }, 1000);
+    }
+}
+
+window.addEventListener("load", async function () {
+    waitForElementToDisplay();
+});
+
+chrome.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
+    if (message.checkStates) {
+        if (observer) observer.disconnect();
+        clearInterval(int);
+        waitForElementToDisplay();
+    }
+});
