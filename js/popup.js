@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // When popup window is opened, check the toggle state and update the UI accordingly
-    chrome.storage.sync.get(['toggleState'], async ({toggleState}) => {
+    chrome.storage.sync.get(['toggleState'], async ({ toggleState }) => {
         // Set the logo based on the current theme
         const { themeIndex } = await chrome.storage.sync.get(['themeIndex']);
         const themeKey = Object.keys(themes)
@@ -147,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ? 'none'
                     : 'block';
                 chrome.action.setIcon({ path: { "48": iconPath } }).catch(() => { });
+                chrome.runtime.sendMessage({ toggleState: toggleStateToSet });
                 toggleBtn.classList.toggle('hoverable', toggleStateToSet);
                 chrome.storage.sync.set({ toggleState: toggleStateToSet }).catch(() => { console.log('[STORAGE] Could not set storage item') });
                 toggleButtonStates(...toggleStateToSet ? [toggleButtons, 3] : [toggleButtons, 2]);

@@ -16,9 +16,17 @@ chrome.runtime.onInstalled.addListener((details) => {
             toggleTurboState: false
         }).catch(() => { console.log('[STORAGE] Could not set storage item') });
         chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
-            tabs.forEach(function (tab) {
+            tabs.forEach(tab => {
                 chrome.tabs.reload(tab.id);
             });
         });
     }
+});
+// Used to send messages from popup.js to main.js
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+    chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
+        tabs.forEach(tab => {
+            chrome.tabs.sendMessage(tab.id, message);
+        });
+    });
 });
