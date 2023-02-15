@@ -132,7 +132,7 @@ function hideShortsNavButton(isMobile) {
 // Hide the shorts shelf in home and gaming feeds
 function hideShortsShelf(isMobile) {
     if (!isMobile) {
-        if (document.title.toLowerCase() === 'youtube') {
+        if (location.href === 'https://www.youtube.com/') {
             const elementsHomePage = document.querySelectorAll('.style-scope ytd-rich-shelf-renderer');
             elementsHomePage.forEach(element => {
                 const parent = element.parentNode;
@@ -145,7 +145,7 @@ function hideShortsShelf(isMobile) {
             });
         }
     } else {
-        if (document.title.toLowerCase() === 'home - youtube') {
+        if (location.href === 'https://www.youtube.com/') {
             const elements = document.querySelectorAll('.reel-shelf-items');
             elements.forEach(element => {
                 const parent = element.parentNode;
@@ -158,7 +158,7 @@ function hideShortsShelf(isMobile) {
 // Hide shorts video elements in the home feed
 function hideShortsVideosHomeFeed(isMobile) {
     if (!isMobile) {
-        if (document.title.toLowerCase() === 'youtube') {
+        if (location.href === 'https://www.youtube.com/') {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
@@ -168,7 +168,7 @@ function hideShortsVideosHomeFeed(isMobile) {
             });
         }
     } else {
-        if (document.title.toLowerCase() === 'home - youtube') {
+        if (location.href === 'https://www.youtube.com/') {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
@@ -183,7 +183,7 @@ function hideShortsVideosHomeFeed(isMobile) {
 // Hide shorts video elements in the subscription feed
 function hideShortsVideosSubscriptionFeed(isMobile) {
     if (!isMobile) {
-        if (document.title.toLowerCase() === 'subscriptions - youtube') {
+        if (location.href.includes('youtube.com/feed/subscriptions')) {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
@@ -200,7 +200,7 @@ function hideShortsVideosSubscriptionFeed(isMobile) {
             });
         }
     } else {
-        if (document.title.toLowerCase() === 'subscriptions - youtube') {
+        if (location.href.includes('youtube.com/feed/subscriptions')) {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
                 if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
@@ -214,7 +214,7 @@ function hideShortsVideosSubscriptionFeed(isMobile) {
 // Hide shorts videos elements and shorts shelf elements on the trending feed
 function hideShortsVideosTrendingFeed(isMobile) {
     if (!isMobile) {
-        if (document.title.toLowerCase() === 'trending - youtube') {
+        if (location.href.includes('youtube.com/feed/trending') || location.href.includes('youtube.com/gaming')) {
             const elementsGroupOne = document.querySelectorAll('[href^="/shorts/"]');
             elementsGroupOne.forEach(element => {
                 // Ignore shorts in the notification menu
@@ -229,7 +229,7 @@ function hideShortsVideosTrendingFeed(isMobile) {
             });
         }
     } else {
-        if (document.title.toLowerCase() === 'explore - youtube') {
+        if (location.href.includes('youtube.com/feed/explore')) {
             const elementsGroupOne = document.querySelectorAll('[href^="/shorts/"]');
             elementsGroupOne.forEach(element => {
                 const parent = element.parentNode;
