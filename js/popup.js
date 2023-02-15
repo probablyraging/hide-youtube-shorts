@@ -72,6 +72,8 @@ async function setStorageValues(key, button) {
  * @param {Object} updatedSwitchStates The updated switch states
  */
 async function showReloadButton(staticSwitchStatess, updatedSwitchStates) {
+    const activeTabs = await chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] });
+    if (activeTabs.length < 1) return;
     const reloadBtn = document.getElementById('reloadBtn');
     const newSwitchStates = await checkStates();
     if ((JSON.stringify(newSwitchStates) !== JSON.stringify(updatedSwitchStates)) !== JSON.stringify(staticSwitchStatess)) {
