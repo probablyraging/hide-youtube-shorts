@@ -9,10 +9,10 @@ module.exports = (env, argv) => {
 
     return {
         entry: {
-            background: './js/background.js',
-            main: './js/main.js',
-            popup: './js/popup.js',
-            styles: './css/styles.css'
+            background: `./${dstPath}/js/background.js`,
+            main: `./${dstPath}/js/main.js`,
+            popup: `./${dstPath}/js/popup.js`,
+            styles: `./${dstPath}/css/styles.css`
         },
         output: {
             path: path.resolve(__dirname, `./${dstPath}/js`),
