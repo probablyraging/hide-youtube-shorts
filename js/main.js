@@ -294,8 +294,10 @@ async function waitForElementToDisplay() {
     if (!states.toggleState) return;
     const parentElement = document.body;
     if (parentElement != null) {
-        // If the main state is on, run functions once initially - this helps with the delay in the observer
-        hideShorts(true);
+        // Run functions once initially - this helps with the delay in the observer
+        setTimeout(() => {
+            hideShorts(true);
+        }, 1500);
         // If turbo state is on, use more agressive method
         if (states.toggleTurboState) {
             int = setInterval(() => {
