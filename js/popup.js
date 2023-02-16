@@ -112,9 +112,52 @@ async function updatedSwitchStates() {
     return await checkStates();
 }
 
+/**
+ * Displays a modal to the user
+ */
+async function presentModal() {
+    const { modalVersion } = await chrome.storage.sync.get(['modalVersion']);
+    const initialModal = document.querySelector('#initialModal');
+    const modalBackdrop = document.querySelector('.modal-backdrop');
+    const modalContent = document.querySelector('.modal-content');
+    // Check if the remote modal version changed and show a modal if it has
+    fetch('../views/modal.html')
+        .then(res => res.text())
+        .then(html => {
+            modalContent.innerHTML = html;
+            const modalHeader = document.querySelector('.modal-header');
+            const version = modalHeader.getAttribute('update');
+            const modalFooter = document.querySelector('.modal-footer');
+            const modalCloseBtn = document.querySelector('.btn-close');
+            if (!modalVersion || modalVersion !== version) {
+                modalCloseBtn.addEventListener('click', async () => {
+                    $(modalBackdrop).animate({ opacity: 0, }, 150).css('z-index', '-1');
+                    $(initialModal).animate({ opacity: 0, }, 150).hide();
+                });
+                modalFooter.addEventListener('click', async () => {
+                    $(modalBackdrop).animate({ opacity: 0, }, 150).css('z-index', '-1');
+                    $(initialModal).animate({ opacity: 0, }, 150).hide();
+                });
+                setTimeout(() => {
+                    $(initialModal).css('display', 'block');
+                    $(initialModal).animate({ opacity: 1, }, 150);
+                    $(modalBackdrop).animate({ opacity: 0.65, }, 150).css('z-index', '1');
+                }, 150);
+                // Update the local modal version
+                chrome.storage.sync.set({ modalVersion: version });
+                chrome.action.setBadgeText({ text: '' });
+            }
+        }).catch(error => {
+            console.error('Error fetching modal.html: ', error);
+        });
+}
+
 // Theme key pairs
 let themes;
 document.addEventListener('DOMContentLoaded', async () => {
+    // Check if we need to present a new modal
+    presentModal();
+    // Set current static switch states to use in onToggleSwitchStates function
     const staticSwitchStates = await checkStates();
     // Power button
     const toggleBtn = document.getElementById('power-btn');

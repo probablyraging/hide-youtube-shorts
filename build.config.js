@@ -19,6 +19,7 @@ const ignore = [
     'build.config.js',
     '.gitignore',
     'popup.html',
+    'modal.html',
     'css',
     'js',
     /hide-youtube-shorts-.*/

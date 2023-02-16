@@ -1,19 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-html {
-    width: 242px;
-    height: fit-content;
-}
-
-body {
-    font-family: "Red Hat Display", sans-serif !important;
-    color: var(--font) !important;
-    font-weight: var(--fweight) !important;
-    background-color: var(--bg) !important;
-    height: fit-content !important;
-    margin: 0 !important;
-    font-size: 12px !important;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 /* THEMES */
 /* Dark */
@@ -37,6 +22,12 @@ body {
     --bordercolor: #2b2727;
     --border: 1px var(--bordercolor) solid;
     --bodybg: rgb(29, 30, 33);
+    --modalbody: #303237;
+    --modalfooter: #28292d;
+    --modalh21: #46c46e;
+    --modalh22: #d48841;
+    --modalh23: #c53737;
+    --modalsbthumb: #171717;
 }
 
 .enigma {
@@ -59,6 +50,12 @@ body {
     --bordercolor: #2b2727;
     --border: 1px var(--bordercolor) solid;
     --bodybg: rgb(40, 43, 55);
+    --modalbody: #303237;
+    --modalfooter: #28292d;
+    --modalh21: #46c46e;
+    --modalh22: #d48841;
+    --modalh23: #c53737;
+    --modalsbthumb: #171717;
 }
 
 .scarlet {
@@ -81,6 +78,12 @@ body {
     --bordercolor: #2b2727;
     --border: 1px var(--bordercolor) solid;
     --bodybg: rgb(29, 30, 33);
+    --modalbody: #303237;
+    --modalfooter: #28292d;
+    --modalh21: #46c46e;
+    --modalh22: #d48841;
+    --modalh23: #c53737;
+    --modalsbthumb: #171717;
 }
 
 /* Light */
@@ -104,6 +107,12 @@ body {
     --bordercolor: #c3c3c3;
     --border: 1px var(--bordercolor) solid;
     --bodybg: var(--bg);
+    --modalbody: #f6f6f6;
+    --modalfooter: #e8e8e8;
+    --modalh21: #349a54;
+    --modalh22: #d48841;
+    --modalh23: #c53737;
+    --modalsbthumb: #cfcfd0;
 }
 
 .blossom {
@@ -126,6 +135,12 @@ body {
     --bordercolor: #c3c3c3;
     --border: 1px var(--bordercolor) solid;
     --bodybg: var(--bg);
+    --modalbody: #f6f6f6;
+    --modalfooter: #e8e8e8;
+    --modalh21: #349a54;
+    --modalh22: #d48841;
+    --modalh23: #c53737;
+    --modalsbthumb: #cfcfd0;
 }
 
 .eden {
@@ -148,6 +163,46 @@ body {
     --bordercolor: #c3c3c3;
     --border: 1px var(--bordercolor) solid;
     --bodybg: var(--bg);
+    --modalbody: #f6f6f6;
+    --modalfooter: #e8e8e8;
+    --modalh21: #349a54;
+    --modalh22: #d48841;
+    --modalh23: #c53737;
+    --modalsbthumb: #cfcfd0;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background-clip: padding-box !important;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background: var(--footerbg);
+}
+
+html {
+    width: 272px;
+    height: fit-content;
+    max-width: 800px;
+    max-height: 600px;
+    overflow: hidden;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    color: var(--font) !important;
+    font-weight: var(--fweight) !important;
+    background-color: var(--bg) !important;
+    height: fit-content !important;
+    margin: 0 !important;
+    font-size: 12px !important;
 }
 
 * {
@@ -231,6 +286,10 @@ p {
     font-size: 13px;
     margin: 4px 10px;
     cursor: pointer;
+}
+
+.settings-header:hover {
+    filter: brightness(1.3);
 }
 
 .settings-header .rotate {
@@ -339,7 +398,7 @@ p {
 .color-switch {
     display: flex;
     justify-content: space-between;
-    width: 70%;
+    width: 50%;
     height: 100%;
     align-items: center;
     padding: 0 15px;
@@ -424,7 +483,7 @@ p {
     content: attr(tooltip);
     position: absolute;
     top: -19px;
-    left: 40px;
+    left: 45px;
     transform: translateX(-50%);
     background-color: var(--ttaltbg);
     color: var(--ttaltfont);
@@ -441,6 +500,153 @@ p {
 
 .tooltip-alt:hover::before {
     opacity: 1;
+}
+
+.fade {
+    transition: unset;
+}
+
+.modal-content {
+    position: absolute;
+    top: 80;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: fit-content;
+    max-height: 325px !important;
+    background: var(--modalbody);
+    border-radius: 4px;
+}
+
+.modal-header {
+    border-bottom: none;
+    padding: 10px 14px;
+}
+
+.modal-header .btn-close {
+    font-size: 24px;
+    color: var(--font) !important;
+    opacity: 0.7;
+    cursor: pointer;
+    background-image: unset;
+    padding: 0;
+    margin-right: 0px;
+}
+
+.modal-header .btn-close:hover {
+    opacity: 1;
+}
+
+.modal-title {
+    color: var(--font);
+    font-size: 14px !important;
+}
+
+.modal-date {
+    font-size: 10px;
+    margin: 0;
+}
+
+.modal-body {
+    color: var(--font);
+    padding: 0 14px;
+}
+
+.modal-body a {
+    color: #45a9de;
+}
+
+.modal-body .added {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--modalh21);
+    display: flex;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.modal-body .changed {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--modalh22);
+    display: flex;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.modal-body .removed {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--modalh23);
+    display: flex;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.modal-body .label {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #3698cc;
+    display: flex;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.modal-body .added::after,
+.modal-body .changed::after,
+.modal-body .removed::after,
+.modal-body .label::after {
+    background-color: currentColor;
+    content: "";
+    height: 1px;
+    flex: 1 1 auto;
+    margin-left: 4px;
+    opacity: .6;
+}
+
+.modal-footer {
+    line-height: 0;
+    text-transform: uppercase;
+    font-size: 10px;
+    justify-content: center;
+    border-top: none;
+    padding: 10px 14px;
+    background: var(--modalfooter);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-footer:hover {
+    filter: brightness(0.9);
+}
+
+.modal-body::-webkit-scrollbar {
+    background-color: transparent;
+    width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background-color: var(--modalsbthumb);
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+
+.modal-backdrop {
+    z-index: -1;
+    transition: unset;
+}
+
+.modal-dialog {
+    z-index: 2;
 }
 
 .gradient-anim {
