@@ -130,7 +130,7 @@ async function presentModal() {
             const version = modalHeader.getAttribute('update');
             const modalFooter = document.querySelector('.modal-footer');
             const modalCloseBtn = document.querySelector('.btn-close');
-            if (!modalVersion || modalVersion == version) {
+            if (!modalVersion || modalVersion !== version) {
                 const delay = 250;
                 modalCloseBtn.addEventListener('click', async () => {
                     $(modalBackdrop).animate({ opacity: 0, }, delay).promise().then(function () { $(this).css('z-index', '-1'); });
