@@ -36,7 +36,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 });
 
 // Check if the remote modal version changed and set the icon badge if it has
-setInterval(() => {
+function checkModalVersion() {
     chrome.storage.sync.get(['modalVersion'], ({ modalVersion }) => {
         fetch('../views/modal.html')
             .then(res => res.text())
@@ -46,8 +46,11 @@ setInterval(() => {
                     chrome.action.setBadgeBackgroundColor({ color: '#ed5a64' });
                     chrome.action.setBadgeText({ text: '1' });
                 }
-            }).catch(error => {
+            })
+            .catch(error => {
                 console.error('Error fetching modal.html: ', error);
             });
     });
-}, 60 * 60 * 1000);
+}
+checkModalVersion();
+setInterval(checkModalVersion, 60 * 60 * 1000);

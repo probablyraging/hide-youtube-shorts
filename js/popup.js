@@ -131,19 +131,21 @@ async function presentModal() {
             const modalFooter = document.querySelector('.modal-footer');
             const modalCloseBtn = document.querySelector('.btn-close');
             if (!modalVersion || modalVersion !== version) {
+                const page = document.querySelector('html');
+                const originalWidth = getComputedStyle(page).width;
                 const delay = 250;
-                modalCloseBtn.addEventListener('click', async () => {
-                    $(modalBackdrop).animate({ opacity: 0, }, delay).promise().then(function () { $(this).css('z-index', '-1'); });
-                    $(initialModal).animate({ opacity: 0, }, delay).promise().then(function () { $(this).hide(); });
-                });
-                modalFooter.addEventListener('click', async () => {
-                    $(modalBackdrop).animate({ opacity: 0, }, delay).promise().then(function () { $(this).css('z-index', '-1'); });
-                    $(initialModal).animate({ opacity: 0, }, delay).promise().then(function () { $(this).hide(); });
+                document.addEventListener('click', (event) => {
+                    if (!event.target.closest('.modal-content') || event.target === modalFooter || event.target === modalCloseBtn) {
+                        $(modalBackdrop).animate({ opacity: 0 }, delay).promise().then(function () { $(this).css('z-index', '-1'); });
+                        $(initialModal).animate({ opacity: 0 }, delay).promise().then(function () { $(this).hide(); });
+                        $(page).animate({ width: originalWidth, }, delay);
+                    }
                 });
                 setTimeout(() => {
                     $(initialModal).css('display', 'block');
-                    $(initialModal).animate({ opacity: 1, }, delay);
-                    $(modalBackdrop).animate({ opacity: 0.65, }, delay).css('z-index', '1');
+                    $(initialModal).animate({ opacity: 1 }, delay);
+                    $(modalBackdrop).animate({ opacity: 0.65 }, delay).css('z-index', '1');
+                    $(page).animate({ width: '425px' }, delay);
                 }, 500);
                 // Update the local modal version
                 chrome.storage.sync.set({ modalVersion: version });
@@ -321,32 +323,22 @@ const handleColorChange = async (increment) => {
 document.getElementById('color-next').addEventListener('click', () => handleColorChange(1));
 document.getElementById('color-previous').addEventListener('click', () => handleColorChange(-1));
 
-// Handle the collapsible settings menu
-const collapsibles = Array.from(document.querySelectorAll('#collapsible'));
-collapsibles.forEach(collapsible => {
-    collapsible.addEventListener("click", function () {
+$(function () {
+    $('#accordian h3').click(function () {
         // Make sure only one settings group can be uncollapsed at a time
         const openElements = document.querySelectorAll('.slidDown');
         openElements.forEach(openElement => {
             const caret = openElement.querySelector('i');
             $(caret).animate({ "rotate": "0deg" }, 200);
-            $(openElement.nextElementSibling).slideUp();
+            $(openElement.nextElementSibling).slideUp(200);
             $(openElement).toggleClass('slidDown');
         });
-        // Get the next element after the header, this is the body of the group
-        const element = collapsible.nextElementSibling;
-        const elementStyle = element.style.display;
-        // Show or hide the group element
-        if (!elementStyle || elementStyle === 'none') {
-            const caret = collapsible.querySelector('i');
+        // Open clicked group
+        if (!$(this).next().is(":visible")) {
+            const caret = this.querySelector('i');
             $(caret).animate({ "rotate": "180deg" }, 200);
-            $(collapsible.nextElementSibling).slideDown();
-            $(collapsible).toggleClass('slidDown');
-        } else {
-            const caret = collapsible.querySelector('i');
-            $(caret).animate({ "rotate": "0deg" }, 200);
-            $(collapsible.nextElementSibling).slideUp();
-            $(collapsible).toggleClass('slidDown');
+            $(this).next().slideDown(200);
+            $(this).toggleClass('slidDown');
         }
     });
 });

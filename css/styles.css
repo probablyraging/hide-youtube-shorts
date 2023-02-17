@@ -12,6 +12,7 @@
     --btngrad: linear-gradient(217deg, #cc9e36, #ffff9f, #cc9e36);
     --btnbg: rgb(85, 85, 85);
     --btnhov: brightness(1.5);
+    --grouphov: brightness(1.5);
     --btndis: #838383;
     --powerglow: drop-shadow(0px 0px 13px rgb(255, 255, 159));
     --powerhov: drop-shadow(0px 0px 9px rgb(255, 255, 159));
@@ -40,6 +41,7 @@
     --btngrad: linear-gradient(217deg, #3698cc, #53b4e8, #3698cc);
     --btnbg: rgb(85, 85, 85);
     --btnhov: brightness(1.5);
+    --grouphov: brightness(1.5);
     --btndis: #838383;
     --powerglow: drop-shadow(0px 0px 13px rgb(83, 180, 232));
     --powerhov: drop-shadow(0px 0px 9px rgb(83, 180, 232));
@@ -68,6 +70,7 @@
     --btngrad: linear-gradient(217deg, #7b1625, #c83349, #7b1625);
     --btnbg: rgb(85, 85, 85);
     --btnhov: brightness(1.5);
+    --grouphov: brightness(1.5);
     --btndis: #838383;
     --powerglow: drop-shadow(0px 0px 13px #9b2234);
     --powerhov: drop-shadow(0px 0px 9px #9b2234);
@@ -97,6 +100,7 @@
     --btngrad: linear-gradient(217deg, #3698cc, #53b4e8, #3698cc);
     --btnbg: rgb(226 222 222);
     --btnhov: brightness(1);
+    --grouphov: brightness(0.9);
     --btndis: #838383;
     --powerglow: drop-shadow(0px 0px 13px rgb(83, 180, 232));
     --powerhov: drop-shadow(0px 0px 9px rgb(83, 180, 232));
@@ -125,6 +129,7 @@
     --btngrad: linear-gradient(217deg, #e576b8, #ef9fcf, #e576b8);
     --btnbg: rgb(226 222 222);
     --btnhov: brightness(1);
+    --grouphov: brightness(0.9);
     --btndis: #838383;
     --powerglow: drop-shadow(0px 0px 13px #ef9fcf);
     --powerhov: drop-shadow(0px 0px 9px #ef9fcf);
@@ -153,6 +158,7 @@
     --btngrad: linear-gradient(217deg, #90d581, #8cd17d, #90d581);
     --btnbg: rgb(226 222 222);
     --btnhov: brightness(1);
+    --grouphov: brightness(0.9);
     --btndis: #838383;
     --powerglow: drop-shadow(0px 0px 13px #99e488);
     --powerhov: drop-shadow(0px 0px 9px #99e488);
@@ -185,6 +191,10 @@
     border: 2px solid transparent;
     border-radius: 6px;
     background: var(--footerbg);
+}
+
+::selection {
+    background-color: rgba(39, 197, 255, 0.387);
 }
 
 html {
@@ -244,7 +254,7 @@ p {
     width: 75px;
     margin: 12px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.1s ease;
 }
 
 .power-btn.hoverable {
@@ -271,36 +281,48 @@ p {
     width: 100%;
 }
 
-.settings-group {
-    border: var(--border);
-    border-radius: 10px 10px 0 0;
-    margin-bottom: 10px;
-    background-color: var(--footerbg);
+.accordian {
+    padding-inline-start: 0px !important;
 }
 
-.settings-header {
+#accordian h3 {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     color: var(--icon);
     font-size: 13px;
-    margin: 4px 10px;
     cursor: pointer;
+    background-color: var(--footerbg);
+    padding: 4px 10px;
+    margin: 0;
+    border-radius: 10px 10px 0 0;
+    transition: filter 0.1s ease;
 }
 
-.settings-header:hover {
-    filter: brightness(1.3);
+#accordian h3:hover {
+    filter: var(--grouphov);
 }
 
-.settings-header .rotate {
-    transform: rotate(180deg);
-    transition: all 0.2 ease;
+#accordian li {
+    list-style-type: none;
 }
 
-.collapsible-group {
+#accordian li li {
+    border: var(--border);
+    border-top: none;
+}
+
+#accordian li:not(:last-of-type) {
+    margin-bottom: 8px;
+}
+
+#accordian ul ul {
     display: none;
     background-color: var(--bodybg);
-    transition: display 1s ease;
+    padding: 0;
+}
+
+#accordian li.active ul {
+    display: block;
 }
 
 .switch-wrapper {
@@ -351,7 +373,7 @@ p {
     height: 14px;
     border-radius: 30px;
     border: none;
-    transition: all 0.2s ease;
+    transition: all 0.1s ease;
     cursor: pointer;
 }
 
@@ -408,7 +430,7 @@ p {
 .color-switch .bi {
     font-size: 16px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.1s ease;
 }
 
 .color-switch .bi:hover {
@@ -457,7 +479,7 @@ p {
     padding: 14px;
     background: var(--footerbg);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.1s ease;
 }
 
 .footer-btn:hover {
@@ -471,7 +493,7 @@ p {
 
 .footer a {
     width: 100%;
-    transition: all 0.2s ease;
+    transition: all 0.1s ease;
 }
 
 .tooltip {
@@ -624,10 +646,9 @@ p {
     font-size: 10px;
     justify-content: center;
     border-top: none;
-    padding: 10px 14px;
     background: var(--modalfooter);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.1s ease;
 }
 
 .modal-footer:hover {
