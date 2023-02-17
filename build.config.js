@@ -18,7 +18,6 @@ const ignore = [
     'build.config.js',
     '.gitignore',
     'popup.html',
-    'modal.html',
     /hide-youtube-shorts-.*/
 ];
 
@@ -52,7 +51,6 @@ async function copyDirectories(srcPath, dstPath, ignore) {
                     content = content.replace('js/background.js', 'js/background.min.js');
                     content = content.replace('js/main.js', 'js/main.min.js');
                     content = content.replace('views/popup.html', 'views/popup.min.html');
-                    content = content.replace('../views/modal.html', 'https://raw.githubusercontent.com/ProbablyRaging/hide-youtube-shorts/master/views/modal.html');
                     fs.writeFileSync(dstFilePath, content);
                     console.log(colors.green.bold('✔'), `Successfully copied ${srcFilePath}`);
                 }

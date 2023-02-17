@@ -117,43 +117,35 @@ async function updatedSwitchStates() {
  * Displays a modal to the user
  */
 async function presentModal() {
-    const { modalVersion } = await chrome.storage.sync.get(['modalVersion']);
-    const initialModal = document.querySelector('#initialModal');
-    const modalBackdrop = document.querySelector('.modal-backdrop');
-    const modalContent = document.querySelector('.modal-content');
-    // Check if the remote modal version changed and show a modal if it has
-    fetch('../views/modal.html')
-        .then(res => res.text())
-        .then(html => {
-            modalContent.innerHTML = html;
-            const modalHeader = document.querySelector('.modal-header');
-            const version = modalHeader.getAttribute('update');
-            const modalFooter = document.querySelector('.modal-footer');
-            const modalCloseBtn = document.querySelector('.btn-close');
-            if (!modalVersion || modalVersion !== version) {
-                const page = document.querySelector('html');
-                const originalWidth = getComputedStyle(page).width;
-                const delay = 250;
-                document.addEventListener('click', (event) => {
-                    if (!event.target.closest('.modal-content') || event.target === modalFooter || event.target === modalCloseBtn) {
-                        $(modalBackdrop).animate({ opacity: 0 }, delay).promise().then(function () { $(this).css('z-index', '-1'); });
-                        $(initialModal).animate({ opacity: 0 }, delay).promise().then(function () { $(this).hide(); });
-                        $(page).animate({ width: originalWidth, }, delay);
-                    }
-                });
-                setTimeout(() => {
-                    $(initialModal).css('display', 'block');
-                    $(initialModal).animate({ opacity: 1 }, delay);
-                    $(modalBackdrop).animate({ opacity: 0.65 }, delay).css('z-index', '1');
-                    $(page).animate({ width: '425px' }, delay);
-                }, 500);
-                // Update the local modal version
-                chrome.storage.sync.set({ modalVersion: version });
-                chrome.action.setBadgeText({ text: '' });
+    const { presentModal } = await chrome.storage.sync.get(['presentModal']);
+    if (presentModal) {
+        const updateModal = document.querySelector('#updateModal');
+        const modalBackdrop = document.querySelector('.modal-backdrop');
+        const modalFooter = document.querySelector('.modal-footer');
+        const modalCloseBtn = document.querySelector('.btn-close');
+        // Check if the remote modal version changed and show a modal if it has
+        const page = document.querySelector('html');
+        const originalWidth = getComputedStyle(page).width;
+        const delay = 250;
+        document.addEventListener('click', (event) => {
+            if (!event.target.closest('.modal-content') || event.target === modalFooter || event.target === modalCloseBtn) {
+                $(modalBackdrop).animate({ opacity: 0 }, delay).promise().then(function () { $(this).css('z-index', '-1'); });
+                $(updateModal).animate({ opacity: 0 }, delay).promise().then(function () { $(this).hide(); });
+                $(page).animate({ width: originalWidth, }, delay);
             }
-        }).catch(error => {
-            console.error('Error fetching modal.html: ', error);
         });
+        setTimeout(() => {
+            $(modalBackdrop).animate({ opacity: 0.65 }, delay).css('z-index', '1');
+            $(page).animate({ width: '425px' }, delay).promise().then(() => {
+                $(updateModal).css('display', 'block');
+                $(updateModal).animate({ opacity: 1 }, delay);
+            });
+
+        }, 500);
+        // Update the local modal version
+        chrome.storage.sync.set({ presentModal: false });
+        chrome.action.setBadgeText({ text: '' });
+    }
 }
 
 // Theme key pairs
