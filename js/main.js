@@ -9,6 +9,7 @@ function checkStates() {
         'toggleSubscriptionFeedState',
         'toggleTrendingFeedState',
         'toggleSearchState',
+        'toggleRecommendedState',
         'toggleTabState',
         'toggleNotificationState',
         'toggleHomeTabState',
@@ -30,6 +31,7 @@ async function hideShorts() {
     if (states.toggleSubscriptionFeedState) hideShortsVideosSubscriptionFeed(isMobile);
     if (states.toggleTrendingFeedState) hideShortsVideosTrendingFeed(isMobile);
     if (states.toggleSearchState) hideShortsVideosSearchResults(isMobile);
+    if (states.toggleRecommendedState) hideShortsVideosRecommendedList(isMobile);
     if (states.toggleTabState) hideShortsTabOnChannel(isMobile);
     if (states.toggleNotificationState) hideShortsNotificationMenu(isMobile);
     if (states.toggleHomeTabState) hideShortsHomeTab(isMobile);
@@ -208,6 +210,33 @@ function hideShortsVideosSearchResults(isMobile) {
             const parent = element.parentNode;
             parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
         });
+    }
+}
+
+// Hide shorts video elements in the recommended list
+function hideShortsVideosRecommendedList(isMobile) {
+    if (!isMobile) {
+        if (location.href.includes('youtube.com/watch')) {
+            const elements = document.querySelectorAll('[href^="/shorts/"]');
+            elements.forEach(element => {
+                // Ignore shorts in the notification menu
+                if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+                const parent = element.parentNode;
+                parent.parentNode.style.display = 'none';
+            });
+        }
+    } else {
+        if (location.href.includes('youtube.com/watch')) {
+            console.log('boop');
+            const elements = document.querySelectorAll('[href^="/shorts/"]');
+            elements.forEach(element => {
+                console.log(element);
+                // Ignore shorts in the notification menu
+                if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+                const parent = element.parentNode;
+                parent.parentNode.style.display = 'none';
+            });
+        }
     }
 }
 

@@ -7,6 +7,7 @@ function checkStates() {
         'toggleSubscriptionFeedState',
         'toggleTrendingFeedState',
         'toggleSearchState',
+        'toggleRecommendedState',
         'toggleTabState',
         'toggleNotificationState',
         'toggleHomeTabState',
@@ -129,20 +130,21 @@ async function presentModal() {
             const version = modalHeader.getAttribute('update');
             const modalFooter = document.querySelector('.modal-footer');
             const modalCloseBtn = document.querySelector('.btn-close');
-            if (!modalVersion || modalVersion !== version) {
+            if (!modalVersion || modalVersion == version) {
+                const delay = 250;
                 modalCloseBtn.addEventListener('click', async () => {
-                    $(modalBackdrop).animate({ opacity: 0, }, 150).css('z-index', '-1');
-                    $(initialModal).animate({ opacity: 0, }, 150).hide();
+                    $(modalBackdrop).animate({ opacity: 0, }, delay).promise().then(function () { $(this).css('z-index', '-1'); });
+                    $(initialModal).animate({ opacity: 0, }, delay).promise().then(function () { $(this).hide(); });
                 });
                 modalFooter.addEventListener('click', async () => {
-                    $(modalBackdrop).animate({ opacity: 0, }, 150).css('z-index', '-1');
-                    $(initialModal).animate({ opacity: 0, }, 150).hide();
+                    $(modalBackdrop).animate({ opacity: 0, }, delay).promise().then(function () { $(this).css('z-index', '-1'); });
+                    $(initialModal).animate({ opacity: 0, }, delay).promise().then(function () { $(this).hide(); });
                 });
                 setTimeout(() => {
                     $(initialModal).css('display', 'block');
-                    $(initialModal).animate({ opacity: 1, }, 150);
-                    $(modalBackdrop).animate({ opacity: 0.65, }, 150).css('z-index', '1');
-                }, 150);
+                    $(initialModal).animate({ opacity: 1, }, delay);
+                    $(modalBackdrop).animate({ opacity: 0.65, }, delay).css('z-index', '1');
+                }, 500);
                 // Update the local modal version
                 chrome.storage.sync.set({ modalVersion: version });
                 chrome.action.setBadgeText({ text: '' });
@@ -169,6 +171,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         toggleSubscriptionFeedButton = document.querySelector('.subscriptionfeed-toggle'),
         toggleTrendingFeedButton = document.querySelector('.trendingfeed-toggle'),
         toggleSearchButton = document.querySelector('.search-toggle'),
+        toggleRecommendedButton = document.querySelector('.recommended-toggle'),
         toggleTabButton = document.querySelector('.tab-toggle'),
         toggleNotificationButton = document.querySelector('.notification-toggle'),
         toggleHomeTabButton = document.querySelector('.hometab-toggle'),
@@ -181,6 +184,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         toggleSubscriptionFeedContainer = document.querySelector('.subscriptionfeed-container'),
         toggleTrendingFeedContainer = document.querySelector('.trendingfeed-container'),
         toggleSearchContainer = document.querySelector('.search-container'),
+        toggleRecommendedContainer = document.querySelector('.recommended-container'),
         toggleTabContainer = document.querySelector('.tab-container'),
         toggleNotificationContainer = document.querySelector('.notification-container'),
         toggleHomeTabContainer = document.querySelector('.hometab-container'),
@@ -193,6 +197,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         'toggleSubscriptionFeedState',
         'toggleTrendingFeedState',
         'toggleSearchState',
+        'toggleRecommendedState',
         'toggleTabState',
         'toggleNotificationState',
         'toggleHomeTabState',
@@ -261,6 +266,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // When a toggle switch is clicked, update the relevant key and element state
         toggleContainers.forEach((container, index) => {
             container.addEventListener('click', async () => {
+                console.log(storageKeys[index], toggleButtons[index]);
                 onToggleSwitchClick(storageKeys[index], toggleButtons[index], staticSwitchStates, await updatedSwitchStates());
             });
         });

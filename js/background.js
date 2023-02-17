@@ -1,5 +1,6 @@
 // On initial install or on extension update, set the state of
-// the extension and the toggle buttons in popup.js
+// the extension, the toggle buttons in popup.js, and reload any
+// active YouTube tabs
 chrome.runtime.onInstalled.addListener((details) => {
     if (details.reason === 'install' || details.reason === 'update') {
         chrome.storage.sync.set({
@@ -11,6 +12,7 @@ chrome.runtime.onInstalled.addListener((details) => {
             toggleSubscriptionFeedState: true,
             toggleTrendingFeedState: true,
             toggleSearchState: true,
+            toggleRecommendedState: true,
             toggleTabState: true,
             toggleNotificationState: true,
             toggleHomeTabState: true,
@@ -24,7 +26,7 @@ chrome.runtime.onInstalled.addListener((details) => {
     }
 });
 
-// Used to send messages from popup.js to main.js
+// Handle sending messages from popup.js to main.js
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
         tabs.forEach(tab => {

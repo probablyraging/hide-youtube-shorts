@@ -398,7 +398,7 @@ p {
 .color-switch {
     display: flex;
     justify-content: space-between;
-    width: 50%;
+    width: 55%;
     height: 100%;
     align-items: center;
     padding: 0 15px;
@@ -506,6 +506,10 @@ p {
     transition: unset;
 }
 
+.modal-dialog {
+    transition: unset !important;
+}
+
 .modal-content {
     position: absolute;
     top: 80;
@@ -514,7 +518,7 @@ p {
     right: 0;
     margin: auto;
     height: fit-content;
-    max-height: 325px !important;
+    max-height: 285px !important;
     background: var(--modalbody);
     border-radius: 4px;
 }
@@ -536,6 +540,11 @@ p {
 
 .modal-header .btn-close:hover {
     opacity: 1;
+}
+
+.modal-header .btn-close:active,
+.modal-header .btn-close:focus {
+    box-shadow: 0 0 0 0.1rem rgb(145 145 145);
 }
 
 .modal-title {
