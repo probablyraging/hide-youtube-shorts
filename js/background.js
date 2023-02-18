@@ -27,6 +27,11 @@ chrome.runtime.onInstalled.addListener((details) => {
         chrome.action.setBadgeText({ text: '1' });
     }
     if (details.reason === 'update') {
+        chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
+            tabs.forEach(tab => {
+                chrome.tabs.reload(tab.id);
+            });
+        });
         chrome.storage.sync.set({ presentModal: true }).catch(() => { console.log('[STORAGE] Could not set storage item') });
         chrome.action.setBadgeBackgroundColor({ color: '#ed5a64' });
         chrome.action.setBadgeText({ text: '1' });
@@ -37,7 +42,7 @@ chrome.runtime.onInstalled.addListener((details) => {
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
         tabs.forEach(tab => {
-            chrome.tabs.sendMessage(tab.id, message);
+            chrome.tabs.sendMessage(tab.id, message).catch(() => { });
         });
     });
 });

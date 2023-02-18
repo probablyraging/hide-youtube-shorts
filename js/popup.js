@@ -78,10 +78,10 @@ async function showReloadButton(staticSwitchStatess, updatedSwitchStates) {
     const reloadBtn = document.getElementById('reloadBtn');
     const newSwitchStates = await checkStates();
     if ((JSON.stringify(newSwitchStates) !== JSON.stringify(updatedSwitchStates)) !== JSON.stringify(staticSwitchStatess)) {
-        reloadBtn.style.display = 'block'
+        $(reloadBtn).show(100);
     }
     if (JSON.stringify(newSwitchStates) === JSON.stringify(staticSwitchStatess)) {
-        reloadBtn.style.display = 'none'
+        $(reloadBtn).hide(100);
     }
 }
 
@@ -239,11 +239,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 toggleBtn.src = toggleStateToSet
                     ? `../assets/power-button-on-${themeIndex}.svg`
                     : '../assets/power-button-off.svg';
-                reloadBtn.style.display = toggleStateToSet
-                    ? 'none'
-                    : 'block';
+                toggleStateToSet ? $(reloadBtn).hide(100) : $(reloadBtn).show(100);
                 chrome.action.setIcon({ path: { "48": iconPath } }).catch(() => { });
-                chrome.runtime.sendMessage({ checkStates: true });
                 toggleBtn.classList.toggle('hoverable', toggleStateToSet);
                 chrome.storage.sync.set({ toggleState: toggleStateToSet }).catch(() => { console.log('[STORAGE] Could not set storage item') });
                 toggleButtonStates(...toggleStateToSet ? [toggleButtons, 3] : [toggleButtons, 2]);
@@ -252,6 +249,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     setStorageValues(storageKeys[index], button);
                 });
             });
+            chrome.runtime.sendMessage({ checkStates: true });
         });
         // When the popup window is opened, check the toggle state of each button and update the UI accordingly
         toggleButtons.forEach((button, index) => {
@@ -260,7 +258,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         // When a toggle switch is clicked, update the relevant key and element state
         toggleContainers.forEach((container, index) => {
             container.addEventListener('click', async () => {
-                console.log(storageKeys[index], toggleButtons[index]);
                 onToggleSwitchClick(storageKeys[index], toggleButtons[index], staticSwitchStates, await updatedSwitchStates());
             });
         });

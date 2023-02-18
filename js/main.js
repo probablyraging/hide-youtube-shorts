@@ -317,12 +317,14 @@ function hideShortsHomeTab(isMobile) {
 
 let observer;
 let int;
-async function waitForElementToDisplay() {
+async function waitForElementToDisplay(toggleStateUpdate) {
     // Check if turbo is enabled - turbo mode runs a more resource hungry version
     const states = await checkStates();
     if (!states.toggleState) return;
     const parentElement = document.body;
     if (parentElement != null) {
+        // If a toggle state is updated, run function immediately
+        if (toggleStateUpdate) hideShorts(true);
         // Run functions once initially - this helps with the delay in the observer
         setTimeout(() => {
             hideShorts(true);
@@ -380,6 +382,6 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
     if (message.checkStates) {
         if (observer) observer.disconnect();
         clearInterval(int);
-        waitForElementToDisplay();
+        waitForElementToDisplay(true);
     }
 });

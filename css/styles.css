@@ -11,8 +11,7 @@
     --icon: #f6f6f6;
     --btngrad: linear-gradient(217deg, #cc9e36, #ffff9f, #cc9e36);
     --btnbg: rgb(85, 85, 85);
-    --btnhov: brightness(1.5);
-    --grouphov: brightness(1.5);
+    --btnhover: brightness(1.5);
     --btndis: #838383;
     --powerglow: drop-shadow(0px 0px 13px rgb(255, 255, 159));
     --powerhov: drop-shadow(0px 0px 9px rgb(255, 255, 159));
@@ -40,8 +39,7 @@
     --icon: #f6f6f6;
     --btngrad: linear-gradient(217deg, #3698cc, #53b4e8, #3698cc);
     --btnbg: rgb(85, 85, 85);
-    --btnhov: brightness(1.5);
-    --grouphov: brightness(1.5);
+    --btnhover: brightness(1.5);
     --btndis: #838383;
     --powerglow: drop-shadow(0px 0px 13px rgb(83, 180, 232));
     --powerhov: drop-shadow(0px 0px 9px rgb(83, 180, 232));
@@ -69,8 +67,7 @@
     --icon: #f6f6f6;
     --btngrad: linear-gradient(217deg, #7b1625, #c83349, #7b1625);
     --btnbg: rgb(85, 85, 85);
-    --btnhov: brightness(1.5);
-    --grouphov: brightness(1.5);
+    --btnhover: brightness(1.5);
     --btndis: #838383;
     --powerglow: drop-shadow(0px 0px 13px #9b2234);
     --powerhov: drop-shadow(0px 0px 9px #9b2234);
@@ -99,8 +96,7 @@
     --icon: #f6f6f6;
     --btngrad: linear-gradient(217deg, #3698cc, #53b4e8, #3698cc);
     --btnbg: rgb(226 222 222);
-    --btnhov: brightness(1);
-    --grouphov: brightness(0.9);
+    --btnhover: brightness(0.9);
     --btndis: #838383;
     --powerglow: drop-shadow(0px 0px 13px rgb(83, 180, 232));
     --powerhov: drop-shadow(0px 0px 9px rgb(83, 180, 232));
@@ -128,8 +124,7 @@
     --icon: #f6f6f6;
     --btngrad: linear-gradient(217deg, #e576b8, #ef9fcf, #e576b8);
     --btnbg: rgb(226 222 222);
-    --btnhov: brightness(1);
-    --grouphov: brightness(0.9);
+    --btnhover: brightness(0.9);
     --btndis: #838383;
     --powerglow: drop-shadow(0px 0px 13px #ef9fcf);
     --powerhov: drop-shadow(0px 0px 9px #ef9fcf);
@@ -157,8 +152,7 @@
     --icon: #f6f6f6;
     --btngrad: linear-gradient(217deg, #90d581, #8cd17d, #90d581);
     --btnbg: rgb(226 222 222);
-    --btnhov: brightness(1);
-    --grouphov: brightness(0.9);
+    --btnhover: brightness(0.9);
     --btndis: #838383;
     --powerglow: drop-shadow(0px 0px 13px #99e488);
     --powerhov: drop-shadow(0px 0px 9px #99e488);
@@ -213,6 +207,7 @@ body {
     height: fit-content !important;
     margin: 0 !important;
     font-size: 12px !important;
+    user-select: none;
 }
 
 * {
@@ -230,6 +225,7 @@ a:hover {
 
 p {
     margin-block: 1rem;
+    cursor: text;
 }
 
 .header {
@@ -298,7 +294,7 @@ p {
 }
 
 #accordian h3:hover {
-    filter: var(--grouphov);
+    filter: var(--btnhover);
 }
 
 #accordian li {
@@ -336,6 +332,7 @@ p {
     margin-left: 6px;
     font-size: 10px;
     color: rgb(150, 150, 150);
+    cursor: default;
 }
 
 .switch-label {
@@ -437,12 +434,20 @@ p {
     justify-content: center;
 }
 
-.reload-text {
+.reload-button {
     display: none;
-    color: #8d8dff;
-    font-size: 12px;
+    color: var(--icon);
     cursor: pointer;
+    font-size: 18px;
     margin-top: 0;
+    margin: 8px;
+    padding: 8px;
+    background-color: var(--footerbg);
+    border-radius: 100%;
+}
+
+.reload-button:hover {
+    filter: var(--btnhover);
 }
 
 .footer {
@@ -477,7 +482,7 @@ p {
 }
 
 .footer-btn:hover {
-    filter: var(--btnhov);
+    filter: var(--btnhover);
 }
 
 .footer .bi {
