@@ -34,7 +34,7 @@ chrome.runtime.onInstalled.addListener((details) => {
         });
         chrome.storage.sync.set({ presentModal: false }).catch(() => { console.log('[STORAGE] Could not set storage item') });
         chrome.action.setBadgeBackgroundColor({ color: '#ed5a64' });
-        chrome.action.setBadgeText({ text: '1' });
+        chrome.action.setBadgeText({ text: '' });
     }
 });
 
