@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         toggleSearchButton = document.querySelector('.search-toggle'),
         toggleRecommendedButton = document.querySelector('.recommended-toggle'),
         toggleTabButton = document.querySelector('.tab-toggle'),
-        toggleNotificationButton = document.querySelector('.notification-toggle'),
+        // toggleNotificationButton = document.querySelector('.notification-toggle'),
         toggleHomeTabButton = document.querySelector('.hometab-toggle'),
         toggleTurboButton = document.querySelector('.turbo-toggle')
     ];

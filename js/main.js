@@ -260,18 +260,18 @@ function hideShortsTabOnChannel(isMobile) {
 }
 
 // Hide shorts video elements in the notification menu
-function hideShortsNotificationMenu(isMobile) {
-    if (!isMobile) {
-        const elements = document.querySelectorAll('[href^="/shorts/"]');
-        elements.forEach(element => {
-            // Ignore shorts in the notification menu
-            if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') {
-                const parent = element.parentNode;
-                parent.parentNode.style.display = 'none';
-            }
-        });
-    }
-}
+// function hideShortsNotificationMenu(isMobile) {
+//     if (!isMobile) {
+//         const elements = document.querySelectorAll('[href^="/shorts/"]');
+//         elements.forEach(element => {
+//             // Ignore shorts in the notification menu
+//             if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') {
+//                 const parent = element.parentNode;
+//                 parent.parentNode.style.display = 'none';
+//             }
+//         });
+//     }
+// }
 
 // Hide shorts video elements in the home tab on channel pages
 function hideShortsHomeTab(isMobile) {
