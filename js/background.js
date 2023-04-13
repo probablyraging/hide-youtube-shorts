@@ -5,7 +5,7 @@ chrome.runtime.onInstalled.addListener((details) => {
     if (details.reason === 'install') {
         chrome.storage.sync.set({
             themeIndex: 0,
-            presentModal: true,
+            presentModal: false,
             toggleState: true,
             toggleNavState: true,
             toggleHomeFeedState: true,

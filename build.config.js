@@ -160,3 +160,5 @@ async function main() {
 }
 
 main();
+
+// node build.config.js [version]
