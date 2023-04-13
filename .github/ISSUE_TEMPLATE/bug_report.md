@@ -20,6 +20,9 @@ Steps to reproduce the behavior:
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
+**Chrome dev tools log**
+Open the Chrome dev tools window (F12) and check to see if any errors are logged in the Console tab
+
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
