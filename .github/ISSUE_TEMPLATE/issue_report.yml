@@ -32,8 +32,6 @@ body:
         - Vivaldi
         - Microsoft Edge
         - Other
-      validations:
-      required: true
   - type: checkboxes
     id: browser-version
     attributes:
