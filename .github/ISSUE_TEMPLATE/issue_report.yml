@@ -4,6 +4,7 @@ title: "Title for this issue"
 labels: ["bug", "investigating"]
 assignees:
   - "ProbablyRaging"
+body:
   - type: textarea
     id: what-happened
     attributes:
