@@ -1,39 +1,16 @@
 name: Bug Report
-description: File a bug report
-title: "[Bug]: "
-labels: ["bug", "triage"]
+description: Open a report for an issue or bug
+title: "Title for this issue"
+labels: ["bug", "investigating"]
 assignees:
-  - octocat
+  - "ProbablyRaging"
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Thanks for taking the time to fill out this bug report!
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@example.com
-    validations:
-      required: false
   - type: textarea
     id: what-happened
     attributes:
-      label: What happened?
-      description: Also tell us, what did you expect to happen?
-      placeholder: Tell us what you see!
-      value: "A bug happened!"
-    validations:
-      required: true
-  - type: dropdown
-    id: version
-    attributes:
-      label: Version
-      description: What version of our software are you running?
-      options:
-        - 1.0.2 (Default)
-        - 1.0.3 (Edge)
+      label: Describe the issue?
+      description: A clear and concise description of your issue or bug
+      paceholder: Include any steps that might help reproduced the issue, screenshots of the issue, Chrome dev tools logs
     validations:
       required: true
   - type: dropdown
@@ -42,21 +19,17 @@ body:
       label: What browsers are you seeing the problem on?
       multiple: true
       options:
-        - Firefox
         - Chrome
-        - Safari
+        - Vivaldi
         - Microsoft Edge
-  - type: textarea
-    id: logs
-    attributes:
-      label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
-      render: shell
+        - Other
   - type: checkboxes
-    id: terms
+    id: version
     attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
+      label: Latest browser version?
       options:
-        - label: I agree to follow this project's Code of Conduct
-          required: true
+        - label: Yes
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
