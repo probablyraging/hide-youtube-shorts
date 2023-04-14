@@ -4,7 +4,6 @@ title: "Title for this issue"
 labels: ["bug", "investigating"]
 assignees:
   - "ProbablyRaging"
-body:
   - type: textarea
     id: what-happened
     attributes:
@@ -29,6 +28,7 @@ body:
       label: Latest browser version?
       options:
         - label: Yes
+body:
   - type: markdown
     attributes:
       value: |
