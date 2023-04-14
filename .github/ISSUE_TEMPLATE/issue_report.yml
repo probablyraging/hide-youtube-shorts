@@ -28,8 +28,3 @@ assignees:
       label: Latest browser version?
       options:
         - label: Yes
-body:
-  - type: markdown
-    attributes:
-      value: |
-        Thanks for taking the time to fill out this bug report!
