@@ -38,7 +38,3 @@ body:
       label: Latest browser version?
       options:
         - label: "Yes"
-  - type: markdown
-    attributes:
-      value: |
-        Thanks for taking the time to fill out this bug report!
