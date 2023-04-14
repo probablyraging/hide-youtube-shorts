@@ -8,7 +8,7 @@ body:
   - type: textarea
     id: what-happened
     attributes:
-      label: Describe the issue?
+      label: Describe the issue
       description: A clear and concise description of your issue or bug
       placeholder: Include any steps that might help reproduced the issue, screenshots of the issue, a dev tools log (f12)
     validations:
