@@ -1,6 +1,6 @@
 name: Issue/Bug Report
 description: Creat an issue or bug report
-title: ""
+title: "Title"
 labels: ["bug", "investigating"]
 assignees:
   - "ProbablyRaging"
