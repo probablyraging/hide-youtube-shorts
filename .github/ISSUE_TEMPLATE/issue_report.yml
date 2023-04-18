@@ -32,9 +32,14 @@ body:
         - Vivaldi
         - Microsoft Edge
         - Other
-  - type: checkboxes
+    validations:
+      required: true
+  - type: dropdown
     id: browser-version
     attributes:
       label: Latest browser version?
-      options:
-        - label: "Yes"
+      options: 
+        - Yes
+        - No
+    validations:
+      required: true
