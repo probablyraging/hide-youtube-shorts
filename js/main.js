@@ -132,6 +132,10 @@ function hideShortsVideosSubscriptionFeed(isMobile) {
                     parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
                 }
             });
+            const shortsShelfElements = document.querySelectorAll('ytd-rich-shelf-renderer[is-shorts]');
+            shortsShelfElements.forEach(element => {
+                element.parentNode.parentNode.style.display = "none";
+            });
         }
     } else {
         if (location.href.includes('youtube.com/feed/subscriptions')) {
