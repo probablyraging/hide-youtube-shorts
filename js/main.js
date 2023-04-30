@@ -121,17 +121,18 @@ function hideShortsVideosSubscriptionFeed(isMobile) {
         // select container holding all videos
         let videos = document.querySelector(`ytd-rich-grid-renderer > #contents`) || document.querySelector(`ytd-section-list-renderer > #contents`);
 
-        let short = videos.querySelector('[href^="/shorts/"]')
+        let short = videos?.querySelector('[href^="/shorts/"]')
         while (short) {
-            let parent = short.parentNode;
+            let parent = short?.parentNode;
             for (let i = 0; i < 10; i++) { // had problems with while loop looping forever
+                if (!parent) break;
                 if (parent.nodeName === 'YTD-RICH-ITEM-RENDERER') {
                     parent.remove()
                     break;
                 }
-                parent = parent.parentNode;
+                parent = parent?.parentNode;
             }
-            short = videos.querySelector('[href^="/shorts/"]')
+            short = videos?.querySelector('[href^="/shorts/"]')
         }
     }
 
