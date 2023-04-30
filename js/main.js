@@ -116,33 +116,52 @@ function hideShortsVideosHomeFeed(isMobile) {
 
 // Hide shorts video elements in the subscription feed
 function hideShortsVideosSubscriptionFeed(isMobile) {
-    if (!isMobile) {
-        if (location.href.includes('youtube.com/feed/subscriptions')) {
-            const elements = document.querySelectorAll('[href^="/shorts/"]');
-            elements.forEach(element => {
-                // Ignore shorts in the notification menu
-                if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
-                const parent = element.parentNode;
-                // When the subscription feed is being viewed in gride view
-                if (parent.parentNode.parentNode.parentNode.parentNode.nodeName === 'YTD-GRID-VIDEO-RENDERER' || parent.parentNode.parentNode.parentNode.parentNode.classList.contains('ytd-shelf-renderer')) {
-                    parent.parentNode.parentNode.style.display = 'none';
+    // this code should work in other places like home page and chanel's but leaving it just for subscription feed because didn't test it in other places
+    if (location.href.includes('youtube.com/feed/subscriptions')) {
+        // select container holding all videos
+        let videos = document.querySelector(`ytd-rich-grid-renderer > #contents`) || document.querySelector(`ytd-section-list-renderer > #contents`);
+
+        let short = videos.querySelector('[href^="/shorts/"]')
+        while (short) {
+            let parent = short.parentNode;
+            for (let i = 0; i < 10; i++) { // had problems with while loop looping forever
+                if (parent.nodeName === 'YTD-RICH-ITEM-RENDERER') {
+                    parent.remove()
+                    break;
                 }
-                // When the subscription feed is being viewed in list view
-                if (parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName === 'YTD-EXPANDED-SHELF-CONTENTS-RENDERER') {
-                    parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
-                }
-            });
-        }
-    } else {
-        if (location.href.includes('youtube.com/feed/subscriptions')) {
-            const elements = document.querySelectorAll('[href^="/shorts/"]');
-            elements.forEach(element => {
-                if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
-                const parent = element.parentNode;
-                parent.parentNode.parentNode.style.display = 'none';
-            });
+                parent = parent.parentNode;
+            }
+            short = videos.querySelector('[href^="/shorts/"]')
         }
     }
+
+    // if (!isMobile) {
+    //     if (location.href.includes('youtube.com/feed/subscriptions')) {
+    //         const elements = document.querySelectorAll('[href^="/shorts/"]');
+    //         elements.forEach(element => {
+    //             // Ignore shorts in the notification menu
+    //             if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+    //             const parent = element.parentNode;
+    //             // When the subscription feed is being viewed in gride view
+    //             if (parent.parentNode.parentNode.parentNode.parentNode.nodeName === 'YTD-GRID-VIDEO-RENDERER' || parent.parentNode.parentNode.parentNode.parentNode.classList.contains('ytd-shelf-renderer')) {
+    //                 parent.parentNode.parentNode.style.display = 'none';
+    //             }
+    //             // When the subscription feed is being viewed in list view
+    //             if (parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName === 'YTD-EXPANDED-SHELF-CONTENTS-RENDERER') {
+    //                 parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
+    //             }
+    //         });
+    //     }
+    // } else {
+    //     if (location.href.includes('youtube.com/feed/subscriptions')) {
+    //         const elements = document.querySelectorAll('[href^="/shorts/"]');
+    //         elements.forEach(element => {
+    //             if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+    //             const parent = element.parentNode;
+    //             parent.parentNode.parentNode.style.display = 'none';
+    //         });
+    //     }
+    // }
 }
 
 // Hide shorts videos elements and shorts shelf elements on the trending feed
