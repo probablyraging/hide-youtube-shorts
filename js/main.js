@@ -98,7 +98,7 @@ function hideShortsVideosHomeFeed(isMobile) {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
-                if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+                if (element.classList.contains('ytd-notification-renderer')) return;
                 const parent = element.parentNode;
                 if (parent.hasAttribute('rich-grid-thumbnail')) parent.parentNode.parentNode.style.display = 'none';
             });
@@ -108,7 +108,7 @@ function hideShortsVideosHomeFeed(isMobile) {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
-                if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+                if (element.classList.contains('ytd-notification-renderer')) return;
                 const parent = element.parentNode;
                 parent.parentNode.parentNode.style.display = 'none';
             });
@@ -123,7 +123,7 @@ function hideShortsVideosSubscriptionFeed(isMobile) {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
-                if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+                if (element.classList.contains('ytd-notification-renderer')) return;
                 const parent = element.parentNode;
                 // When the subscription feed is being viewed in gride view
                 if (parent.parentNode.parentNode.parentNode.parentNode.nodeName === 'YTD-GRID-VIDEO-RENDERER' || parent.parentNode.parentNode.parentNode.parentNode.classList.contains('ytd-shelf-renderer')) {
@@ -139,7 +139,7 @@ function hideShortsVideosSubscriptionFeed(isMobile) {
         if (location.href.includes('youtube.com/feed/subscriptions')) {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
-                if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+                if (element.classList.contains('ytd-notification-renderer')) return;
                 const parent = element.parentNode;
                 parent.parentNode.parentNode.style.display = 'none';
             });
@@ -154,7 +154,7 @@ function hideShortsVideosTrendingFeed(isMobile) {
             const elementsGroupOne = document.querySelectorAll('[href^="/shorts/"]');
             elementsGroupOne.forEach(element => {
                 // Ignore shorts in the notification menu
-                if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+                if (element.classList.contains('ytd-notification-renderer')) return;
                 const parent = element.parentNode;
                 parent.parentNode.parentNode.style.display = 'none';
             });
@@ -193,7 +193,7 @@ function hideShortsVideosSearchResults(isMobile) {
         const elementsGroupTwo = document.querySelectorAll('[href^="/shorts/"]');
         elementsGroupTwo.forEach(element => {
             // Ignore shorts in the notification menu
-            if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+            if (element.classList.contains('ytd-notification-renderer')) return;
             const parent = element.parentNode;
             parent.parentNode.parentNode.style.display = 'none';
         });
@@ -208,7 +208,7 @@ function hideShortsVideosSearchResults(isMobile) {
         const elementsGroupTwo = document.querySelectorAll('[aria-label="Shorts"]');
         elementsGroupTwo.forEach(element => {
             // Ignore shorts in the notification menu
-            if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+            if (element.classList.contains('ytd-notification-renderer')) return;
             const parent = element.parentNode;
             parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
         });
@@ -222,7 +222,7 @@ function hideShortsVideosRecommendedList(isMobile) {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
-                if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+                if (element.classList.contains('ytd-notification-renderer')) return;
                 const parent = element.parentNode;
                 parent.parentNode.style.display = 'none';
             });
@@ -234,7 +234,7 @@ function hideShortsVideosRecommendedList(isMobile) {
             elements.forEach(element => {
                 console.log(element);
                 // Ignore shorts in the notification menu
-                if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+                if (element.classList.contains('ytd-notification-renderer')) return;
                 const parent = element.parentNode;
                 parent.parentNode.style.display = 'none';
             });
@@ -286,7 +286,7 @@ function hideShortsHomeTab(isMobile) {
                     const elements = document.querySelectorAll('[href^="/shorts/"]');
                     elements.forEach(element => {
                         // Ignore shorts in the notification menu
-                        if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+                        if (element.classList.contains('ytd-notification-renderer')) return;
                         const parent = element.parentNode;
                         parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
                     });
@@ -307,7 +307,7 @@ function hideShortsHomeTab(isMobile) {
                     const elements = document.querySelectorAll('[href^="/shorts/"]');
                     elements.forEach(element => {
                         // Ignore shorts in the notification menu
-                        if (element.parentNode.id === 'item' || element.parentNode.parentNode.parentNode.parentNode.parentNode.id === 'submenu') return;
+                        if (element.classList.contains('ytd-notification-renderer')) return;
                         const parent = element.parentNode;
                         parent.style.display = 'none';
                     });
