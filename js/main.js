@@ -11,9 +11,10 @@ function checkStates() {
         'toggleSearchState',
         'toggleRecommendedState',
         'toggleTabState',
-        'toggleNotificationState',
         'toggleHomeTabState',
-        'toggleTurboState'
+        'toggleTurboState',
+        'toggleRegularState',
+        'toggleNotificationState',
     ]);
 }
 
@@ -33,8 +34,9 @@ async function hideShorts() {
     if (states.toggleSearchState) hideShortsVideosSearchResults(isMobile);
     if (states.toggleRecommendedState) hideShortsVideosRecommendedList(isMobile);
     if (states.toggleTabState) hideShortsTabOnChannel(isMobile);
-    if (states.toggleNotificationState) hideShortsNotificationMenu(isMobile);
     if (states.toggleHomeTabState) hideShortsHomeTab(isMobile);
+    if (states.toggleRegularState) playAsRegularVideo(isMobile);
+    // if (states.toggleNotificationState) hideShortsNotificationMenu(isMobile);
 }
 
 // Hide the shorts button in the navigation menu
@@ -300,7 +302,7 @@ function hideShortsHomeTab(isMobile) {
             });
             const el = document.querySelectorAll('.scbrr-tab.center')
             el.forEach(elem => {
-                // Don't shorts when the 'shorts' tab is selected
+                // Don't show shorts when the 'shorts' tab is selected
                 if (elem.getAttribute('role') === 'tab' && elem.getAttribute('aria-selected') === 'true' && elem.innerText.toLowerCase() !== 'shorts') {
                     const elements = document.querySelectorAll('[href^="/shorts/"]');
                     elements.forEach(element => {
@@ -312,6 +314,21 @@ function hideShortsHomeTab(isMobile) {
                 }
             });
         }
+    }
+}
+
+// Play shorts videos on a regular video page
+function playAsRegularVideo() {
+    function getVideoId(url) {
+        const regex = /\/shorts\/([^/]+)/;
+        const match = url.match(regex);
+        if (match) {
+            return match[1];
+        }
+        return null;
+    }
+    if (getVideoId(location.href)) {
+        location.href = `https://youtube.com/watch?v=${getVideoId(location.href)}`;
     }
 }
 

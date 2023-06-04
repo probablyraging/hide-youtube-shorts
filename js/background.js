@@ -14,9 +14,10 @@ chrome.runtime.onInstalled.addListener((details) => {
             toggleSearchState: true,
             toggleRecommendedState: true,
             toggleTabState: true,
-            toggleNotificationState: true,
             toggleHomeTabState: true,
-            toggleTurboState: false
+            toggleTurboState: false,
+            toggleRegularState: true,
+            toggleNotificationState: true,
         }).catch(() => { console.log('[STORAGE] Could not set storage item') });
         chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
             tabs.forEach(tab => {

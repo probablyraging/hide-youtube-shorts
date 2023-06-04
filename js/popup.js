@@ -9,9 +9,10 @@ function checkStates() {
         'toggleSearchState',
         'toggleRecommendedState',
         'toggleTabState',
-        'toggleNotificationState',
         'toggleHomeTabState',
-        'toggleTurboState'
+        'toggleTurboState',
+        'toggleRegularState',
+        'toggleNotificationState',
     ]);
 }
 
@@ -167,9 +168,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         toggleSearchButton = document.querySelector('.search-toggle'),
         toggleRecommendedButton = document.querySelector('.recommended-toggle'),
         toggleTabButton = document.querySelector('.tab-toggle'),
-        // toggleNotificationButton = document.querySelector('.notification-toggle'),
         toggleHomeTabButton = document.querySelector('.hometab-toggle'),
-        toggleTurboButton = document.querySelector('.turbo-toggle')
+        toggleTurboButton = document.querySelector('.turbo-toggle'),
+        toggleRegularButton = document.querySelector('.regular-toggle'),
+        // toggleNotificationButton = document.querySelector('.notification-toggle'),
     ];
     // State switch elements
     const toggleContainers = [
@@ -180,9 +182,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         toggleSearchContainer = document.querySelector('.search-container'),
         toggleRecommendedContainer = document.querySelector('.recommended-container'),
         toggleTabContainer = document.querySelector('.tab-container'),
-        toggleNotificationContainer = document.querySelector('.notification-container'),
         toggleHomeTabContainer = document.querySelector('.hometab-container'),
-        toggleTurboContainer = document.querySelector('.turbo-container')
+        toggleTurboContainer = document.querySelector('.turbo-container'),
+        toggleRegularContainer = document.querySelector('.regular-container'),
+        // toggleNotificationContainer = document.querySelector('.notification-container'),
     ];
     // Storage key names
     const storageKeys = [
@@ -193,9 +196,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         'toggleSearchState',
         'toggleRecommendedState',
         'toggleTabState',
-        'toggleNotificationState',
         'toggleHomeTabState',
-        'toggleTurboState'
+        'toggleTurboState',
+        'toggleRegularState',
+        'toggleNotificationState',
     ];
     // Theme key pairs
     themes = {

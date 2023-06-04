@@ -1,14 +1,17 @@
 {
-  "dependencies": {
-    "colors": "^1.4.0",
-    "css-loader": "^5.2.7",
-    "html-minifier": "^4.0.0",
-    "jszip": "^3.10.1",
-    "mini-css-extract-plugin": "^1.6.2",
-    "optimize-css-assets-webpack-plugin": "^6.0.1",
-    "raw-loader": "^4.0.2",
-    "style-loader": "^2.0.0",
-    "svg-url-loader": "^7.1.1",
-    "uglifyjs-webpack-plugin": "^2.2.0"
-  }
+    "scripts": {
+        "build": "webpack --mode production --openssl-legacy-provider"
+    },
+    "dependencies": {
+        "colors": "^1.4.0",
+        "css-loader": "^5.2.7",
+        "html-minifier": "^4.0.0",
+        "jszip": "^3.10.1",
+        "mini-css-extract-plugin": "^1.6.2",
+        "optimize-css-assets-webpack-plugin": "^6.0.1",
+        "raw-loader": "^4.0.2",
+        "style-loader": "^2.0.0",
+        "svg-url-loader": "^7.1.1",
+        "uglifyjs-webpack-plugin": "^2.2.0"
+    }
 }
