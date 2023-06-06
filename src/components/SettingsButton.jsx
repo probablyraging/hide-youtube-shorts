@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Dropdown, Switch } from '@nextui-org/react';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { SunIcon, MoonIcon } from '../constants/icons';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import CoffeeIcon from '@mui/icons-material/Coffee';
-import { getSwitchStates, updateSwitchState } from '../constants/popup';
 
 const SettingsButton = ({ darkMode, toggleDarkMode }) => {
 
@@ -62,7 +61,7 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
 
                     <Dropdown.Item
                         textValue='help & support'
-                        icon={<ContactSupportIcon className={`w-[18px]`} />}
+                        icon={<SupportAgentIcon className={`w-[18px]`} />}
                         key="support"
                         css={{ fontSize: '14px' }}>
                         <div onClick={() => handleClick('help')}>

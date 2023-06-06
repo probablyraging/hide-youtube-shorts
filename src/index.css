@@ -118,7 +118,7 @@ p {
     background: radial-gradient(circle, #d44242 0%, #c6a200 100%);
     background-clip: text;
     -webkit-background-clip: text;
-    color: transparent;
+    color: transparent !important;
     background-size: 600%;
     animation: gradient 4s linear infinite;
 }
