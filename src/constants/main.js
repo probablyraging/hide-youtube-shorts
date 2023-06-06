@@ -145,6 +145,12 @@ function hideShortsVideosSubscriptionFeed(isMobile) {
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
                 if (element.classList.contains('ytd-notification-renderer')) return;
+
+                // Start New UI
+                if (element.parentNode.parentNode.parentNode.parentNode.parentNode !== 'none') subFeedShortHiddenCount++;
+                element.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
+                // End New UI
+
                 const parent = element.parentNode;
                 // When the subscription feed is being viewed in gride view
                 if (parent.parentNode.parentNode.parentNode.parentNode.nodeName === 'YTD-GRID-VIDEO-RENDERER' || parent.parentNode.parentNode.parentNode.parentNode.classList.contains('ytd-shelf-renderer')) {
@@ -158,6 +164,7 @@ function hideShortsVideosSubscriptionFeed(isMobile) {
 
                 }
             });
+
             updateStats('subFeedShorts', subFeedShortHiddenCount);
             subFeedShortHiddenCount = 0;
         }
