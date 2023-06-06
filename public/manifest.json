@@ -2,7 +2,7 @@
     "name": "Hide YouTube Shorts",
     "manifest_version": 3,
     "version": "1.6.0",
-    "description": "Hide Shorts videos everywhere that they appear on YouTube",
+    "description": "The best YouTube Shorts blocker extension",
     "permissions": [
         "storage"
     ],
