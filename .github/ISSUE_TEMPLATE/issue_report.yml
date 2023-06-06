@@ -1,5 +1,5 @@
 name: Issue/Bug Report
-description: Creat an issue or bug report
+description: Create an issue or bug report
 title: "Title"
 labels: ["bug", "investigating"]
 assignees:
