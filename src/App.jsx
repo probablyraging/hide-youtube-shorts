@@ -20,6 +20,7 @@ const App = () => {
         } else {
             const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
             setDarkMode(prefersDarkMode);
+            updateScrollbarColors(prefersDarkMode);
         }
     }, []);
 
