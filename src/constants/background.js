@@ -28,6 +28,8 @@ chrome.runtime.onInstalled.addListener(async (details) => {
         chrome.action.setBadgeText({ text: '1' });
     }
     if (details.reason === 'update') {
+        // Check for missing states when the extension is updated. This
+        // occurrs when a new state is added between versions
         const keys = [
             'toggleState',
             'toggleNavState',
