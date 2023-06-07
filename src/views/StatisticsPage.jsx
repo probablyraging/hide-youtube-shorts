@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text } from '@nextui-org/react';
-import { getStatistics } from '../constants/popup';
+import { Text, Button, Modal } from '@nextui-org/react';
+import { getStatistics, resetStatistics } from '../constants/popup';
 
 const StatsPage = ({ darkMode }) => {
     const [statistics, setStatistics] = useState({});
+    const [visible, setVisible] = useState(false);
+
     const statisticPropertiesOrder = [
         'navButton',
         'homeFeedShorts',
@@ -30,18 +32,35 @@ const StatsPage = ({ darkMode }) => {
         playedAsRegular: "Played Shorts as regular videos",
     };
 
-    useEffect(() => {
-        const fetchStatisticData = async () => {
-            try {
-                const statisticData = await getStatistics();
-                setStatistics(statisticData);
-            } catch (error) {
-                console.error('Error fetching switch data:', error);
-            }
-        };
+    const fetchStatisticData = async () => {
+        try {
+            const statisticData = await getStatistics();
+            setStatistics(statisticData);
+        } catch (error) {
+            console.error('Error fetching switch data:', error);
+        }
+    };
 
+    useEffect(() => {
         fetchStatisticData();
     }, []);
+
+    const handleResetClick = () => {
+        setVisible(true);
+    };
+
+    const handleConfirmClick = () => {
+        resetStatistics();
+        setStatistics({});
+        setTimeout(() => {
+            fetchStatisticData();
+            setVisible(false);
+        }, 100);
+    };
+
+    const closeHandler = () => {
+        setVisible(false);
+    };
 
     const renderStatisticRows = () => {
         return statisticPropertiesOrder.map((propertyName) => {
@@ -51,7 +70,7 @@ const StatsPage = ({ darkMode }) => {
             return (
                 <div key={propertyName} className={`flex justify-between items-center w-full px-4 py-1 rounded-[12px] ${darkMode ? 'hover:bg-[#1b1d21]' : 'hover:bg-[#e9e9e9]'}`}>
                     <Text className='text-[12px] font-medium'>{title}</Text>
-                    <Text className='font-semibold text-accentLight'>{count.toLocaleString()}</Text>
+                    <Text className={`font-semibold ${darkMode ? 'text-accentDark' : 'text-accentLight'}`}>{count.toLocaleString()}</Text>
                 </div>
             );
         });
@@ -73,6 +92,36 @@ const StatsPage = ({ darkMode }) => {
 
                 {renderStatisticRows()}
             </Text>
+
+            <Button
+                onPress={handleResetClick}
+                className={`h-[32px] ${darkMode ? 'bg-[#5086c3] hover:bg-[#4175b0]' : 'bg-[#3694ff] hover:bg-[#2c85e9]'}`}>
+                Reset Statistics
+            </Button>
+
+            <Modal
+                blur
+                aria-labelledby="modal-title"
+                open={visible}
+                onClose={closeHandler}
+                className='max-w-[385px] mx-[10px]'>
+                <Modal.Header className='flex flex-col items-start'>
+                    <Text className='font-semibold' size={16}>
+                        Confirm Reset
+                    </Text>
+                </Modal.Header>
+                <Modal.Body>
+                    Are you sure you want to reset your statistics?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button flat auto color="none" onPress={closeHandler}>
+                        Cancel
+                    </Button>
+                    <Button flat auto color="primary" onPress={handleConfirmClick}>
+                        Confirm
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };

@@ -35,6 +35,25 @@ export const getStatistics = async () => {
     return statistics;
 }
 
+// Reset statistics counts
+export const resetStatistics = async () => {
+    const keys = [
+        'navButton',
+        'shortsShelf',
+        'homeFeedShorts',
+        'subFeedShorts',
+        'trendFeedShorts',
+        'searchResultShorts',
+        'recommendedShorts',
+        'channelTabs',
+        'channelShorts',
+        'playedAsRegular',
+    ];
+    for (const key of keys) {
+        await chrome.storage.sync.set({ [key]: 0 });
+    }
+}
+
 // Set switch states when toggled
 export const updateSwitchState = async (switchName) => {
     const storageObject = await chrome.storage.sync.get([switchName]);

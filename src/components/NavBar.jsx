@@ -35,6 +35,9 @@ const NavBar = ({ darkMode }) => {
         }
     }, [location.pathname]);
 
+    const navButtonColorDefault = darkMode ? '#ecedee' : '#3b3b3b';
+    const navButtonColorActive = darkMode ? '#5086c3' : '#3694ff';
+
     return (
         <Paper
             elevation={3}
@@ -68,7 +71,7 @@ const NavBar = ({ darkMode }) => {
                         icon={<SubscriptionsIcon className='w-[20px]' />}
                         sx={{
                             height: '100%',
-                            color: value === 0 ? '#3694ff' : darkMode ? '#ecedee' : '#3b3b3b',
+                            color: value === 0 ? navButtonColorActive : navButtonColorDefault,
                             backgroundColor: value === 0 ? darkMode ? '#202225' : '#f5f5f5' : '',
                             borderTopLeftRadius: '20px',
                             borderTopRightRadius: '20px'
@@ -81,7 +84,7 @@ const NavBar = ({ darkMode }) => {
                         icon={<VideoLabelRoundedIcon className='w-[20px]' />}
                         sx={{
                             height: '100%',
-                            color: value === 1 ? '#3694ff' : darkMode ? '#ecedee' : '#3b3b3b',
+                            color: value === 1 ? navButtonColorActive : navButtonColorDefault,
                             backgroundColor: value === 1 ? darkMode ? '#202225' : '#f5f5f5' : '',
                             borderTopLeftRadius: '20px',
                             borderTopRightRadius: '20px'
@@ -94,7 +97,7 @@ const NavBar = ({ darkMode }) => {
                         icon={<SpeedIcon />}
                         sx={{
                             height: '100%',
-                            color: value === 2 ? '#3694ff' : darkMode ? '#ecedee' : '#3b3b3b',
+                            color: value === 2 ? navButtonColorActive : navButtonColorDefault,
                             backgroundColor: value === 2 ? darkMode ? '#202225' : '#f5f5f5' : '',
                             borderTopLeftRadius: '20px',
                             borderTopRightRadius: '20px'
@@ -107,7 +110,7 @@ const NavBar = ({ darkMode }) => {
                         icon={<BarChartIcon />}
                         sx={{
                             height: '100%',
-                            color: value === 3 ? '#3694ff' : darkMode ? '#ecedee' : '#3b3b3b',
+                            color: value === 3 ? navButtonColorActive : navButtonColorDefault,
                             backgroundColor: value === 3 ? darkMode ? '#202225' : '#f5f5f5' : '',
                             borderTopLeftRadius: '20px',
                             borderTopRightRadius: '20px'

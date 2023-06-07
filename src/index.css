@@ -47,10 +47,10 @@
 body {
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
     font-size: 14px;
-    width: 400px;
-    min-width: 310px !important;
-    min-height: 472px !important;
-    max-height: 472px !important;
+    width: 450px;
+    min-width: 450px !important;
+    min-height: 550px !important;
+    max-height: 550px !important;
     overflow: scroll;
     background-color: var(--nextui-colors-background);
 }
