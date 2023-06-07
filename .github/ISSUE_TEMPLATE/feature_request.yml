@@ -15,7 +15,7 @@ body:
   - type: input
     id: issue
     attributes:
-      label: If your feature request related to an issue?
+      label: Is your feature request related to an issue?
       placeholder: "Yes, this should fix issue #7"
     validations:
       required: false
