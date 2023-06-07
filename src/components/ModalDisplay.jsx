@@ -58,7 +58,7 @@ const ModalDisplay = () => {
                         Enable/disable it in the Misc tab
                     </Text>
 
-                    <Text className='changes mb-4'>
+                    <Text className='changed mb-4'>
                         Old UI: All Videos Being Hidden
                     </Text>
                     <Text className='text-[13px] mb-2'>

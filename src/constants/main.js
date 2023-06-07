@@ -149,7 +149,7 @@ function hideShortsVideosSubscriptionFeed(isMobile, fillEmptySpace) {
                 const parent = element.parentNode;
 
                 // Start New UI
-                if (element.parentNode.parentNode.parentNode.parentNode.parentNode !== 'none') subFeedShortHiddenCount++;
+                if (element.parentNode.parentNode.parentNode.parentNode.parentNode.style.display !== 'none') subFeedShortHiddenCount++;
                 const newDiv = document.createElement('div');
                 if (fillEmptySpace) newDiv.innerHTML = `<img src="https://i.imgur.com/scfoyOy.png" />`;
 
