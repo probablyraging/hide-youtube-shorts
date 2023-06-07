@@ -15,6 +15,7 @@ function checkStates() {
         'toggleTurboState',
         'toggleRegularState',
         'toggleNotificationState',
+        'toggleEmptySpaceState'
     ]);
 }
 
@@ -29,7 +30,7 @@ async function hideShorts() {
     const isMobile = location.href.includes('https://m.youtube.com/');
     if (states.toggleNavState) hideShortsNavButton(isMobile);
     if (states.toggleHomeFeedState) hideShortsShelf(isMobile), hideShortsVideosHomeFeed(isMobile);
-    if (states.toggleSubscriptionFeedState) hideShortsVideosSubscriptionFeed(isMobile);
+    if (states.toggleSubscriptionFeedState) hideShortsVideosSubscriptionFeed(isMobile, states.toggleEmptySpaceState);
     if (states.toggleTrendingFeedState) hideShortsVideosTrendingFeed(isMobile);
     if (states.toggleSearchState) hideShortsVideosSearchResults(isMobile);
     if (states.toggleRecommendedState) hideShortsVideosRecommendedList(isMobile);
@@ -138,20 +139,36 @@ function hideShortsVideosHomeFeed(isMobile) {
 }
 
 // Hide shorts video elements in the subscription feed
-function hideShortsVideosSubscriptionFeed(isMobile) {
+function hideShortsVideosSubscriptionFeed(isMobile, fillEmptySpace) {
+    console.log(fillEmptySpace);
     if (!isMobile) {
         if (location.href.includes('youtube.com/feed/subscriptions')) {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
                 if (element.classList.contains('ytd-notification-renderer')) return;
+                const parent = element.parentNode;
 
                 // Start New UI
                 if (element.parentNode.parentNode.parentNode.parentNode.parentNode !== 'none') subFeedShortHiddenCount++;
-                element.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
+                const newDiv = document.createElement('div');
+                if (fillEmptySpace) newDiv.innerHTML = `<img src="https://i.imgur.com/scfoyOy.png" />`;
+
+                const grandParent = parent.parentNode.parentNode.parentNode.parentNode;
+                if (grandParent.style.display !== "none") {
+                    grandParent.style.display = "none";
+                    const computedStyles = window.getComputedStyle(grandParent);
+                    for (const property of computedStyles) {
+                        if (property !== "display") {
+                            newDiv.style[property] = computedStyles[property];
+                        }
+                    }
+                    newDiv.style.borderRadius = '12px'
+                    grandParent.parentNode.appendChild(newDiv);
+                }
+                if (grandParent.classList.contains('ytd-rich-grid-row') || grandParent.classList.contains('ytd-rich-item-renderer')) return;
                 // End New UI
 
-                const parent = element.parentNode;
                 // When the subscription feed is being viewed in gride view
                 if (parent.parentNode.parentNode.parentNode.parentNode.nodeName === 'YTD-GRID-VIDEO-RENDERER' || parent.parentNode.parentNode.parentNode.parentNode.classList.contains('ytd-shelf-renderer')) {
                     if (parent.parentNode.parentNode.style.display !== 'none') subFeedShortHiddenCount++;

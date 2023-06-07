@@ -67,6 +67,13 @@ const MiscPage = ({ darkMode }) => {
                         state={switchState.toggleRegularState} />
 
                     <SwitchContainer
+                        title={'Fill Empty Space'}
+                        description={'Fill empty space left behind when removing shorts on the subscriptions page'}
+                        darkMode={darkMode}
+                        switchName={'toggleEmptySpaceState'}
+                        state={switchState.toggleEmptySpaceState} />
+
+                    <SwitchContainer
                         title={'TURBO'}
                         description={'Boosts speed and efficiency at the cost of system resources'}
                         darkMode={darkMode}

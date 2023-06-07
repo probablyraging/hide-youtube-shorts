@@ -1,7 +1,7 @@
 // On initial install or on extension update, set the state of
 // the extension, the toggle buttons in popup.js, and reload any
 // active YouTube tabs
-chrome.runtime.onInstalled.addListener((details) => {
+chrome.runtime.onInstalled.addListener(async (details) => {
     if (details.reason === 'install') {
         chrome.storage.sync.set({
             presentModal: true,
@@ -17,6 +17,7 @@ chrome.runtime.onInstalled.addListener((details) => {
             toggleTurboState: false,
             toggleRegularState: true,
             toggleNotificationState: true,
+            toggleEmptySpaceState: true,
         }).catch(() => { console.log('[STORAGE] Could not set storage item') });
         chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
             tabs.forEach(tab => {
@@ -27,6 +28,27 @@ chrome.runtime.onInstalled.addListener((details) => {
         chrome.action.setBadgeText({ text: '1' });
     }
     if (details.reason === 'update') {
+        const keys = [
+            'toggleState',
+            'toggleNavState',
+            'toggleHomeFeedState',
+            'toggleSubscriptionFeedState',
+            'toggleTrendingFeedState',
+            'toggleSearchState',
+            'toggleRecommendedState',
+            'toggleTabState',
+            'toggleHomeTabState',
+            'toggleTurboState',
+            'toggleRegularState',
+            'toggleNotificationState',
+            'toggleEmptySpaceState'
+        ];
+        const states = await chrome.storage.sync.get(keys);
+        for (const key of keys) {
+            if (!(key in states) || states[key] === undefined) {
+                await chrome.storage.sync.set({ [key]: true });
+            }
+        }
         chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
             tabs.forEach(tab => {
                 chrome.tabs.reload(tab.id);

@@ -38,39 +38,24 @@ const ModalDisplay = () => {
             >
                 <Modal.Header className='absolute flex flex-col items-start top-0'>
                     <Text className='font-semibold' size={16}>
-                        What's New In 1.6.0
+                        What's New In 1.6.2
                     </Text>
                     <Text className='text-[12px]'>
                         June 6, 2023
                     </Text>
                 </Modal.Header>
                 <Modal.Body className='mt-[50px]'>
-                    <Text className='added mb-0'>
-                        Statistics Tab
+                    <Text className='added mb-4'>
+                        Fill Empty Space
                     </Text>
                     <Text className='text-[13px] mb-2'>
-                        See a breakdown of how HYS has improved your experience on YouTube
-                    </Text>
-
-                    <Text className='added mb-0'>
-                        Play As Regular Video
-                    </Text>
-                    <Text className='text-[13px] mb-2'>
-                        Added the option to automatically play Shorts videos in a regular video page. Enable/disable it in the Misc tab
-                    </Text>
-
-                    <Text className='changed mb-0'>
-                        New UI
-                    </Text>
-                    <Text className='text-[13px] mb-2'>
-                        Updated the UI to be a little more elegant and reponsive
-                    </Text>
-
-                    <Text className='changed mb-0'>
-                        Notification Menu
-                    </Text>
-                    <Text className='text-[13px] mb-2'>
-                        Fixed an issue where enabling the option to hide Shorts in the notifcation menu would remove the entire menu
+                        With the new UI on the Subscriptions page we can no longer fill the empty space left behind when removing Shorts elements
+                        <br></br>
+                        <br></br>
+                        I have added an option to fill the empty space with a placeholder image instead
+                        <br></br>
+                        <br></br>
+                        Enable/disable it in the Misc tab
                     </Text>
                 </Modal.Body>
                 <Modal.Footer>
