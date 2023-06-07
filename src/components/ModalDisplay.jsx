@@ -57,6 +57,13 @@ const ModalDisplay = () => {
                         <br></br>
                         Enable/disable it in the Misc tab
                     </Text>
+
+                    <Text className='changes mb-4'>
+                        Old UI: All Videos Being Hidden
+                    </Text>
+                    <Text className='text-[13px] mb-2'>
+                        Fixed an issue with the old UI on the Subscriptions page where all videos were being hidden
+                    </Text>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button flat color="none" className='w-full' onPress={closeHandler}>
