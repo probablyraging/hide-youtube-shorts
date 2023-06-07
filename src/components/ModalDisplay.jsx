@@ -38,10 +38,10 @@ const ModalDisplay = () => {
             >
                 <Modal.Header className='absolute flex flex-col items-start top-0'>
                     <Text className='font-semibold' size={16}>
-                        What's New In 1.6.2
+                        What's New In 1.6.3
                     </Text>
                     <Text className='text-[12px]'>
-                        June 6, 2023
+                        June 8, 2023
                     </Text>
                 </Modal.Header>
                 <Modal.Body className='mt-[50px]'>
@@ -58,8 +58,15 @@ const ModalDisplay = () => {
                         Enable/disable it in the Misc tab
                     </Text>
 
+                    <Text className='added mb-4'>
+                        Reset Statistics
+                    </Text>
+                    <Text className='text-[13px] mb-2'>
+                        Added the ability to reset your statistic. You can do this from the Statistics tab
+                    </Text>
+
                     <Text className='changed mb-4'>
-                        Old UI: All Videos Being Hidden
+                        All Videos Being Hidden
                     </Text>
                     <Text className='text-[13px] mb-2'>
                         Fixed an issue with the old UI on the Subscriptions page where all videos were being hidden
