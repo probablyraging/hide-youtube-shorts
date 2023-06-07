@@ -52,7 +52,7 @@ const ModalDisplay = () => {
                         With the new UI on the Subscriptions page we can no longer fill the empty space left behind when removing Shorts elements
                         <br></br>
                         <br></br>
-                        I have added an option to fill the empty space with a placeholder image instead
+                        I have added an option to fill the empty space with a placeholder image instead. See <a href='https://i.imgur.com/5QN2trt.png' target='_blank' rel='noopener noreferrer'>this example</a>
                         <br></br>
                         <br></br>
                         Enable/disable it in the Misc tab
