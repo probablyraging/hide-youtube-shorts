@@ -38,7 +38,7 @@ const ModalDisplay = () => {
             >
                 <Modal.Header className='absolute flex flex-col items-start top-0'>
                     <Text className='font-semibold' size={16}>
-                        What's New In 1.6.3
+                        What's New In 1.6.5
                     </Text>
                     <Text className='text-[12px]'>
                         June 8, 2023
