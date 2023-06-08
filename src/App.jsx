@@ -8,6 +8,7 @@ import { darkTheme, lightTheme } from './constants/themes';
 const MainPage = lazy(() => import('./components/MainPage'));
 const publicBackground = lazy(() => import('./constants/background'));
 const publickMain = lazy(() => import('./constants/main'));
+const publickStyles = lazy(() => import('./constants/styles.css'));
 
 const App = () => {
     const [darkMode, setDarkMode] = useState(false);

@@ -1,0 +1,14 @@
+#contents {
+    justify-content: center !important;
+}
+
+#contents>ytd-rich-grid-row,
+#contents>ytd-rich-grid-row>#contents {
+    display: contents;
+}
+
+#contents>ytd-rich-grid-row>#contents>ytd-rich-item-renderer {
+    margin: 0;
+    margin-bottom: 18px;
+    margin-top: 18px;
+}

@@ -21,7 +21,6 @@ chrome.runtime.onInstalled.addListener(async (details) => {
             toggleTurboState: false,
             toggleRegularState: true,
             toggleNotificationState: true,
-            toggleEmptySpaceState: true,
         }).catch(() => { console.log('[STORAGE] Could not set storage item') });
         chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
             tabs.forEach(tab => {
@@ -51,7 +50,6 @@ chrome.runtime.onInstalled.addListener(async (details) => {
             'toggleTurboState',
             'toggleRegularState',
             'toggleNotificationState',
-            'toggleEmptySpaceState',
         ];
         const states = await chrome.storage.sync.get(keys);
         for (const key of keys) {

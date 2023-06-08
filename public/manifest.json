@@ -22,6 +22,9 @@
             ],
             "js": [
                 "assets/main.js"
+            ],
+            "css": [
+                "assets/styles.css"
             ]
         }
     ],

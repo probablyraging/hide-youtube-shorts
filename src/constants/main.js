@@ -19,7 +19,6 @@ function checkStates() {
         'toggleTurboState',
         'toggleRegularState',
         'toggleNotificationState',
-        'toggleEmptySpaceState',
     ]);
 }
 
@@ -36,9 +35,9 @@ async function hideShorts() {
     if (states.toggleHomeFeedState) hideShortsShelf(isMobile), hideShortsVideosHomeFeed(isMobile);
     if (states.toggleHomeFeedStateLives) hideLiveVideosHomeFeed(isMobile);
     if (states.toggleHomeFeedStatePremieres) hidePremiereVideosHomeFeed(isMobile);
-    if (states.toggleSubscriptionFeedState) hideShortsVideosSubscriptionFeed(isMobile, states.toggleEmptySpaceState);
-    if (states.toggleSubscriptionFeedStateLives) hideLiveVideosSubscriptionFeed(isMobile, states.toggleEmptySpaceState);
-    if (states.toggleSubscriptionFeedStatePremieres) hidePremiereVideosSubscriptionFeed(isMobile, states.toggleEmptySpaceState);
+    if (states.toggleSubscriptionFeedState) hideShortsVideosSubscriptionFeed(isMobile);
+    if (states.toggleSubscriptionFeedStateLives) hideLiveVideosSubscriptionFeed(isMobile);
+    if (states.toggleSubscriptionFeedStatePremieres) hidePremiereVideosSubscriptionFeed(isMobile);
     if (states.toggleTrendingFeedState) hideShortsVideosTrendingFeed(isMobile);
     if (states.toggleSearchState) hideShortsVideosSearchResults(isMobile);
     if (states.toggleRecommendedState) hideShortsVideosRecommendedList(isMobile);
@@ -177,7 +176,7 @@ function hidePremiereVideosHomeFeed(isMobile) {
 }
 
 // Hide shorts video elements in the subscription feed
-function hideShortsVideosSubscriptionFeed(isMobile, fillEmptySpace) {
+function hideShortsVideosSubscriptionFeed(isMobile) {
     if (!isMobile) {
         if (location.href.includes('youtube.com/feed/subscriptions')) {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
@@ -188,15 +187,11 @@ function hideShortsVideosSubscriptionFeed(isMobile, fillEmptySpace) {
 
                 // Start New UI
                 if (element.parentNode.parentNode.parentNode.parentNode.parentNode.style.display !== 'none') subFeedShortHiddenCount++;
-                const newDiv = document.createElement('div');
-                newDiv.style.borderRadius = '12px'
-                if (fillEmptySpace) newDiv.innerHTML = `<div style="display: flex; flex-direction: column; margin-left: 10px; margin-right: 10px;"><img src="https://i.imgur.com/yBUVeQ3.png" style="width: 100%; height: 100%;" /><a href="https://creatordiscord.xyz/whyamiseeingthis" target="_blank" style="color: #4381c1; font-size: 12px; margin-top: 10px; text-decoration: none;">Why am I seeing this?</a></div>`;
 
                 const grandParent = parent.parentNode.parentNode.parentNode.parentNode;
                 if (grandParent.classList.contains('ytd-rich-grid-row') || grandParent.classList.contains('ytd-rich-item-renderer')) {
                     if (grandParent.style.display !== "none") {
                         grandParent.style.display = "none";
-                        grandParent.parentNode.appendChild(newDiv);
                     }
                 }
                 if (grandParent.classList.contains('ytd-rich-grid-row') || grandParent.classList.contains('ytd-rich-item-renderer')) return;
@@ -238,14 +233,9 @@ function hideLiveVideosSubscriptionFeed(isMobile) {
 
             elements.forEach(el => {
                 if (el.innerText.replace(/\s/g, '').replace(/\n/g, '') === 'LIVE') {
-                    const newDiv = document.createElement('div');
-                    newDiv.style.borderRadius = '12px'
-                    if (fillEmptySpace) newDiv.innerHTML = `<div style="display: flex; flex-direction: column; margin-left: 10px; margin-right: 10px;"><img src="https://i.imgur.com/yBUVeQ3.png" style="width: 100%; height: 100%;" /><a href="https://creatordiscord.xyz/whyamiseeingthis" target="_blank" style="color: #4381c1; font-size: 12px; margin-top: 10px; text-decoration: none;">Why am I seeing this?</a></div>`;
-
                     if (grandParent.classList.contains('ytd-rich-grid-row') || grandParent.classList.contains('ytd-rich-item-renderer')) {
                         const grandParent = el.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
                         grandParent.style.display = 'none';
-                        grandParent.parentNode.appendChild(newDiv);
                     }
                 }
             });
@@ -261,14 +251,9 @@ function hidePremiereVideosSubscriptionFeed(isMobile) {
 
             elements.forEach(el => {
                 if (el.innerText.replace(/\s/g, '').replace(/\n/g, '') === 'PREMIERE') {
-                    const newDiv = document.createElement('div');
-                    newDiv.style.borderRadius = '12px'
-                    if (fillEmptySpace) newDiv.innerHTML = `<div style="display: flex; flex-direction: column; margin-left: 10px; margin-right: 10px;"><img src="https://i.imgur.com/yBUVeQ3.png" style="width: 100%; height: 100%;" /><a href="https://creatordiscord.xyz/whyamiseeingthis" target="_blank" style="color: #4381c1; font-size: 12px; margin-top: 10px; text-decoration: none;">Why am I seeing this?</a></div>`;
-
                     if (grandParent.classList.contains('ytd-rich-grid-row') || grandParent.classList.contains('ytd-rich-item-renderer')) {
                         const grandParent = el.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
                         grandParent.style.display = 'none';
-                        grandParent.parentNode.appendChild(newDiv);
                     }
                 }
             });

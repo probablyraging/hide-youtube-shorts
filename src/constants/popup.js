@@ -17,7 +17,6 @@ export const getSwitchStates = async () => {
         'toggleTurboState',
         'toggleRegularState',
         'toggleNotificationState',
-        'toggleEmptySpaceState',
     ]);
     return switchStates;
 }

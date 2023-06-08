@@ -38,20 +38,18 @@ const ModalDisplay = () => {
             >
                 <Modal.Header className='absolute flex flex-col items-start top-0'>
                     <Text className='font-semibold' size={16}>
-                        What's New In 1.6.6
+                        What's New In 1.6.7
                     </Text>
                     <Text className='text-[12px]'>
-                        June 8, 2023
+                        June 9, 2023
                     </Text>
                 </Modal.Header>
                 <Modal.Body className='mt-[50px]'>
                     <Text className='added mb-4'>
-                        Lives & Premieres
+                        No More Placeholder Images
                     </Text>
                     <Text className='text-[13px] mb-2'>
-                        Added the option to hide Live and Premiere videos in the Home and Subscriptions feeds. This feature currently only works on the <a href='https://i.imgur.com/j6i2yB4.png' target='_blank'>new YouTube UI</a>.
-                        <br></br><br></br>
-                        Enabled/disable it in the Feed Pages tab
+                        The empty spaces and placeholder images left behind when removing Shorts from the subscription feed is no longer an issue. Massive credit to Horsy Nox for reaching out and providing the fix!
                     </Text>
                 </Modal.Body>
                 <Modal.Footer>
