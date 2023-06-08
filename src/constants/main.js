@@ -151,7 +151,7 @@ function hideShortsVideosSubscriptionFeed(isMobile, fillEmptySpace) {
                 // Start New UI
                 if (element.parentNode.parentNode.parentNode.parentNode.parentNode.style.display !== 'none') subFeedShortHiddenCount++;
                 const newDiv = document.createElement('div');
-                if (fillEmptySpace) newDiv.innerHTML = `<div style="display: flex; flex-direction: column; margin-left: 10px; margin-right: 10px;"><img src="https://i.imgur.com/yBUVeQ3.png" width="359.98" height="202.48" style="width: 359.98px; height: 202.48px;" /><a href="https://creatordiscord.xyz/whyamiseeingthis" target="_blank" style="color: #4381c1; font-size: 12px; margin-top: 10px; text-decoration: none;">Why am I seeing this?</a></div>`;
+                if (fillEmptySpace) newDiv.innerHTML = `<div style="display: flex; flex-direction: column; margin-left: 10px; margin-right: 10px;"><img src="https://i.imgur.com/yBUVeQ3.png" style="width: 100%; height: 100%;" /><a href="https://creatordiscord.xyz/whyamiseeingthis" target="_blank" style="color: #4381c1; font-size: 12px; margin-top: 10px; text-decoration: none;">Why am I seeing this?</a></div>`;
 
                 const grandParent = parent.parentNode.parentNode.parentNode.parentNode;
                 if (grandParent.classList.contains('ytd-rich-grid-row') || grandParent.classList.contains('ytd-rich-item-renderer')) {
