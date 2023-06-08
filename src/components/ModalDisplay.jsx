@@ -45,31 +45,11 @@ const ModalDisplay = () => {
                     </Text>
                 </Modal.Header>
                 <Modal.Body className='mt-[50px]'>
-                    <Text className='added mb-4'>
-                        Fill Empty Space
-                    </Text>
-                    <Text className='text-[13px] mb-2'>
-                        With the new UI on the Subscriptions page we can no longer fill the empty space left behind when removing Shorts elements
-                        <br></br>
-                        <br></br>
-                        I have added an option to fill the empty space with a placeholder image instead. See <a href='https://i.imgur.com/5QN2trt.png' target='_blank' rel='noopener noreferrer'>this example</a>
-                        <br></br>
-                        <br></br>
-                        Enable/disable it in the Misc tab
-                    </Text>
-
-                    <Text className='added mb-4'>
-                        Reset Statistics
-                    </Text>
-                    <Text className='text-[13px] mb-2'>
-                        Added the ability to reset your statistic. You can do this from the Statistics tab
-                    </Text>
-
                     <Text className='changed mb-4'>
-                        All Videos Being Hidden
+                        Oversized Placeholder Images
                     </Text>
                     <Text className='text-[13px] mb-2'>
-                        Fixed an issue with the old UI on the Subscriptions page where all videos were being hidden
+                        Fixed an issue with the "Shorts Hidden By HYS" placeholder image being too large sometimes
                     </Text>
                 </Modal.Body>
                 <Modal.Footer>
