@@ -6,7 +6,11 @@ function checkStates() {
         'toggleState',
         'toggleNavState',
         'toggleHomeFeedState',
+        'toggleHomeFeedStateLives',
+        'toggleHomeFeedStatePremieres',
         'toggleSubscriptionFeedState',
+        'toggleSubscriptionFeedStateLives',
+        'toggleSubscriptionFeedStatePremieres',
         'toggleTrendingFeedState',
         'toggleSearchState',
         'toggleRecommendedState',
@@ -15,7 +19,7 @@ function checkStates() {
         'toggleTurboState',
         'toggleRegularState',
         'toggleNotificationState',
-        'toggleEmptySpaceState'
+        'toggleEmptySpaceState',
     ]);
 }
 
@@ -30,7 +34,11 @@ async function hideShorts() {
     const isMobile = location.href.includes('https://m.youtube.com/');
     if (states.toggleNavState) hideShortsNavButton(isMobile);
     if (states.toggleHomeFeedState) hideShortsShelf(isMobile), hideShortsVideosHomeFeed(isMobile);
+    if (states.toggleHomeFeedStateLives) hideLiveVideosHomeFeed(isMobile);
+    if (states.toggleHomeFeedStatePremieres) hidePremiereVideosHomeFeed(isMobile);
     if (states.toggleSubscriptionFeedState) hideShortsVideosSubscriptionFeed(isMobile, states.toggleEmptySpaceState);
+    if (states.toggleSubscriptionFeedStateLives) hideLiveVideosSubscriptionFeed(isMobile, states.toggleEmptySpaceState);
+    if (states.toggleSubscriptionFeedStatePremieres) hidePremiereVideosSubscriptionFeed(isMobile, states.toggleEmptySpaceState);
     if (states.toggleTrendingFeedState) hideShortsVideosTrendingFeed(isMobile);
     if (states.toggleSearchState) hideShortsVideosSearchResults(isMobile);
     if (states.toggleRecommendedState) hideShortsVideosRecommendedList(isMobile);
@@ -138,6 +146,36 @@ function hideShortsVideosHomeFeed(isMobile) {
     }
 }
 
+// Hide live video elements in the home feed
+function hideLiveVideosHomeFeed(isMobile) {
+    if (!isMobile) {
+        if (location.href === 'https://www.youtube.com/') {
+            const elements = document.querySelectorAll('ytd-badge-supported-renderer');
+
+            elements.forEach(el => {
+                if (el.innerText.replace(/\s/g, '').replace(/\n/g, '') === 'LIVE') {
+                    el.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
+                }
+            });
+        }
+    }
+}
+
+// Hide premiere video elements in the home feed
+function hidePremiereVideosHomeFeed(isMobile) {
+    if (!isMobile) {
+        if (location.href === 'https://www.youtube.com/') {
+            const elements = document.querySelectorAll('ytd-badge-supported-renderer');
+
+            elements.forEach(el => {
+                if (el.innerText.replace(/\s/g, '').replace(/\n/g, '') === 'PREMIERE') {
+                    el.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
+                }
+            });
+        }
+    }
+}
+
 // Hide shorts video elements in the subscription feed
 function hideShortsVideosSubscriptionFeed(isMobile, fillEmptySpace) {
     if (!isMobile) {
@@ -151,13 +189,13 @@ function hideShortsVideosSubscriptionFeed(isMobile, fillEmptySpace) {
                 // Start New UI
                 if (element.parentNode.parentNode.parentNode.parentNode.parentNode.style.display !== 'none') subFeedShortHiddenCount++;
                 const newDiv = document.createElement('div');
+                newDiv.style.borderRadius = '12px'
                 if (fillEmptySpace) newDiv.innerHTML = `<div style="display: flex; flex-direction: column; margin-left: 10px; margin-right: 10px;"><img src="https://i.imgur.com/yBUVeQ3.png" style="width: 100%; height: 100%;" /><a href="https://creatordiscord.xyz/whyamiseeingthis" target="_blank" style="color: #4381c1; font-size: 12px; margin-top: 10px; text-decoration: none;">Why am I seeing this?</a></div>`;
 
                 const grandParent = parent.parentNode.parentNode.parentNode.parentNode;
                 if (grandParent.classList.contains('ytd-rich-grid-row') || grandParent.classList.contains('ytd-rich-item-renderer')) {
                     if (grandParent.style.display !== "none") {
                         grandParent.style.display = "none";
-                        newDiv.style.borderRadius = '12px'
                         grandParent.parentNode.appendChild(newDiv);
                     }
                 }
@@ -187,6 +225,52 @@ function hideShortsVideosSubscriptionFeed(isMobile, fillEmptySpace) {
                 if (element.classList.contains('ytd-notification-renderer')) return;
                 const parent = element.parentNode;
                 parent.parentNode.parentNode.style.display = 'none';
+            });
+        }
+    }
+}
+
+// Hide live video elements in the subscriptions feed
+function hideLiveVideosSubscriptionFeed(isMobile) {
+    if (!isMobile) {
+        if (location.href.includes('youtube.com/feed/subscriptions')) {
+            const elements = document.querySelectorAll('ytd-badge-supported-renderer');
+
+            elements.forEach(el => {
+                if (el.innerText.replace(/\s/g, '').replace(/\n/g, '') === 'LIVE') {
+                    const newDiv = document.createElement('div');
+                    newDiv.style.borderRadius = '12px'
+                    if (fillEmptySpace) newDiv.innerHTML = `<div style="display: flex; flex-direction: column; margin-left: 10px; margin-right: 10px;"><img src="https://i.imgur.com/yBUVeQ3.png" style="width: 100%; height: 100%;" /><a href="https://creatordiscord.xyz/whyamiseeingthis" target="_blank" style="color: #4381c1; font-size: 12px; margin-top: 10px; text-decoration: none;">Why am I seeing this?</a></div>`;
+
+                    if (grandParent.classList.contains('ytd-rich-grid-row') || grandParent.classList.contains('ytd-rich-item-renderer')) {
+                        const grandParent = el.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+                        grandParent.style.display = 'none';
+                        grandParent.parentNode.appendChild(newDiv);
+                    }
+                }
+            });
+        }
+    }
+}
+
+// Hide premiere video elements in the subscriptions feed
+function hidePremiereVideosSubscriptionFeed(isMobile) {
+    if (!isMobile) {
+        if (location.href.includes('youtube.com/feed/subscriptions')) {
+            const elements = document.querySelectorAll('ytd-badge-supported-renderer');
+
+            elements.forEach(el => {
+                if (el.innerText.replace(/\s/g, '').replace(/\n/g, '') === 'PREMIERE') {
+                    const newDiv = document.createElement('div');
+                    newDiv.style.borderRadius = '12px'
+                    if (fillEmptySpace) newDiv.innerHTML = `<div style="display: flex; flex-direction: column; margin-left: 10px; margin-right: 10px;"><img src="https://i.imgur.com/yBUVeQ3.png" style="width: 100%; height: 100%;" /><a href="https://creatordiscord.xyz/whyamiseeingthis" target="_blank" style="color: #4381c1; font-size: 12px; margin-top: 10px; text-decoration: none;">Why am I seeing this?</a></div>`;
+
+                    if (grandParent.classList.contains('ytd-rich-grid-row') || grandParent.classList.contains('ytd-rich-item-renderer')) {
+                        const grandParent = el.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+                        grandParent.style.display = 'none';
+                        grandParent.parentNode.appendChild(newDiv);
+                    }
+                }
             });
         }
     }

@@ -8,7 +8,11 @@ chrome.runtime.onInstalled.addListener(async (details) => {
             toggleState: true,
             toggleNavState: true,
             toggleHomeFeedState: true,
+            toggleHomeFeedStateLives: false,
+            toggleHomeFeedStatePremieres: false,
             toggleSubscriptionFeedState: true,
+            toggleSubscriptionFeedStateLives: false,
+            toggleSubscriptionFeedStatePremieres: false,
             toggleTrendingFeedState: true,
             toggleSearchState: true,
             toggleRecommendedState: true,
@@ -34,7 +38,11 @@ chrome.runtime.onInstalled.addListener(async (details) => {
             'toggleState',
             'toggleNavState',
             'toggleHomeFeedState',
+            'toggleHomeFeedStateLives',
+            'toggleHomeFeedStatePremieres',
             'toggleSubscriptionFeedState',
+            'toggleSubscriptionFeedStateLives',
+            'toggleSubscriptionFeedStatePremieres',
             'toggleTrendingFeedState',
             'toggleSearchState',
             'toggleRecommendedState',
@@ -43,19 +51,19 @@ chrome.runtime.onInstalled.addListener(async (details) => {
             'toggleTurboState',
             'toggleRegularState',
             'toggleNotificationState',
-            'toggleEmptySpaceState'
+            'toggleEmptySpaceState',
         ];
         const states = await chrome.storage.sync.get(keys);
         for (const key of keys) {
             if (!(key in states) || states[key] === undefined) {
-                await chrome.storage.sync.set({ [key]: true });
+                await chrome.storage.sync.set({ [key]: false });
             }
         }
-        chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
-            tabs.forEach(tab => {
-                chrome.tabs.reload(tab.id);
-            });
-        });
+        // chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
+        //     tabs.forEach(tab => {
+        //         chrome.tabs.reload(tab.id);
+        //     });
+        // });
         chrome.storage.sync.set({ presentModal: true }).catch(() => { console.log('[STORAGE] Could not set storage item') });
         chrome.action.setBadgeBackgroundColor({ color: '#ed5a64' });
         chrome.action.setBadgeText({ text: '1' });

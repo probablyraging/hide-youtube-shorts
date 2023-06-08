@@ -39,22 +39,61 @@ const FeedPage = ({ darkMode }) => {
                 </div>
 
                 <div className='flex flex-col w-full'>
+                    {/* Home */}
                     <SwitchContainer
-                        title={'Home Feed'}
+                        title={'Home Feed Shorts'}
                         description={'Hide Shorts videos on the home page'}
                         darkMode={darkMode}
                         switchName={'toggleHomeFeedState'}
                         state={switchState.toggleHomeFeedState} />
 
                     <SwitchContainer
-                        title={'Subscriptions Feed'}
+                        title={'Home Feed Lives'}
+                        description={'Hide Live videos on the home page'}
+                        darkMode={darkMode}
+                        switchName={'toggleHomeFeedStateLives'}
+                        state={switchState.toggleHomeFeedStateLives}
+                        isNew={true}
+                        hasInfo={true} />
+
+                    <SwitchContainer
+                        title={'Home Feed Premieres'}
+                        description={'Hide Premiere videos on the home page'}
+                        darkMode={darkMode}
+                        switchName={'toggleHomeFeedStatePremieres'}
+                        state={switchState.toggleHomeFeedStatePremieres}
+                        isNew={true}
+                        hasInfo={true} />
+
+                    {/* Subscriptions */}
+                    <SwitchContainer
+                        title={'Subscriptions Feed Shorts'}
                         description={'Hide Shorts videos on the subscriptions page'}
                         darkMode={darkMode}
                         switchName={'toggleSubscriptionFeedState'}
                         state={switchState.toggleSubscriptionFeedState} />
 
                     <SwitchContainer
-                        title={'Trending Feed'}
+                        title={'Subscriptions Feed Lives'}
+                        description={'Hide Live videos on the subscriptions page'}
+                        darkMode={darkMode}
+                        switchName={'toggleSubscriptionFeedStateLives'}
+                        state={switchState.toggleSubscriptionFeedStateLives}
+                        isNew={true}
+                        hasInfo={true} />
+
+                    <SwitchContainer
+                        title={'Subscriptions Feed Premieres'}
+                        description={'Hide Premiere videos on the subscriptions page'}
+                        darkMode={darkMode}
+                        switchName={'toggleSubscriptionFeedStatePremieres'}
+                        state={switchState.toggleSubscriptionFeedStatePremieres}
+                        isNew={true}
+                        hasInfo={true} />
+
+                    {/* Trending */}
+                    <SwitchContainer
+                        title={'Trending Feed Shorts'}
                         description={'Hide Shorts videos on the trending page'}
                         darkMode={darkMode}
                         switchName={'toggleTrendingFeedState'}

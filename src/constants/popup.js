@@ -4,7 +4,11 @@ export const getSwitchStates = async () => {
         'toggleState',
         'toggleNavState',
         'toggleHomeFeedState',
+        'toggleHomeFeedStateLives',
+        'toggleHomeFeedStatePremieres',
         'toggleSubscriptionFeedState',
+        'toggleSubscriptionFeedStateLives',
+        'toggleSubscriptionFeedStatePremieres',
         'toggleTrendingFeedState',
         'toggleSearchState',
         'toggleRecommendedState',
@@ -13,7 +17,7 @@ export const getSwitchStates = async () => {
         'toggleTurboState',
         'toggleRegularState',
         'toggleNotificationState',
-        'toggleEmptySpaceState'
+        'toggleEmptySpaceState',
     ]);
     return switchStates;
 }

@@ -7,6 +7,8 @@ import ThemeSwitch from "./ThemeSwitch";
 import SwitchContainer from "./SwitchContainer";
 import ModalDisplay from "./ModalDisplay";
 import PowerButton from "./PowerButton";
+import Badge from "./Badge";
+import InfoTooltip from "./InfoTooltip";
 
 export {
     MainPage,
@@ -17,5 +19,7 @@ export {
     ThemeSwitch,
     SwitchContainer,
     ModalDisplay,
-    PowerButton
+    PowerButton,
+    Badge,
+    InfoTooltip
 }

@@ -38,18 +38,20 @@ const ModalDisplay = () => {
             >
                 <Modal.Header className='absolute flex flex-col items-start top-0'>
                     <Text className='font-semibold' size={16}>
-                        What's New In 1.6.5
+                        What's New In 1.6.6
                     </Text>
                     <Text className='text-[12px]'>
                         June 8, 2023
                     </Text>
                 </Modal.Header>
                 <Modal.Body className='mt-[50px]'>
-                    <Text className='changed mb-4'>
-                        Oversized Placeholder Images
+                    <Text className='added mb-4'>
+                        Lives & Premieres
                     </Text>
                     <Text className='text-[13px] mb-2'>
-                        Fixed an issue with the "Shorts Hidden By HYS" placeholder image being too large sometimes
+                        Added the option to hide Live and Premiere videos in the Home and Subscriptions feeds. This feature currently only works on the <a href='https://i.imgur.com/j6i2yB4.png' target='_blank'>new YouTube UI</a>.
+                        <br></br><br></br>
+                        Enabled/disable it in the Feed Pages tab
                     </Text>
                 </Modal.Body>
                 <Modal.Footer>
