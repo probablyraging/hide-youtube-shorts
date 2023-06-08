@@ -49,7 +49,7 @@ const ModalDisplay = () => {
                         No More Placeholder Images
                     </Text>
                     <Text className='text-[13px] mb-2'>
-                        The empty spaces and placeholder images left behind when removing Shorts from the subscription feed is no longer an issue. Massive credit to Horsy Nox for reaching out and providing the fix!
+                        The empty spaces and placeholder images left behind when removing Shorts from the subscription feed is no longer an issue. Massive thank you to Horsy Nox for reaching out and providing the fix!
                     </Text>
                 </Modal.Body>
                 <Modal.Footer>
