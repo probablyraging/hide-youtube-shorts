@@ -387,7 +387,6 @@ function hideShortsVideosRecommendedList(isMobile) {
         if (location.href.includes('youtube.com/watch')) {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
-                console.log(element);
                 // Ignore shorts in the notification menu
                 if (element.classList.contains('ytd-notification-renderer')) return;
                 const parent = element.parentNode;
