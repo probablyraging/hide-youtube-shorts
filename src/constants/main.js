@@ -1,3 +1,34 @@
+// Some temporary work around to prevent the subscriptions page from being completely empty at times
+let wasVisitedFirst = false;
+let movedAway = false;
+function checkContents() {
+    if (location.href === 'https://www.youtube.com/feed/subscriptions') {
+        if (document.readyState === 'complete') {
+            wasVisitedFirst = true;
+            setTimeout(() => {
+                const contents = document.querySelector('#contents');
+                const computedStyles = getComputedStyle(contents);
+                if (computedStyles.width === '90%') {
+                    if (wasVisitedFirst && movedAway) {
+                        location.reload();
+                    } else {
+                        setTimeout(checkContents, 1000);
+                    }
+                } else {
+                    setTimeout(checkContents, 1000);
+                }
+            }, 1000);
+        } else {
+            setTimeout(checkContents, 1000);
+        }
+    } else {
+        if (wasVisitedFirst && location.href !== 'https://www.youtube.com/') movedAway = true;
+        setTimeout(checkContents, 1000);
+    }
+}
+
+checkContents();
+
 function checkStates() {
     // If the extension is unloaded or updated, reload the page to terminate orphaned scripts
     if (!chrome.runtime.id) return location.reload();
