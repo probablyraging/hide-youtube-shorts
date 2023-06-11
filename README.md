@@ -9,14 +9,18 @@
 Hide YouTube Shorts videos effortlessly with this powerful browser extension
 
 ## Installation - Chrome Web Store
-Install the extension directly from the [Chrome Web Store](https://chrome.google.com/webstore/detail/aljlkinhomaaahfdojalfmimeidofpih)
+Install the latest stable version directly from the [Chrome Web Store](https://chrome.google.com/webstore/detail/aljlkinhomaaahfdojalfmimeidofpih)
 
-## Installation - Unpacked Extension
-<img width=350 style="align: center" src="https://i.imgur.com/uJJnLNr.png">
+## Installation (unstable) - Unpacked Extension
+<img width=350 style="align: center" src="https://i.imgur.com/RBUP2pE.png">
 
 1. Download the .zip file
 
-2. Extract and install - [Video Demonstration](https://www.youtube.com/watch?v=hIRX1dpfqHc) | [Written Demonstration](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked)
+2. Extract the contents of `hide-youtube-shorts-master.zip`
+
+3. Install from the `dist` directory
+
+[Video Demonstration](https://www.youtube.com/watch?v=hIRX1dpfqHc) | [Written Demonstration](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked)
 
 ## Previous Versions
 [Click here](https://github.com/ProbablyRaging/hide-youtube-shorts/releases) if you're looking for a previous version of Hide YouTube Shorts
