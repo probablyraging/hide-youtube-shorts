@@ -1,4 +1,4 @@
-<img width="120" height="120" align="left" style="float: left" src="https://i.imgur.com/rEx0xwP.png">
+<img width="120" height="120" align="left" style="float: left" src="https://i.imgur.com/GqVlqC1.png">
 
 # Hide YouTube Shorts
 [![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/aljlkinhomaaahfdojalfmimeidofpih?color=%233694ff&label=users&style=for-the-badge)](https://chrome.google.com/webstore/detail/hide-youtube-shorts/epgdblohfbmigelolmilnjhaoikmjdan)

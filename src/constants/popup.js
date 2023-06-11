@@ -66,9 +66,9 @@ export const updateSwitchState = async (switchName) => {
     // If the power button is toggled
     if (switchName === 'toggleState') {
         const iconPath = newState
-            ? `/icons/icon48.png`
-            : '/icons/icon48_disabled.png';
-        chrome.action.setIcon({ path: { "48": iconPath } }).catch(() => { });
+            ? `/icons/icon16.png`
+            : '/icons/icon16_disabled.png';
+        chrome.action.setIcon({ path: { "16": iconPath } }).catch(() => { });
     }
     chrome.runtime.sendMessage({ checkStates: true });
 }

@@ -2,7 +2,7 @@
     "name": "Hide YouTube Shorts",
     "manifest_version": 3,
     "version": "1.6.9",
-    "description": "The best YouTube Shorts blocker extension",
+    "description": "Block YouTube Shorts effortlessly with this powerful browser extension",
     "permissions": [
         "storage"
     ],
@@ -35,7 +35,7 @@
     "icons": {
         "16": "icons/icon16.png",
         "32": "icons/icon48.png",
-        "48": "icons/icon48_store.png",
+        "48": "icons/icon48.png",
         "128": "icons/icon128.png"
     }
 }
