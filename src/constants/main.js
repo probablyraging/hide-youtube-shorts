@@ -54,7 +54,7 @@ function checkStates() {
 }
 
 async function hideShorts() {
-    // If the extension is unloaded or updated, reload the page to terminate orphaned scripts
+    // If the extension is unloaded or updated, return
     if (!chrome.runtime.id) return;
     // Get extension toggle states
     const states = await checkStates();
@@ -100,6 +100,7 @@ function hideShortsNavButton(isMobile) {
                 parent.parentNode.removeChild(parent);
                 navButtonHiddenCount++;
             });
+            // Update stats
             updateStats('navButton', navButtonHiddenCount);
             navButtonHiddenCount = 0;
             return;
@@ -134,6 +135,7 @@ function hideShortsShelf(isMobile) {
                 parent.parentNode.removeChild(parent);
                 shortsShelfHiddenCount++;
             });
+            // Update stats
             updateStats('shortsShelf', shortsShelfHiddenCount);
             shortsShelfHiddenCount = 0;
         }
@@ -141,8 +143,8 @@ function hideShortsShelf(isMobile) {
         if (location.href === 'https://m.youtube.com/') {
             const elements = document.querySelectorAll('.reel-shelf-items');
             elements.forEach(element => {
-                const parent = element.parentNode;
-                parent.parentNode.parentNode.style.display = 'none';
+                const parent = element.parentNode.parentNode.parentNode;
+                parent.style.display = 'none';
             });
         }
     }
@@ -157,9 +159,11 @@ function hideShortsVideosHomeFeed(isMobile) {
                 // Ignore shorts in the notification menu
                 if (element.classList.contains('ytd-notification-renderer')) return;
                 const parent = element.parentNode;
-                if (parent.hasAttribute('rich-grid-thumbnail') && parent.parentNode.parentNode.style.display !== 'none') homeFeedShortHiddenCount++
-                if (parent.hasAttribute('rich-grid-thumbnail')) parent.parentNode.parentNode.style.display = 'none';
+                const grandParent = parent.parentNode.parentNode;
+                if (parent.hasAttribute('rich-grid-thumbnail') && grandParent.style.display !== 'none') homeFeedShortHiddenCount++
+                if (parent.hasAttribute('rich-grid-thumbnail')) grandParent.style.display = 'none';
             });
+            // Update stats
             updateStats('homeFeedShorts', homeFeedShortHiddenCount);
             homeFeedShortHiddenCount = 0;
         }
@@ -169,8 +173,8 @@ function hideShortsVideosHomeFeed(isMobile) {
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
                 if (element.classList.contains('ytd-notification-renderer')) return;
-                const parent = element.parentNode;
-                parent.parentNode.parentNode.style.display = 'none';
+                const parent = element.parentNode.parentNode.parentNode;
+                parent.style.display = 'none';
             });
         }
     }
@@ -181,10 +185,9 @@ function hideLiveVideosHomeFeed(isMobile) {
     if (!isMobile) {
         if (location.href === 'https://www.youtube.com/') {
             const elements = document.querySelectorAll('ytd-badge-supported-renderer');
-
-            elements.forEach(el => {
-                if (el.innerText.replace(/\s/g, '').replace(/\n/g, '') === 'LIVE') {
-                    const grandParent = el.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+            elements.forEach(element => {
+                if (element.innerText.replace(/\s/g, '').replace(/\n/g, '') === 'LIVE') {
+                    const grandParent = element.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
                     if (grandParent.classList.contains('ytd-rich-grid-row') || grandParent.classList.contains('ytd-rich-item-renderer')) {
                         grandParent.style.display = 'none';
                     }
@@ -199,10 +202,9 @@ function hidePremiereVideosHomeFeed(isMobile) {
     if (!isMobile) {
         if (location.href === 'https://www.youtube.com/') {
             const elements = document.querySelectorAll('ytd-badge-supported-renderer');
-
-            elements.forEach(el => {
-                if (el.innerText.replace(/\s/g, '').replace(/\n/g, '') === 'PREMIERE') {
-                    const grandParent = el.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+            elements.forEach(element => {
+                if (element.innerText.replace(/\s/g, '').replace(/\n/g, '') === 'PREMIERE') {
+                    const grandParent = element.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
                     if (grandParent.classList.contains('ytd-rich-grid-row') || grandParent.classList.contains('ytd-rich-item-renderer')) {
                         grandParent.style.display = 'none';
                     }
@@ -220,33 +222,33 @@ function hideShortsVideosSubscriptionFeed(isMobile) {
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
                 if (element.classList.contains('ytd-notification-renderer')) return;
-                const parent = element.parentNode;
+                const parent = element.parentNode.parentNode.parentNode;
+                const grandParentGrid = parent.parentNode.parentNode;
+                const grandParentList = parent.parentNode.parentNode.parentNode.parentNode.parentNode;
 
                 // Start New UI
-                if (element.parentNode.parentNode.parentNode.parentNode.parentNode.style.display !== 'none') subFeedShortHiddenCount++;
-
-                const grandParent = parent.parentNode.parentNode.parentNode.parentNode;
-                if (grandParent.classList.contains('ytd-rich-grid-row') || grandParent.classList.contains('ytd-rich-item-renderer')) {
-                    if (grandParent.style.display !== "none") {
-                        grandParent.style.display = "none";
+                if (grandParentGrid.style.display !== 'none') subFeedShortHiddenCount++;
+                if (grandParentGrid.classList.contains('ytd-rich-grid-row') || grandParentGrid.classList.contains('ytd-rich-item-renderer')) {
+                    if (grandParentGrid.style.display !== "none") {
+                        grandParentGrid.style.display = "none";
                     }
                 }
-                if (grandParent.classList.contains('ytd-rich-grid-row') || grandParent.classList.contains('ytd-rich-item-renderer')) return;
+                if (grandParentGrid.classList.contains('ytd-rich-grid-row') || grandParentGrid.classList.contains('ytd-rich-item-renderer')) return;
                 // End New UI
 
                 // When the subscription feed is being viewed in gride view
-                if (parent.parentNode.parentNode.parentNode.parentNode.nodeName === 'YTD-GRID-VIDEO-RENDERER' || parent.parentNode.parentNode.parentNode.parentNode.classList.contains('ytd-shelf-renderer')) {
-                    if (parent.parentNode.parentNode.style.display !== 'none') subFeedShortHiddenCount++;
-                    parent.parentNode.parentNode.style.display = 'none';
+                if (grandParentGrid.nodeName === 'YTD-GRID-VIDEO-RENDERER' || grandParentGrid.classList.contains('ytd-shelf-renderer')) {
+                    if (parent.style.display !== 'none') subFeedShortHiddenCount++;
+                    parent.style.display = 'none';
                 }
                 // When the subscription feed is being viewed in list view
-                if (parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName === 'YTD-EXPANDED-SHELF-CONTENTS-RENDERER') {
-                    if (parent.parentNode.parentNode.style.display !== 'none') subFeedShortHiddenCount++;
-                    parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
+                if (grandParentList.nodeName === 'YTD-EXPANDED-SHELF-CONTENTS-RENDERER') {
+                    if (parent.style.display !== 'none') subFeedShortHiddenCount++;
+                    grandParentList.parentNode.parentNode.style.display = 'none';
 
                 }
             });
-
+            // Update stats
             updateStats('subFeedShorts', subFeedShortHiddenCount);
             subFeedShortHiddenCount = 0;
         }
@@ -255,8 +257,8 @@ function hideShortsVideosSubscriptionFeed(isMobile) {
             const elements = document.querySelectorAll('[href^="/shorts/"]');
             elements.forEach(element => {
                 if (element.classList.contains('ytd-notification-renderer')) return;
-                const parent = element.parentNode;
-                parent.parentNode.parentNode.style.display = 'none';
+                const parent = element.parentNode.parentNode.parentNode;
+                parent.style.display = 'none';
             });
         }
     }
@@ -267,13 +269,12 @@ function hideLiveVideosSubscriptionFeed(isMobile) {
     if (!isMobile) {
         if (location.href.includes('youtube.com/feed/subscriptions')) {
             const elements = document.querySelectorAll('ytd-badge-supported-renderer');
-
-            elements.forEach(el => {
-                if (el.innerText.replace(/\s/g, '').replace(/\n/g, '') === 'LIVE') {
-                    const grandParent = el.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-                    const grandParentList = el.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-                    if (grandParent.classList.contains('ytd-rich-grid-row') || grandParent.classList.contains('ytd-rich-item-renderer')) {
-                        grandParent.style.display = 'none';
+            elements.forEach(element => {
+                if (element.innerText.replace(/\s/g, '').replace(/\n/g, '') === 'LIVE') {
+                    const grandParentGrid = element.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+                    const grandParentList = element.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+                    if (grandParentGrid.classList.contains('ytd-rich-grid-row') || grandParentGrid.classList.contains('ytd-rich-item-renderer')) {
+                        grandParentGrid.style.display = 'none';
                     }
                     if (grandParentList.classList.contains('ytd-shelf-renderer')) {
                         grandParentList.style.display = 'none';
@@ -289,13 +290,12 @@ function hidePremiereVideosSubscriptionFeed(isMobile) {
     if (!isMobile) {
         if (location.href.includes('youtube.com/feed/subscriptions')) {
             const elements = document.querySelectorAll('ytd-badge-supported-renderer');
-
-            elements.forEach(el => {
-                if (el.innerText.replace(/\s/g, '').replace(/\n/g, '') === 'PREMIERE') {
-                    const grandParent = el.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-                    const grandParentList = el.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-                    if (grandParent.classList.contains('ytd-rich-grid-row') || grandParent.classList.contains('ytd-rich-item-renderer')) {
-                        grandParent.style.display = 'none';
+            elements.forEach(element => {
+                if (element.innerText.replace(/\s/g, '').replace(/\n/g, '') === 'PREMIERE') {
+                    const grandParentGrid = element.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+                    const grandParentList = element.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+                    if (grandParentGrid.classList.contains('ytd-rich-grid-row') || grandParentGrid.classList.contains('ytd-rich-item-renderer')) {
+                        grandParentGrid.style.display = 'none';
                     }
                     if (grandParentList.classList.contains('ytd-shelf-renderer')) {
                         grandParentList.style.display = 'none';
@@ -314,9 +314,9 @@ function hideShortsVideosTrendingFeed(isMobile) {
             elementsGroupOne.forEach(element => {
                 // Ignore shorts in the notification menu
                 if (element.classList.contains('ytd-notification-renderer')) return;
-                const parent = element.parentNode;
-                if (parent.parentNode.parentNode.style.display !== 'none') trendFeedShortHiddenCount++;
-                parent.parentNode.parentNode.style.display = 'none';
+                const parent = element.parentNode.parentNode.parentNode;
+                if (parent.style.display !== 'none') trendFeedShortHiddenCount++;
+                parent.style.display = 'none';
             });
             const elementsGroupTwo = document.querySelectorAll('.style-scope ytd-reel-shelf-renderer');
             elementsGroupTwo.forEach(element => {
@@ -324,6 +324,7 @@ function hideShortsVideosTrendingFeed(isMobile) {
                 parent.parentNode.removeChild(parent);
                 trendFeedShortHiddenCount++
             });
+            // Update Stats
             updateStats('trendFeedShorts', trendFeedShortHiddenCount);
             trendFeedShortHiddenCount = 0;
         }
@@ -331,13 +332,13 @@ function hideShortsVideosTrendingFeed(isMobile) {
         if (location.href.includes('youtube.com/feed/explore') || location.href.includes('youtube.com/gaming')) {
             const elementsGroupOne = document.querySelectorAll('[href^="/shorts/"]');
             elementsGroupOne.forEach(element => {
-                const parent = element.parentNode;
-                parent.parentNode.parentNode.style.display = 'none';
+                const parent = element.parentNode.parentNode.parentNode;
+                parent.style.display = 'none';
             });
             const elementsGroupTwo = document.querySelectorAll('.reel-shelf-items');
             elementsGroupTwo.forEach(element => {
-                const parent = element.parentNode;
-                parent.parentNode.parentNode.style.display = 'none';
+                const parent = element.parentNode.parentNode.parentNode;
+                parent.style.display = 'none';
             });
         }
     }
@@ -350,18 +351,19 @@ function hideShortsVideosSearchResults(isMobile) {
         if (!searchResultsElement) return;
         const elementsGroupOne = document.querySelectorAll('.style-scope yt-horizontal-list-renderer');
         elementsGroupOne.forEach(element => {
-            const parent = element.parentNode;
-            if (parent.parentNode.style.display !== 'none') searchShortsHiddenCount++;
-            parent.parentNode.style.display = 'none';
+            const parent = element.parentNode.parentNode;
+            if (parent.style.display !== 'none') searchShortsHiddenCount++;
+            parent.style.display = 'none';
         });
         const elementsGroupTwo = document.querySelectorAll('[href^="/shorts/"]');
         elementsGroupTwo.forEach(element => {
             // Ignore shorts in the notification menu
             if (element.classList.contains('ytd-notification-renderer')) return;
-            const parent = element.parentNode;
-            if (parent.parentNode.parentNode.style.display !== 'none') searchShortsHiddenCount++;
-            parent.parentNode.parentNode.style.display = 'none';
+            const parent = element.parentNode.parentNode.parentNode;
+            if (parent.style.display !== 'none') searchShortsHiddenCount++;
+            parent.style.display = 'none';
         });
+        // Update Stats
         updateStats('searchResultShorts', searchShortsHiddenCount);
         searchShortsHiddenCount = 0;
     } else {
@@ -376,8 +378,8 @@ function hideShortsVideosSearchResults(isMobile) {
         elementsGroupTwo.forEach(element => {
             // Ignore shorts in the notification menu
             if (element.classList.contains('ytd-notification-renderer')) return;
-            const parent = element.parentNode;
-            parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
+            const parent = element.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+            parent.style.display = 'none';
         });
     }
 }
@@ -390,10 +392,11 @@ function hideShortsVideosRecommendedList(isMobile) {
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
                 if (element.classList.contains('ytd-notification-renderer')) return;
-                const parent = element.parentNode;
-                if (parent.parentNode.style.display !== 'none') recommendedShortsHiddenCount++;
-                parent.parentNode.style.display = 'none';
+                const parent = element.parentNode.parentNode;
+                if (parent.style.display !== 'none') recommendedShortsHiddenCount++;
+                parent.style.display = 'none';
             });
+            // Update stats
             updateStats('recommendedShorts', recommendedShortsHiddenCount);
             recommendedShortsHiddenCount = 0;
         }
@@ -403,8 +406,8 @@ function hideShortsVideosRecommendedList(isMobile) {
             elements.forEach(element => {
                 // Ignore shorts in the notification menu
                 if (element.classList.contains('ytd-notification-renderer')) return;
-                const parent = element.parentNode;
-                parent.parentNode.style.display = 'none';
+                const parent = element.parentNode.parentNode;
+                parent.style.display = 'none';
             });
         }
     }
@@ -420,6 +423,7 @@ function hideShortsTabOnChannel(isMobile) {
             parent.parentNode.removeChild(parent);
             channelTabHiddenCount++
         });
+        // Update stats
         updateStats('channelTabs', channelTabHiddenCount);
         channelTabHiddenCount = 0;
     } else {
@@ -452,16 +456,17 @@ function hideShortsHomeTab(isMobile) {
         if (location.href.includes('/channel/') || location.href.includes('@') || location.href.includes('/user/') || location.href.includes('/c/')) {
             const el = document.querySelectorAll('.ytd-c4-tabbed-header-renderer')
             el.forEach(elem => {
-                // Don't shorts when the 'shorts' tab is selected
+                // Don't show shorts when the 'shorts' tab is selected
                 if (elem.getAttribute('role') === 'tab' && elem.getAttribute('aria-selected') === 'true' && elem.innerText.toLowerCase() !== 'shorts') {
                     const elements = document.querySelectorAll('[href^="/shorts/"]');
                     elements.forEach(element => {
                         // Ignore shorts in the notification menu
                         if (element.classList.contains('ytd-notification-renderer')) return;
-                        const parent = element.parentNode;
-                        if (parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display !== 'none') channelShortsHiddenCount++
-                        parent.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = 'none';
+                        const parent = element.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+                        if (parent.style.display !== 'none') channelShortsHiddenCount++
+                        parent.style.display = 'none';
                     });
+                    // Update stats
                     updateStats('channelShorts', channelShortsHiddenCount);
                     channelShortsHiddenCount = 0;
                 }
@@ -471,8 +476,8 @@ function hideShortsHomeTab(isMobile) {
         if (location.href.includes('/channel/') || location.href.includes('@') || location.href.includes('/user/') || location.href.includes('/c/')) {
             const elements = document.querySelectorAll('.reel-shelf-items');
             elements.forEach(element => {
-                const parent = element.parentNode;
-                parent.parentNode.parentNode.style.display = 'none';
+                const parent = element.parentNode.parentNode.parentNode;
+                parent.style.display = 'none';
             });
             const el = document.querySelectorAll('.scbrr-tab.center')
             el.forEach(elem => {
@@ -505,6 +510,7 @@ function playAsRegularVideo() {
     if (getVideoId(location.href)) {
         location.href = `https://youtube.com/watch?v=${getVideoId(location.href)}`;
         shortsPlayedAsRegularCount++
+        // Update stats
         updateStats('playedAsRegular', shortsPlayedAsRegularCount);
         shortsPlayedAsRegularCount = 0;
     }
