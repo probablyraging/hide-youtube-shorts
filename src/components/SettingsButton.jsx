@@ -3,7 +3,6 @@ import { Dropdown, Switch } from '@nextui-org/react';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { SunIcon, MoonIcon } from '../constants/icons';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import CoffeeIcon from '@mui/icons-material/Coffee';
 
@@ -11,7 +10,7 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
 
     const handleClick = (action) => {
         if (action === 'github') window.open('https://github.com/probablyraging/hide-youtube-shorts');
-        if (action === 'help') window.open('https://github.com/ProbablyRaging/hide-youtube-shorts/issues/new/choose');
+        if (action === 'help') window.open('https://discord.gg/HAFP4P7Dfr');
         if (action === 'review') window.open('https://chrome.google.com/webstore/detail/hide-youtube-shorts/aljlkinhomaaahfdojalfmimeidofpih/reviews');
         if (action === 'coffee') window.open('https://www.buymeacoffee.com/probablyraging');
     };
@@ -61,7 +60,7 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
 
                     <Dropdown.Item
                         textValue='help & support'
-                        icon={<SupportAgentIcon className={`w-[18px]`} />}
+                        icon={<i className="bi bi-discord w-[18px] h-[24px] text-[17px]"></i>}
                         key="support"
                         css={{ fontSize: '14px' }}>
                         <div onClick={() => handleClick('help')}>
