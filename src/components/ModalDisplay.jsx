@@ -38,18 +38,18 @@ const ModalDisplay = () => {
             >
                 <Modal.Header className='absolute flex flex-col items-start top-0'>
                     <Text className='font-semibold' size={16}>
-                        What's New In 1.6.7
+                        What's New In 1.6.11
                     </Text>
                     <Text className='text-[12px]'>
-                        June 9, 2023
+                        June 13, 2023
                     </Text>
                 </Modal.Header>
                 <Modal.Body className='mt-[50px]'>
                     <Text className='added mb-4'>
-                        No More Placeholder Images
+                        Support On Discord
                     </Text>
                     <Text className='text-[13px] mb-2'>
-                        The empty spaces and placeholder images left behind when removing Shorts from the subscription feed is no longer an issue. Massive thank you to Horsy Nox for reaching out and providing the fix!
+                        HYS now has a Discord server for support, suggestions, and feedback. You can join via the settings menu or by <a href="https://discord.gg/HAFP4P7Dfr" target='_blank'>clicking here</a>
                     </Text>
                 </Modal.Body>
                 <Modal.Footer>
