@@ -62,9 +62,9 @@ chrome.runtime.onInstalled.addListener(async (details) => {
         //         chrome.tabs.reload(tab.id);
         //     });
         // });
-        chrome.storage.sync.set({ presentModal: true }).catch(() => { console.log('[STORAGE] Could not set storage item') });
-        chrome.action.setBadgeBackgroundColor({ color: '#ed5a64' });
-        chrome.action.setBadgeText({ text: '1' });
+        chrome.storage.sync.set({ presentModal: false }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+        // chrome.action.setBadgeBackgroundColor({ color: '#ed5a64' });
+        // chrome.action.setBadgeText({ text: '1' });
     }
 });
 
