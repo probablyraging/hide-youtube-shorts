@@ -49,7 +49,7 @@ const ModalDisplay = () => {
                         Increased Performance
                     </Text>
                     <Text className='text-[13px] mb-2'>
-                        I have changed the way the extension hides videos, opting to use stylesheets over javascript logic, this should result in;
+                        I have changed the way the extension hides videos and other elements, opting to use stylesheets over javascript logic, this should result in;
                         <ul>
                             <li>
                                 Significantly less system resource usage
