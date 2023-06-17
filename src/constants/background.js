@@ -62,9 +62,9 @@ chrome.runtime.onInstalled.addListener(async (details) => {
         //         chrome.tabs.reload(tab.id);
         //     });
         // });
-        chrome.storage.sync.set({ presentModal: true }).catch(() => { console.log('[STORAGE] Could not set storage item') });
-        chrome.action.setBadgeBackgroundColor({ color: '#ed5a64' });
-        chrome.action.setBadgeText({ text: '1' });
+        chrome.storage.sync.set({ presentModal: false }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+        // chrome.action.setBadgeBackgroundColor({ color: '#ed5a64' });
+        // chrome.action.setBadgeText({ text: '1' });
     }
 });
 
@@ -98,7 +98,7 @@ function insertStyles(tabId, filesToInsert) {
     chrome.scripting.insertCSS({
         files: filesToInsert,
         target: { tabId: tabId }
-    });
+    }).catch((err) => { console.log('Error inserting styles', err); });
 }
 
 // Remove existing page styles
@@ -106,7 +106,7 @@ function removeStyles(tabId, filesToRemove) {
     chrome.scripting.removeCSS({
         files: filesToRemove,
         target: { tabId: tabId }
-    });
+    }).catch((err) => { console.log('Error removing styles', err); });
 }
 
 // Remove all page styles
@@ -128,7 +128,7 @@ function removeAllStyles(tabId) {
             'assets/trending_shorts.css',
         ],
         target: { tabId: tabId }
-    });
+    }).catch((err) => { console.log('Error removing styles', err); });
 
     chrome.scripting.executeScript({
         function: () => {
@@ -140,7 +140,7 @@ function removeAllStyles(tabId) {
 
         },
         target: { tabId: tabId }
-    });
+    }).catch((err) => { console.log('Error executing script', err); });
 }
 
 // Handle messages sent from the extension popup
@@ -341,7 +341,7 @@ function hideShortsTabOnChannel(tab, tabId, enabled) {
 
                 },
                 target: { tabId: tabId }
-            });
+            }).catch((err) => { console.log('Error executing script', err); });
         } else {
             chrome.scripting.executeScript({
                 function: () => {
@@ -353,7 +353,7 @@ function hideShortsTabOnChannel(tab, tabId, enabled) {
 
                 },
                 target: { tabId: tabId }
-            });
+            }).catch((err) => { console.log('Error executing script', err); });
         }
     }
 }
