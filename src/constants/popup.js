@@ -70,7 +70,7 @@ export const updateSwitchState = async (switchName) => {
             : '/icons/icon16_disabled.png';
         chrome.action.setIcon({ path: { "16": iconPath } }).catch(() => { });
     }
-    chrome.runtime.sendMessage({ checkStates: true });
+    chrome.runtime.sendMessage({ checkStates: switchName });
 }
 
 // Display a modal with latest changes on install/update

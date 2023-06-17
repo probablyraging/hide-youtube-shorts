@@ -110,25 +110,14 @@ p {
     opacity: .6;
 }
 
+.nextui-modal-body ul {
+    list-style-type: circle;
+}
+
+.nextui-modal-body li {
+    font-size: 13px;
+}
+
 .nextui-backdrop-layer-blur {
     backdrop-filter: saturate(180%) blur(2px) !important;
-}
-
-.gradient-anim {
-    background: radial-gradient(circle, #d44242 0%, #c6a200 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent !important;
-    background-size: 600%;
-    animation: gradient 4s linear infinite;
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 100%;
-    }
-
-    100% {
-        background-position: 0%;
-    }
 }

@@ -9,7 +9,7 @@ const PageHead = ({ darkMode, toggleDarkMode, title }) => {
     if (location.pathname === '/feed') title = 'Feed Pages';
     if (location.pathname === '/channel') title = 'Channel Pages';
     if (location.pathname === '/misc') title = 'Miscellaneous';
-    if (location.pathname === '/stats') title = 'Statistics';
+    if (location.pathname === '/support') title = 'Support';
     if (location.pathname === '/disabled') title = 'Disabled';
 
     return (

@@ -1,0 +1,4 @@
+/* Subscriptions premieres */
+ytd-rich-item-renderer:has([aria-label*='Notify me']) {
+    display: none !important;
+}

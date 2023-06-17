@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from '@nextui-org/react';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-import { plug } from '../assets'
+import { plug } from '../assets';
 
 const Disabled = ({ darkMode }) => {
     return (

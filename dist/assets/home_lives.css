@@ -1,0 +1,3 @@
+ytd-rich-item-renderer:has(.badge-style-type-live-now-alternate) {
+    display: none !important;
+}

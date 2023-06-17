@@ -1,7 +1,7 @@
-import turbo from './turbo.svg';
 import plug from './plug.svg';
+import support from './support.svg';
 
 export {
-    turbo,
-    plug
+    plug,
+    support
 }

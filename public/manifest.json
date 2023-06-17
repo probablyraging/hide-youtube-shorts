@@ -4,7 +4,9 @@
     "version": "1.6.12",
     "description": "Block YouTube Shorts effortlessly with this powerful browser extension",
     "permissions": [
-        "storage"
+        "storage",
+        "scripting",
+        "tabs"
     ],
     "host_permissions": [
         "https://www.youtube.com/",
@@ -14,20 +16,6 @@
         "service_worker": "assets/background.js",
         "type": "module"
     },
-    "content_scripts": [
-        {
-            "matches": [
-                "https://www.youtube.com/*",
-                "https://m.youtube.com/*"
-            ],
-            "js": [
-                "assets/main.js"
-            ],
-            "css": [
-                "assets/styles.css"
-            ]
-        }
-    ],
     "action": {
         "default_title": "Hide YouTube Shorts",
         "default_popup": "index.html"

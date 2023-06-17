@@ -1,0 +1,13 @@
+/* Search video */
+ytd-video-renderer:has(a[href*="/shorts/"]) {
+    display: none !important;
+}
+
+/* Search shelf */
+ytd-rich-shelf-renderer:has(#dismissible) {
+    display: none !important;
+}
+
+ytd-reel-shelf-renderer:has(#dismissible) {
+    display: none !important;
+}

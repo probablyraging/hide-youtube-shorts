@@ -1,0 +1,9 @@
+/* Home video */
+ytd-rich-item-renderer:has(a[href*="/shorts/"]) {
+    display: none !important;
+}
+
+/* Home shelf */
+ytd-rich-shelf-renderer:has(#dismissible) {
+    display: none !important;
+}
