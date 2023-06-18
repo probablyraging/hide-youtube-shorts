@@ -4,6 +4,7 @@
 [![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/aljlkinhomaaahfdojalfmimeidofpih?color=%233694ff&label=users&style=for-the-badge)](https://chrome.google.com/webstore/detail/hide-youtube-shorts/epgdblohfbmigelolmilnjhaoikmjdan)
 [![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/aljlkinhomaaahfdojalfmimeidofpih?color=%239c61d4&style=for-the-badge)](https://chrome.google.com/webstore/detail/hide-youtube-shorts/epgdblohfbmigelolmilnjhaoikmjdan)
 [![Chrome Web Store Rating](https://img.shields.io/github/v/release/probablyraging/hide-youtube-shorts?color=%23ed8c32&style=for-the-badge)](https://chrome.google.com/webstore/detail/hide-youtube-shorts/epgdblohfbmigelolmilnjhaoikmjdan)
+[![Chrome Web Store Rating](https://img.shields.io/github/license/probablyraging/hide-youtube-shorts?color=%2337b855&style=for-the-badge)](https://chrome.google.com/webstore/detail/hide-youtube-shorts/epgdblohfbmigelolmilnjhaoikmjdan)
 
 Hide YouTube Shorts videos effortlessly with this powerful browser extension
 
