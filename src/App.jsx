@@ -1,12 +1,14 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { NextUIProvider, CssBaseline } from '@nextui-org/react';
-import { ChannelPage, FeedPage, MiscPage, SupportPage, Disabled } from './views';
+import { ChannelPage, FeedPage, MiscPage, StatisticsPage, Disabled } from './views';
 import { NavBar, Loader, PageHead, PowerButton } from './components';
 import { darkTheme, lightTheme } from './constants/themes';
 
 const MainPage = lazy(() => import('./components/MainPage'));
-const background = lazy(() => import('./constants/background'));
+const publicBackground = lazy(() => import('./constants/background'));
+const publickMain = lazy(() => import('./constants/main'));
+const publickStyles = lazy(() => import('./constants/styles.css'));
 
 const App = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -54,7 +56,7 @@ const App = () => {
                             <Route path="/feed" element={<FeedPage darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
                             <Route path="/channel" element={<ChannelPage darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
                             <Route path="/misc" element={<MiscPage darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
-                            <Route path="/support" element={<SupportPage darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+                            <Route path="/stats" element={<StatisticsPage darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
                             <Route path="/disabled" element={<Disabled darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
                             <Route path="*" element={<Navigate to='/' />} />
                         </Routes>

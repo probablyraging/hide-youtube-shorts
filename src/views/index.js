@@ -1,13 +1,13 @@
 import FeedPage from "./FeedPage";
 import ChannelPage from "./ChannelPage";
 import MiscPage from "./MiscPage";
-import SupportPage from "./SupportPage";
+import StatisticsPage from "./StatisticsPage";
 import Disabled from "./Disabled";
 
 export {
     FeedPage,
     ChannelPage,
     MiscPage,
-    SupportPage,
+    StatisticsPage,
     Disabled
 }

@@ -1,4 +1,0 @@
-/* Home tab shelf */
-ytd-reel-shelf-renderer:has(#dismissible) {
-    display: none !important;
-}

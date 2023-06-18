@@ -34,44 +34,22 @@ const ModalDisplay = () => {
                 aria-labelledby="modal-title"
                 open={visible}
                 onClose={closeHandler}
-                className='max-h-[440px]'
+                className='max-h-[330px]'
             >
                 <Modal.Header className='absolute flex flex-col items-start top-0'>
                     <Text className='font-semibold' size={16}>
-                        What's New In 1.6.13
+                        What's New In 1.6.12
                     </Text>
                     <Text className='text-[12px]'>
-                        June 17, 2023
+                        June 13, 2023
                     </Text>
                 </Modal.Header>
                 <Modal.Body className='mt-[50px]'>
                     <Text className='added mb-4'>
-                        Increased Performance
+                        Support On Discord
                     </Text>
                     <Text className='text-[13px] mb-2'>
-                        I have changed the way the extension hides videos and other elements, opting to use stylesheets over javascript logic, this should result in;
-                        <ul>
-                            <li>
-                                Significantly less system resource usage
-                            </li>
-                            <li>
-                                Videos and other elements being hidden long before the page finishes loading
-                            </li>
-                            <li>
-                                The ability to toggle options on/off and see the changes in real time, without needing to refresh the page
-                            </li>
-                            <li>
-                                A much nicer user experience overall 🙂
-                            </li>
-                        </ul>
-                        If you have any issues at all, please feel free to join the Discord support server by <a href="https://discord.gg/HAFP4P7Dfr" target="_blank">clicking here</a>
-                    </Text>
-
-                    <Text className='removed mb-4'>
-                        Statistics Tab
-                    </Text>
-                    <Text className='text-[13px] mb-2'>
-                        I decided to remove the statistics tab as it will no longer work with the changes mentioned above
+                        HYS now has a Discord server for support, suggestions, and feedback. You can join via the settings menu or by <a href="https://discord.gg/HAFP4P7Dfr" target='_blank'>clicking here</a>
                     </Text>
                 </Modal.Body>
                 <Modal.Footer>

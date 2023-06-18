@@ -5,7 +5,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import VideoLabelRoundedIcon from '@mui/icons-material/VideoLabelRounded';
 import SpeedIcon from '@mui/icons-material/Speed';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import BarChartIcon from '@mui/icons-material/BarChart';
 import Paper from '@mui/material/Paper';
 
 const NavBar = ({ darkMode }) => {
@@ -104,10 +104,10 @@ const NavBar = ({ darkMode }) => {
                         }} />
                 </Link>
 
-                <Link to={navDisabled ? '/disabled' : '/support'} className='flex w-full'>
+                <Link to={navDisabled ? '/disabled' : '/stats'} className='flex w-full'>
                     <BottomNavigationAction
                         className={`${darkMode ? 'hover:bg-[#202225]' : 'hover:bg-[#f5f5f5]'} transition-colors duration-200`}
-                        icon={<SupportAgentIcon />}
+                        icon={<BarChartIcon />}
                         sx={{
                             height: '100%',
                             color: value === 3 ? navButtonColorActive : navButtonColorDefault,
