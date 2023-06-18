@@ -38,18 +38,18 @@ const ModalDisplay = () => {
             >
                 <Modal.Header className='absolute flex flex-col items-start top-0'>
                     <Text className='font-semibold' size={16}>
-                        What's New In 1.6.12
+                        What's New In 1.6.14
                     </Text>
                     <Text className='text-[12px]'>
-                        June 13, 2023
+                        June 18, 2023
                     </Text>
                 </Modal.Header>
                 <Modal.Body className='mt-[50px]'>
-                    <Text className='added mb-4'>
-                        Support On Discord
+                    <Text className='changed mb-4'>
+                        Reverting Changes
                     </Text>
                     <Text className='text-[13px] mb-2'>
-                        HYS now has a Discord server for support, suggestions, and feedback. You can join via the settings menu or by <a href="https://discord.gg/HAFP4P7Dfr" target='_blank'>clicking here</a>
+                        I have decided to revert the most recent changes to the extension as people were not happy with the permission requirements
                     </Text>
                 </Modal.Body>
                 <Modal.Footer>
