@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import SpeedIcon from '@mui/icons-material/Speed';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import VideoLabelRoundedIcon from '@mui/icons-material/VideoLabelRounded';
-import SpeedIcon from '@mui/icons-material/Speed';
-import BarChartIcon from '@mui/icons-material/BarChart';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Paper from '@mui/material/Paper';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { useDarkMode } from '../theme';
 
-const NavBar = ({ darkMode }) => {
+const NavBar = () => {
+    const {darkMode} = useDarkMode();
     const [value, setValue] = useState(0);
     const location = useLocation();
     const navDisabled = location.pathname === '/disabled' ? true : false;

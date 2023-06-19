@@ -1,13 +1,15 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { Link, Text } from '@nextui-org/react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Text, Link } from '@nextui-org/react';
 import { Loader } from '../components';
 import { getSwitchStates } from '../constants/popup';
+import { useDarkMode } from '../theme';
 
 const SwitchContainer = lazy(() => import('../components/SwitchContainer'));
 const ModalDisplay = lazy(() => import('../components/ModalDisplay'));
 
-const FeedPage = ({ darkMode }) => {
+const FeedPage = () => {
+    const {darkMode} = useDarkMode();
     const [switchState, setSwitchState] = useState({});
     const navigate = useNavigate();
 
@@ -62,8 +64,8 @@ const FeedPage = ({ darkMode }) => {
                         darkMode={darkMode}
                         switchName={'toggleHomeFeedStatePremieres'}
                         state={switchState.toggleHomeFeedStatePremieres}
-                        isNew={true}
-                        hasInfo={true} />
+                        isNew
+                        hasInfo />
 
                     {/* Subscriptions */}
                     <SwitchContainer
@@ -79,8 +81,8 @@ const FeedPage = ({ darkMode }) => {
                         darkMode={darkMode}
                         switchName={'toggleSubscriptionFeedStateLives'}
                         state={switchState.toggleSubscriptionFeedStateLives}
-                        isNew={true}
-                        hasInfo={true} />
+                        isNew
+                        hasInfo />
 
                     <SwitchContainer
                         title={'Subscriptions Feed Premieres'}
@@ -88,8 +90,8 @@ const FeedPage = ({ darkMode }) => {
                         darkMode={darkMode}
                         switchName={'toggleSubscriptionFeedStatePremieres'}
                         state={switchState.toggleSubscriptionFeedStatePremieres}
-                        isNew={true}
-                        hasInfo={true} />
+                        isNew
+                        hasInfo />
 
                     {/* Trending */}
                     <SwitchContainer

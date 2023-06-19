@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Text, Button, Modal } from '@nextui-org/react';
+import { Button, Modal, Text } from '@nextui-org/react';
+import { useEffect, useState } from 'react';
 import { getStatistics, resetStatistics } from '../constants/popup';
+import { useDarkMode } from '../theme';
 
-const StatsPage = ({ darkMode }) => {
+const StatsPage = () => {
+    const { darkMode } = useDarkMode();
     const [statistics, setStatistics] = useState({});
     const [visible, setVisible] = useState(false);
 

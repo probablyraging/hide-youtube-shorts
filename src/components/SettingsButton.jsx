@@ -1,12 +1,13 @@
-import React from 'react';
-import { Dropdown, Switch } from '@nextui-org/react';
-import SettingsIcon from '@mui/icons-material/Settings';
-import { SunIcon, MoonIcon } from '../constants/icons';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import CoffeeIcon from '@mui/icons-material/Coffee';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import SettingsIcon from '@mui/icons-material/Settings';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import { Dropdown, Switch } from '@nextui-org/react';
+import { MoonIcon, SunIcon } from '../constants/icons';
+import { useDarkMode } from '../theme';
 
-const SettingsButton = ({ darkMode, toggleDarkMode }) => {
+const SettingsButton = () => {
+    const {darkMode, toggleDarkMode} = useDarkMode();
 
     const handleClick = (action) => {
         if (action === 'github') window.open('https://github.com/probablyraging/hide-youtube-shorts');

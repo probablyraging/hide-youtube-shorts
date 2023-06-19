@@ -1,15 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
-/* eslint-disable react/prop-types */
 import { CssBaseline, NextUIProvider } from '@nextui-org/react';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { darkTheme, lightTheme } from './constants/themes';
 
-const DarkModeContext = createContext();
+export const DarkModeContext = createContext();
 
-export const useToggleDarkMode = () => {
-    const toggleDarkMode = useContext(DarkModeContext);
-
-    return toggleDarkMode
+export const useDarkMode = () => {
+    return useContext(DarkModeContext);
 }
 
 export const HideShortsThemeProvider = ({children}) => {
@@ -43,11 +40,11 @@ export const HideShortsThemeProvider = ({children}) => {
 
 
     return  (
-        <NextUIProvider theme={darkMode ? darkTheme : lightTheme}>
-            <CssBaseline />
-            <DarkModeContext.Provider value={{darkMode, toggleDarkMode}}>
+        <DarkModeContext.Provider value={{darkMode, toggleDarkMode}}>
+            <NextUIProvider theme={darkMode ? darkTheme : lightTheme}>
+                <CssBaseline />
                 {children}
-            </DarkModeContext.Provider>
-        </NextUIProvider>
+            </NextUIProvider>
+        </DarkModeContext.Provider>
     )
 }

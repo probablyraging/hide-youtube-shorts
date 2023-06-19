@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Fab from '@mui/material/Fab';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import Fab from '@mui/material/Fab';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getSwitchStates, updateSwitchState } from '../constants/popup';
-import Loader from './Loader';
+import { useDarkMode } from '../theme';
 
-const PowerButton = ({ darkMode }) => {
-    const [isLoading, setIsLoading] = useState(true);
+const PowerButton = () => {
+    const { darkMode } = useDarkMode();
     const [mainState, setMainState] = useState();
     const navigate = useNavigate();
 
@@ -15,7 +15,6 @@ const PowerButton = ({ darkMode }) => {
             try {
                 const switchData = await getSwitchStates();
                 setMainState(switchData.toggleState);
-                setIsLoading(false);
             } catch (error) {
                 console.error('Error fetching switch data:', error);
             }
@@ -30,12 +29,6 @@ const PowerButton = ({ darkMode }) => {
         if (!mainState === false) navigate('/disabled');
         if (!mainState === true) navigate('/');
     };
-
-    // if (isLoading) {
-    //     return (
-    //         <Loader />
-    //     )
-    // }
 
     if (mainState) {
         return (

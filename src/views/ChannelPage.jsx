@@ -1,11 +1,13 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Text } from '@nextui-org/react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { Loader } from '../components';
 import { getSwitchStates } from '../constants/popup';
+import { useDarkMode } from '../theme';
 
 const SwitchContainer = lazy(() => import('../components/SwitchContainer'));
 
-const ChannelPage = ({ darkMode }) => {
+const ChannelPage = () => {
+    const {darkMode} = useDarkMode();
     const [switchState, setSwitchState] = useState({});
 
     useEffect(() => {

@@ -1,9 +1,11 @@
-import React from 'react';
-import { Text } from '@nextui-org/react';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-import { plug } from '../assets'
+import { Text } from '@nextui-org/react';
+import { plug } from '../assets';
+import { useDarkMode } from '../theme';
 
-const Disabled = ({ darkMode }) => {
+const Disabled = () => {
+    const { darkMode } = useDarkMode();
+
     return (
         <div className='flex flex-col justify-center items-center text-center w-full mt-[15%]'>
             <img src={plug} width={64} height={64} />

@@ -1,8 +1,7 @@
+import { Switch, Text } from '@nextui-org/react';
 import React from 'react';
-import { Text } from '@nextui-org/react';
-import { Switch } from '@nextui-org/react';
 import { turbo } from '../assets';
-import { Badge, InfoTooltip } from '../components'
+import { Badge, InfoTooltip } from '../components';
 import { updateSwitchState } from '../constants/popup';
 
 const SwitchContainer = ({ darkMode, title, description, switchName, state, isNew, hasInfo }) => {
