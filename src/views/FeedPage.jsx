@@ -52,18 +52,14 @@ const FeedPage = ({ darkMode }) => {
                         description={'Hide Live videos on the home page'}
                         darkMode={darkMode}
                         switchName={'toggleHomeFeedStateLives'}
-                        state={switchState.toggleHomeFeedStateLives}
-                        isNew={true}
-                        hasInfo={true} />
+                        state={switchState.toggleHomeFeedStateLives} />
 
                     <SwitchContainer
                         title={'Home Feed Premieres'}
                         description={'Hide Premiere videos on the home page'}
                         darkMode={darkMode}
                         switchName={'toggleHomeFeedStatePremieres'}
-                        state={switchState.toggleHomeFeedStatePremieres}
-                        isNew={true}
-                        hasInfo={true} />
+                        state={switchState.toggleHomeFeedStatePremieres} />
 
                     {/* Subscriptions */}
                     <SwitchContainer
@@ -78,18 +74,14 @@ const FeedPage = ({ darkMode }) => {
                         description={'Hide Live videos on the subscriptions page'}
                         darkMode={darkMode}
                         switchName={'toggleSubscriptionFeedStateLives'}
-                        state={switchState.toggleSubscriptionFeedStateLives}
-                        isNew={true}
-                        hasInfo={true} />
+                        state={switchState.toggleSubscriptionFeedStateLives} />
 
                     <SwitchContainer
                         title={'Subscriptions Feed Premieres'}
                         description={'Hide Premiere videos on the subscriptions page'}
                         darkMode={darkMode}
                         switchName={'toggleSubscriptionFeedStatePremieres'}
-                        state={switchState.toggleSubscriptionFeedStatePremieres}
-                        isNew={true}
-                        hasInfo={true} />
+                        state={switchState.toggleSubscriptionFeedStatePremieres} />
 
                     {/* Trending */}
                     <SwitchContainer

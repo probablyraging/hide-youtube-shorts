@@ -1,0 +1,3 @@
+a[role="tab"][href*="/shorts"] {
+    display: none;
+}

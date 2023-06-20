@@ -1,0 +1,19 @@
+/* Home video */
+ytd-rich-item-renderer:has(a[href*="/shorts/"]) {
+    display: none !important;
+}
+
+/* Home shelf */
+ytd-rich-shelf-renderer:has(#dismissible) {
+    display: none !important;
+}
+
+/* Mobile video */
+ytm-rich-item-renderer:has(a[href*="/shorts/"]) {
+    display: none !important;
+}
+
+/* Mobile shelf */
+ytm-reel-shelf-renderer:has(a[href*="/shorts/"]) {
+    display: none !important;
+}

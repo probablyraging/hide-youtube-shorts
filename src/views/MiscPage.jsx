@@ -65,13 +65,6 @@ const MiscPage = ({ darkMode }) => {
                         darkMode={darkMode}
                         switchName={'toggleRegularState'}
                         state={switchState.toggleRegularState} />
-
-                    <SwitchContainer
-                        title={'TURBO'}
-                        description={'Boosts speed and efficiency at the cost of system resources'}
-                        darkMode={darkMode}
-                        switchName={'toggleTurboState'}
-                        state={switchState.toggleTurboState} />
                 </div>
             </div>
         </Suspense>

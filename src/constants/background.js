@@ -62,17 +62,404 @@ chrome.runtime.onInstalled.addListener(async (details) => {
         //         chrome.tabs.reload(tab.id);
         //     });
         // });
-        chrome.storage.sync.set({ presentModal: true }).catch(() => { console.log('[STORAGE] Could not set storage item') });
-        chrome.action.setBadgeBackgroundColor({ color: '#ed5a64' });
-        chrome.action.setBadgeText({ text: '1' });
+        chrome.storage.sync.set({ presentModal: false }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+        // chrome.action.setBadgeBackgroundColor({ color: '#ed5a64' });
+        // chrome.action.setBadgeText({ text: '1' });
     }
 });
 
-// Handle sending messages from popup.js to main.js
-chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-    chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
-        tabs.forEach(tab => {
-            chrome.tabs.sendMessage(tab.id, message).catch(() => { });
+// Get stored switch states
+function checkStates() {
+    // If the extension is unloaded or updated, reload the page to terminate orphaned scripts
+    if (!chrome.runtime.id) return location.reload();
+    // Get extension toggle states from chrome storage
+    return chrome.storage.sync.get([
+        'toggleState',
+        'toggleNavState',
+        'toggleHomeFeedState',
+        'toggleHomeFeedStateLives',
+        'toggleHomeFeedStatePremieres',
+        'toggleSubscriptionFeedState',
+        'toggleSubscriptionFeedStateLives',
+        'toggleSubscriptionFeedStatePremieres',
+        'toggleTrendingFeedState',
+        'toggleSearchState',
+        'toggleRecommendedState',
+        'toggleTabState',
+        'toggleHomeTabState',
+        'toggleTurboState',
+        'toggleRegularState',
+        'toggleNotificationState',
+    ]);
+}
+
+// Insert page styles
+function insertStyles(tabId, filesToInsert) {
+    chrome.scripting.insertCSS({
+        files: filesToInsert,
+        target: { tabId: tabId }
+    }).catch((err) => { console.log('Error inserting styles', err); });
+}
+
+// Remove specific page styles
+function removeStyles(tabId, filesToRemove) {
+    chrome.scripting.removeCSS({
+        files: filesToRemove,
+        target: { tabId: tabId }
+    }).catch((err) => { console.log('Error removing styles', err); });
+}
+
+// Remove all page styles
+function removeAllStyles(tabId) {
+    chrome.scripting.removeCSS({
+        files: [
+            'channel_shorts_tab.css',
+            'assets/home_lives.css',
+            'assets/home_premieres.css',
+            'assets/home_shorts.css',
+            'assets/home_tab_shorts.css',
+            'assets/navigation_button.css',
+            'assets/notification_shorts.css',
+            'assets/recommended_shorts.css',
+            'assets/search_shorts.css',
+            'assets/subscriptions_feed_fix.css',
+            'assets/subscriptions_lives.css',
+            'assets/subscriptions_premieres.css',
+            'assets/subscriptions_shorts.css',
+            'assets/subscriptions_shorts_list.css',
+            'assets/trending_shorts.css',
+        ],
+        target: { tabId: tabId }
+    }).catch((err) => { console.log('Error removing styles', err); });
+    // Channel shorts tab
+    chrome.scripting.executeScript({
+        function: () => {
+            let checkCount = 0;
+            function checkForShortsTab() {
+                if (checkCount >= 25) {
+                    checkCount = 0;
+                    return;
+                }
+                const elements = document.querySelectorAll('.tab-content');
+                const filteredElements = Array.from(elements).filter(element => element.textContent.replace(/\s/g, '').replace(/\n/g, '') === 'Shorts');
+                if (filteredElements.length > 0) {
+                    filteredElements.forEach(element => {
+                        element.parentNode.style.display = 'inline-flex';
+                    });
+                    checkCount = 0;
+                } else {
+                    checkCount++;
+                    setTimeout(checkForShortsTab, 100);
+                }
+            }
+            checkForShortsTab();
+        },
+        target: { tabId: tabId }
+    }).catch((err) => { console.log('Error executing script', err); });
+}
+
+// Handle messages sent from the extension popup
+chrome.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
+    if (message.checkStates) {
+        // Get extension toggle states
+        const states = await checkStates();
+        chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
+            tabs.forEach(tab => {
+                if (message.checkStates === 'toggleState') mainToggleState(tab, tab.id, states.toggleState);
+                if (message.checkStates === 'toggleNavState') hideShortsNavButton(tab, tab.id, states.toggleNavState);
+                if (message.checkStates === 'toggleHomeFeedState') hideShortsHome(tab, tab.id, states.toggleHomeFeedState);
+                if (message.checkStates === 'toggleHomeFeedStateLives') hideLivesHome(tab, tab.id, states.toggleHomeFeedStateLives);
+                if (message.checkStates === 'toggleHomeFeedStatePremieres') hidePremieresHome(tab, tab.id, states.toggleHomeFeedStatePremieres);
+                if (message.checkStates === 'toggleSubscriptionFeedState') hideShortsSubscriptions(tab, tab.id, states.toggleSubscriptionFeedState);
+                if (message.checkStates === 'toggleSubscriptionFeedStateLives') hideLivesSubscriptions(tab, tab.id, states.toggleSubscriptionFeedStateLives);
+                if (message.checkStates === 'toggleSubscriptionFeedStatePremieres') hidePremieresSubscriptions(tab, tab.id, states.toggleSubscriptionFeedStatePremieres);
+                if (message.checkStates === 'toggleTrendingFeedState') hideShortsTrending(tab, tab.id, states.toggleTrendingFeedState);
+                if (message.checkStates === 'toggleSearchState') hideShortsSearch(tab, tab.id, states.toggleSearchState);
+                if (message.checkStates === 'toggleRecommendedState') hideShortsRecommendedList(tab, tab.id, states.toggleRecommendedState);
+                if (message.checkStates === 'toggleNotificationState') hideShortsNotificationMenu(tab, tab.id, states.toggleNotificationState);
+                if (message.checkStates === 'toggleTabState') hideShortsTabOnChannel(tab, tab.id, states.toggleTabState);
+                if (message.checkStates === 'toggleHomeTabState') hideShortsHomeTab(tab, tab.id, states.toggleHomeTabState);
+                if (message.checkStates === 'toggleRegularState') playAsRegularVideo(tab, tab.id, states.toggleRegularState);
+            });
         });
-    });
+    }
 });
+
+// Handle tabs when they are updated
+chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
+    // If the extension is unloaded or updated, return
+    if (!chrome.runtime.id) return;
+    // Only continue if the url matches a youtube URL
+    if (tab.url.startsWith('https://www.youtube.com/') || tab.url.startsWith('https://m.youtube.com/')) {
+        // Get extension toggle states
+        const states = await checkStates();
+        // If the main state is off, return
+        if (!states.toggleState) return;
+        if (changeInfo.status !== 'loading') return;
+
+        if (states.toggleNavState) hideShortsNavButton(tab, tabId, states.toggleNavState);
+        if (states.toggleHomeFeedState) hideShortsHome(tab, tabId, states.toggleHomeFeedState);
+        if (states.toggleHomeFeedStateLives) hideLivesHome(tab, tabId, states.toggleHomeFeedStateLives);
+        if (states.toggleHomeFeedStatePremieres) hidePremieresHome(tab, tabId, states.toggleHomeFeedStatePremieres);
+        if (states.toggleSubscriptionFeedState) hideShortsSubscriptions(tab, tabId, states.toggleSubscriptionFeedState);
+        if (states.toggleSubscriptionFeedStateLives) hideLivesSubscriptions(tab, tabId, states.toggleSubscriptionFeedStateLives);
+        if (states.toggleSubscriptionFeedStatePremieres) hidePremieresSubscriptions(tab, tabId, states.toggleSubscriptionFeedStatePremieres);
+        if (states.toggleTrendingFeedState) hideShortsTrending(tab, tabId, states.toggleTrendingFeedState);
+        if (states.toggleSearchState) hideShortsSearch(tab, tabId, states.toggleSearchState);
+        if (states.toggleRecommendedState) hideShortsRecommendedList(tab, tabId, states.toggleRecommendedState);
+        if (states.toggleNotificationState) hideShortsNotificationMenu(tab, tabId, states.toggleNotificationState);
+        if (states.toggleTabState) hideShortsTabOnChannel(tab, tabId, states.toggleTabState);
+        if (states.toggleHomeTabState) hideShortsHomeTab(tab, tabId, states.toggleHomeTabState);
+        if (states.toggleRegularState) playAsRegularVideo(tab, tabId, states.toggleRegularState);
+    }
+});
+
+// Add or remove styles when main toggle state is updated
+async function mainToggleState(tab, tabId, enabled) {
+    if (enabled) {
+        // Get extension toggle states
+        const states = await checkStates();
+        if (states.toggleNavState) hideShortsNavButton(tab, tabId, states.toggleNavState);
+        if (states.toggleHomeFeedState) hideShortsHome(tab, tabId, states.toggleHomeFeedState);
+        if (states.toggleHomeFeedStateLives) hideLivesHome(tab, tabId, states.toggleHomeFeedStateLives);
+        if (states.toggleHomeFeedStatePremieres) hidePremieresHome(tab, tabId, states.toggleHomeFeedStatePremieres);
+        if (states.toggleSubscriptionFeedState) hideShortsSubscriptions(tab, tabId, states.toggleSubscriptionFeedState);
+        if (states.toggleSubscriptionFeedStateLives) hideLivesSubscriptions(tab, tabId, states.toggleSubscriptionFeedStateLives);
+        if (states.toggleSubscriptionFeedStatePremieres) hidePremieresSubscriptions(tab, tabId, states.toggleSubscriptionFeedStatePremieres);
+        if (states.toggleTrendingFeedState) hideShortsTrending(tab, tabId, states.toggleTrendingFeedState);
+        if (states.toggleSearchState) hideShortsSearch(tab, tabId, states.toggleSearchState);
+        if (states.toggleRecommendedState) hideShortsRecommendedList(tab, tabId, states.toggleRecommendedState);
+        if (states.toggleNotificationState) hideShortsNotificationMenu(tab, tabId, states.toggleNotificationState);
+        if (states.toggleTabState) hideShortsTabOnChannel(tab, tabId, states.toggleTabState);
+        if (states.toggleHomeTabState) hideShortsHomeTab(tab, tabId, states.toggleHomeTabState);
+        if (states.toggleRegularState) playAsRegularVideo(tab, tabId, states.toggleRegularState);
+    }
+    if (!enabled) removeAllStyles(tabId);
+}
+
+const homePrefixes = [
+    'https://www.youtube.com/',
+    'https://www.youtube.com/?app=desktop',
+    'https://m.youtube.com/'
+]
+
+const subscriptionsPrefixes = [
+    'https://www.youtube.com/feed/subscriptions',
+    'https://www.youtube.com/feed/subscriptions?app=desktop',
+    'https://m.youtube.com/feed/subscriptions',
+    'https://www.youtube.com/feed/subscriptions?flow=1'
+];
+
+const trendingPrefixes = [
+    'https://www.youtube.com/feed/trending',
+    'https://www.youtube.com/gaming',
+    'https://m.youtube.com/feed/explore',
+    'https://m.youtube.com/feed/trending'
+]
+
+const channelPrefixes = [
+    'https://www.youtube.com/channel/',
+    'https://www.youtube.com/@',
+    'https://www.youtube.com/user/',
+    'https://www.youtube.com/c/',
+    'https://m.youtube.com/channel/',
+    'https://m.youtube.com/@',
+    'https://m.youtube.com/user/',
+    'https://m.youtube.com/c/'
+];
+
+// Hide the shorts button in the navigation menu
+function hideShortsNavButton(tab, tabId, enabled) {
+    if (tab.url.startsWith('https://www.youtube.com/') || tab.url.startsWith('https://m.youtube.com/')) {
+        const files = ['assets/navigation_button.css'];
+        if (enabled) insertStyles(tabId, files);
+        if (!enabled) removeStyles(tabId, files);
+    }
+}
+
+// Hide shorts video elements in the home feed
+function hideShortsHome(tab, tabId, enabled) {
+    if (homePrefixes.includes(tab.url)) {
+        const files = ['assets/home_shorts.css'];
+        if (enabled) insertStyles(tabId, files);
+        if (!enabled) removeStyles(tabId, files);
+    }
+}
+
+// Hide live video elements in the home feed
+function hideLivesHome(tab, tabId, enabled) {
+    if (tab.url === 'https://www.youtube.com/') {
+        const files = ['assets/home_lives.css'];
+        if (enabled) insertStyles(tabId, files);
+        if (!enabled) removeStyles(tabId, files);
+    }
+}
+
+// Hide premieres video elements in the home feed
+function hidePremieresHome(tab, tabId, enabled) {
+    if (tab.url === 'https://www.youtube.com/') {
+        const files = ['assets/home_premieres.css'];
+        if (enabled) insertStyles(tabId, files);
+        if (!enabled) removeStyles(tabId, files);
+    }
+}
+
+// Hide shorts video elements in the subscriptions feed
+function hideShortsSubscriptions(tab, tabId, enabled) {
+    if (subscriptionsPrefixes.includes(tab.url)) {
+        const files = ['assets/subscriptions_shorts.css', 'assets/subscriptions_shorts_list.css', 'assets/subscriptions_feed_fix.css'];
+        if (enabled) insertStyles(tabId, files);
+        if (!enabled) removeStyles(tabId, files);
+    }
+    //Specifically the list view
+    if (tab.url === 'https://www.youtube.com/feed/subscriptions?flow=2') {
+        const files = ['assets/subscriptions_shorts_list.css'];
+        if (enabled) insertStyles(tabId, files);
+        if (!enabled) removeStyles(tabId, files);
+    }
+}
+
+// Hide lives video elements in the subscriptions feed
+function hideLivesSubscriptions(tab, tabId, enabled) {
+    if (subscriptionsPrefixes.includes(tab.url)) {
+        const files = ['assets/subscriptions_lives.css', 'assets/subscriptions_feed_fix.css'];
+        if (enabled) insertStyles(tabId, files);
+        if (!enabled) removeStyles(tabId, files);
+    }
+}
+
+// Hide premieres video elements in the subscriptions feed
+function hidePremieresSubscriptions(tab, tabId, enabled) {
+    if (subscriptionsPrefixes.includes(tab.url)) {
+        const files = ['assets/subscriptions_premieres.css', 'assets/subscriptions_feed_fix.css'];
+        if (enabled) insertStyles(tabId, files);
+        if (!enabled) removeStyles(tabId, files);
+    }
+}
+
+// Hide shorts video elements in the trending feed
+function hideShortsTrending(tab, tabId, enabled) {
+    if (trendingPrefixes.some(prefix => tab.url.startsWith(prefix))) {
+        const files = ['assets/trending_shorts.css'];
+        if (enabled) insertStyles(tabId, files);
+        if (!enabled) removeStyles(tabId, files);
+    }
+}
+
+// Hide shorts video elements in search results
+function hideShortsSearch(tab, tabId, enabled) {
+    if (tab.url.startsWith('https://www.youtube.com/results') || tab.url.startsWith('https://m.youtube.com/results')) {
+        const files = ['assets/search_shorts.css'];
+        if (enabled) insertStyles(tabId, files);
+        if (!enabled) removeStyles(tabId, files);
+    }
+}
+
+// Hide shorts video elements in the recommended list
+function hideShortsRecommendedList(tab, tabId, enabled) {
+    if (tab.url.startsWith('https://www.youtube.com/watch')) {
+        const files = ['assets/recommended_shorts.css'];
+        if (enabled) insertStyles(tabId, files);
+        if (!enabled) removeStyles(tabId, files);
+    }
+}
+
+// Hide shorts video elements in the notification menu
+function hideShortsNotificationMenu(tab, tabId, enabled) {
+    if (tab.url.startsWith('https://www.youtube.com/')) {
+        const files = ['assets/notification_shorts.css'];
+        if (enabled) insertStyles(tabId, files);
+        if (!enabled) removeStyles(tabId, files);
+    }
+}
+
+// Hide shorts video elements in the home tab on channel pages
+function hideShortsHomeTab(tab, tabId, enabled) {
+    if (channelPrefixes.some(prefix => tab.url.startsWith(prefix))) {
+        const files = ['assets/home_tab_shorts.css'];
+        if (enabled) insertStyles(tabId, files);
+        if (!enabled) removeStyles(tabId, files);
+    }
+}
+
+// Hide the shorts tab on channel pages
+function hideShortsTabOnChannel(tab, tabId, enabled) {
+    if (channelPrefixes.some(prefix => tab.url.startsWith(prefix))) {
+        const files = ['assets/channel_shorts_tab.css'];
+        if (enabled) {
+            chrome.scripting.executeScript({
+                function: () => {
+                    let checkCount = 0;
+                    function checkForShortsTab() {
+                        if (checkCount >= 25) {
+                            checkCount = 0;
+                            return;
+                        }
+                        const elements = document.querySelectorAll('.tab-content');
+                        const filteredElements = Array.from(elements).filter(element => element.textContent.replace(/\s/g, '').replace(/\n/g, '') === 'Shorts');
+                        if (filteredElements.length > 0) {
+                            filteredElements.forEach(element => {
+                                element.parentNode.style.display = 'none';
+                            });
+                            checkCount = 0;
+                        } else {
+                            checkCount++;
+                            setTimeout(checkForShortsTab, 100);
+                        }
+                    }
+                    checkForShortsTab();
+                },
+                target: { tabId: tabId }
+            }).catch((err) => { console.log('Error executing script', err); });
+            // Mobile
+            insertStyles(tabId, files);
+        } else {
+            chrome.scripting.executeScript({
+                function: () => {
+                    let checkCount = 0;
+                    function checkForShortsTab() {
+                        if (checkCount >= 25) {
+                            checkCount = 0;
+                            return;
+                        }
+                        const elements = document.querySelectorAll('.tab-content');
+                        const filteredElements = Array.from(elements).filter(element => element.textContent.replace(/\s/g, '').replace(/\n/g, '') === 'Shorts');
+                        if (filteredElements.length > 0) {
+                            filteredElements.forEach(element => {
+                                element.parentNode.style.display = 'inline-flex';
+                            });
+                            checkCount = 0;
+                        } else {
+                            checkCount++;
+                            setTimeout(checkForShortsTab, 100);
+                        }
+                    }
+                    checkForShortsTab();
+                },
+                target: { tabId: tabId }
+            }).catch((err) => { console.log('Error executing script', err); });
+            // Mobile
+            removeStyles(tabId, files);
+        }
+    }
+}
+
+// Play shorts as regular video
+function playAsRegularVideo(tab, tabId, enabled) {
+    if (tab.url.startsWith('https://www.youtube.com/shorts/') || tab.url.startsWith('https://m.youtube.com/shorts/')) {
+        function getVideoId(url) {
+            const regex = /\/shorts\/([^/]+)/;
+            const match = url.match(regex);
+            if (match) {
+                return match[1];
+            }
+            return null;
+        }
+        // Automatically redirect shorts video pages to a regular video watch page
+        const videoId = getVideoId(tab.url);
+        if (videoId && enabled) {
+            const newUrl = `https://youtube.com/watch?v=${videoId}`;
+            chrome.tabs.update(tabId, { url: newUrl });
+        }
+    }
+}
