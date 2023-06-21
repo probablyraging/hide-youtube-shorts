@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
-import VideoLabelRoundedIcon from '@mui/icons-material/VideoLabelRounded';
-import SpeedIcon from '@mui/icons-material/Speed';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import Paper from '@mui/material/Paper';
+import { feed_page, channel_page, misc_page, support_page, disabled_page } from '../assets';
 
 const NavBar = ({ darkMode }) => {
     const [value, setValue] = useState(0);
@@ -63,7 +60,7 @@ const NavBar = ({ darkMode }) => {
                 <Link to={navDisabled ? '/disabled' : '/feed'} className='flex w-full'>
                     <BottomNavigationAction
                         className={`${darkMode ? 'hover:bg-[#202225]' : 'hover:bg-[#f5f5f5]'} transition-colors duration-200`}
-                        icon={<SubscriptionsIcon className='w-[20px]' />}
+                        icon={<img src={feed_page} width={20} height={20} />}
                         sx={{
                             height: '100%',
                             color: value === 0 ? navButtonColorActive : navButtonColorDefault,
@@ -76,7 +73,7 @@ const NavBar = ({ darkMode }) => {
                 <Link to={navDisabled ? '/disabled' : '/channel'} className='flex w-full'>
                     <BottomNavigationAction
                         className={`${darkMode ? 'hover:bg-[#202225]' : 'hover:bg-[#f5f5f5]'} transition-colors duration-200`}
-                        icon={<VideoLabelRoundedIcon className='w-[20px]' />}
+                        icon={<img src={channel_page} width={20} height={20} />}
                         sx={{
                             height: '100%',
                             color: value === 1 ? navButtonColorActive : navButtonColorDefault,
@@ -89,7 +86,7 @@ const NavBar = ({ darkMode }) => {
                 <Link to={navDisabled ? '/disabled' : '/misc'} className='flex w-full'>
                     <BottomNavigationAction
                         className={`${darkMode ? 'hover:bg-[#202225]' : 'hover:bg-[#f5f5f5]'} transition-colors duration-200`}
-                        icon={<SpeedIcon />}
+                        icon={<img src={misc_page} width={20} height={20} />}
                         sx={{
                             height: '100%',
                             color: value === 2 ? navButtonColorActive : navButtonColorDefault,
@@ -102,7 +99,7 @@ const NavBar = ({ darkMode }) => {
                 <Link to={navDisabled ? '/disabled' : '/support'} className='flex w-full'>
                     <BottomNavigationAction
                         className={`${darkMode ? 'hover:bg-[#202225]' : 'hover:bg-[#f5f5f5]'} transition-colors duration-200`}
-                        icon={<SupportAgentIcon />}
+                        icon={<img src={support_page} width={20} height={20} />}
                         sx={{
                             height: '100%',
                             color: value === 3 ? navButtonColorActive : navButtonColorDefault,
