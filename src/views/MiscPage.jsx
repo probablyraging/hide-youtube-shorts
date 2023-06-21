@@ -24,13 +24,8 @@ const MiscPage = ({ darkMode }) => {
     return (
         <Suspense fallback={<Loader darkMode={darkMode} />}>
             <div className='flex flex-col justify-center items-center w-full h-full'>
-                <div className={`w-full mt-6 mb-5`}>
-                    <Text className={`text-[12px] ${darkMode ? 'text-textAltDark' : 'text-textAlt'}`}>
-                        Miscellaneous options for hiding Shorts elements all across YouTube
-                    </Text>
-                </div>
 
-                <div className='flex flex-col w-full'>
+                <div className='flex flex-col w-full mt-4'>
                     <SwitchContainer
                         title={'Shorts Navigation Button'}
                         description={'Hide the Shorts button on the navigation panel'}

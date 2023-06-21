@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Dropdown, Switch } from '@nextui-org/react';
-import SettingsIcon from '@mui/icons-material/Settings';
 import { SunIcon, MoonIcon } from '../constants/icons';
+import LanguageIcon from '@mui/icons-material/Language';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import CoffeeIcon from '@mui/icons-material/Coffee';
+import StopIcon from '@mui/icons-material/Stop';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { getSwitchStates, updateSwitchState } from '../constants/popup';
 
 const SettingsButton = ({ darkMode, toggleDarkMode }) => {
+    const [mainState, setMainState] = useState();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchSwitchData = async () => {
+            try {
+                const switchData = await getSwitchStates();
+                setMainState(switchData.toggleState);
+            } catch (error) {
+                console.error('Error fetching switch data:', error);
+            }
+        };
+
+        fetchSwitchData();
+    }, []);
+
+    const updateSwitch = async () => {
+        await updateSwitchState('toggleState');
+        setMainState(!mainState);
+        if (!mainState === false) navigate('/disabled');
+        if (!mainState === true) navigate('/');
+    };
 
     const handleClick = (action) => {
+        if (action === 'website') window.open('https://hideshorts.com/');
         if (action === 'github') window.open('https://github.com/probablyraging/hide-youtube-shorts');
         if (action === 'help') window.open('https://discord.gg/HAFP4P7Dfr');
         if (action === 'review') window.open('https://chrome.google.com/webstore/detail/hide-youtube-shorts/aljlkinhomaaahfdojalfmimeidofpih/reviews');
@@ -20,9 +47,7 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
             <Dropdown closeOnSelect={false} placement="bottom-right">
 
                 <Dropdown.Trigger>
-                    <SettingsIcon
-                        className={`${darkMode ? 'hover:bg-[#383a3d]' : 'hover:bg-[#dfdfdf]'} hover:text-[#3694ff] transition-colors duration-200`}
-                        sx={{ width: '28px', height: '28px', padding: '4px', backgroundColor: `${darkMode ? '#2f3235' : '#e9e9e9'}`, borderRadius: '8px' }} />
+                    <i className='bi bi-gear text-[22px] hover:text-[#3694ff] transition-colors duration-200'></i>
                 </Dropdown.Trigger>
 
                 <Dropdown.Menu
@@ -30,8 +55,31 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
                     variant='light' aria-label="settings">
 
                     <Dropdown.Item
+                        textValue='power'
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        key="power"
+                        css={{ fontSize: '14px' }}>
+                        <div className='flex items-center justify-between'>
+                            <div className='w-full' onClick={updateSwitch}>
+                                {mainState ? 'Enabled' : 'Disabled'}
+                            </div>
+                            <Switch
+                                id="power-switch"
+                                checked={mainState}
+                                onChange={updateSwitch}
+                                size="xs"
+                                iconOn={<PlayArrowIcon className={`${darkMode ? 'text-[#5086c3]' : 'text-[#3694ff]'}`} />}
+                                iconOff={<StopIcon className='text-[#df8080]' />}
+                            />
+                        </div>
+                    </Dropdown.Item>
+
+                    <Dropdown.Item
                         textValue='theme'
-                        key="theme" css={{ fontSize: '14px' }}>
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        key="theme"
+                        css={{ fontSize: '14px' }}
+                        withDivider>
                         <div className='flex items-center justify-between'>
                             <div className='w-full' onClick={toggleDarkMode}>
                                 {darkMode ? 'Dark' : 'Light'}
@@ -48,11 +96,23 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
                     </Dropdown.Item>
 
                     <Dropdown.Item
-                        textValue='github'
-                        icon={<GitHubIcon className={`w-[18px]`} />}
-                        key="github"
+                        textValue='website'
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        icon={<LanguageIcon className={`w-[18px] ${darkMode ? 'text-[#a570c6]' : 'text-[#a570c6]'}`} />}
+                        key="website"
                         css={{ fontSize: '14px' }}
                         withDivider>
+                        <div onClick={() => handleClick('website')}>
+                            Website
+                        </div>
+                    </Dropdown.Item>
+
+                    <Dropdown.Item
+                        textValue='github'
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        icon={<GitHubIcon className={`w-[18px] ${darkMode ? 'text-[#4f4f4f]' : 'text-[#373737]'}`} />}
+                        key="github"
+                        css={{ fontSize: '14px' }}>
                         <div onClick={() => handleClick('github')}>
                             GitHub
                         </div>
@@ -60,7 +120,8 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
 
                     <Dropdown.Item
                         textValue='help & support'
-                        icon={<i className="bi bi-discord w-[18px] h-[24px] text-[17px]"></i>}
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        icon={<i className={`bi bi-discord w-[18px] h-[24px] text-[17px] ${darkMode ? 'text-[#515cd6]' : 'text-[#404eed]'}`}></i>}
                         key="support"
                         css={{ fontSize: '14px' }}>
                         <div onClick={() => handleClick('help')}>
@@ -70,7 +131,8 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
 
                     <Dropdown.Item
                         textValue='review'
-                        icon={<ThumbUpAltIcon className={`w-[18px]`} />}
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        icon={<ThumbUpAltIcon className={`w-[18px] ${darkMode ? 'text-[#3694ff]' : 'text-[#3694ff]'}`} />}
                         key="review"
                         css={{ fontSize: '14px' }}>
                         <div onClick={() => handleClick('review')}>
@@ -80,7 +142,8 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
 
                     <Dropdown.Item
                         textValue='coffee'
-                        icon={<CoffeeIcon className={`w-[18px]`} />}
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        icon={<CoffeeIcon className={`w-[18px] ${darkMode ? 'text-[#e1cd4a]' : 'text-[#e1cd4a]'}`} />}
                         key="coffee"
                         css={{ fontSize: '14px' }}>
                         <div onClick={() => handleClick('coffee')}>

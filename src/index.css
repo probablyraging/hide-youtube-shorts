@@ -59,6 +59,14 @@ p {
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 }
 
+.switch-container:not(:first-of-type) {
+    border-top: 1px solid;
+}
+
+/* .switch-container:last-of-type {
+    border-bottom: 1px solid
+} */
+
 .nextui-modal-body .added {
     font-size: 14px;
     font-weight: 600;

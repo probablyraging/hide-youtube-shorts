@@ -2,7 +2,7 @@ import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { NextUIProvider, CssBaseline } from '@nextui-org/react';
 import { ChannelPage, FeedPage, MiscPage, SupportPage, Disabled } from './views';
-import { NavBar, Loader, PageHead, PowerButton } from './components';
+import { NavBar, Loader, PageHead } from './components';
 import { darkTheme, lightTheme } from './constants/themes';
 
 const MainPage = lazy(() => import('./components/MainPage'));
@@ -24,7 +24,7 @@ const App = () => {
     }, []);
 
     const updateScrollbarColors = (isDarkMode) => {
-        const scrollbarTrackColor = isDarkMode ? '#121212' : '#fff';
+        const scrollbarTrackColor = isDarkMode ? '#1a1c1e' : '#fff';
         const scrollbarThumbColor = isDarkMode ? '#5086c3' : '#3694ff';
         document.documentElement.style.setProperty('--scrollbar-track-color', scrollbarTrackColor);
         document.documentElement.style.setProperty('--scrollbar-thumb-color', scrollbarThumbColor);
@@ -47,7 +47,6 @@ const App = () => {
 
                     <MainPage>
                         <NavBar darkMode={darkMode} />
-                        <PowerButton darkMode={darkMode} />
 
                         <Routes>
                             <Route path="/" element={<FeedPage darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />

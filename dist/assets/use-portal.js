@@ -1,1 +1,0 @@
-import{l as a,r as c,q as m}from"./index.js";const u=e=>{const t=document.createElement("div");return t.setAttribute("id",e),t},f=(e=m(),t)=>{const o=`nextui-${e}`,{isBrowser:d}=a(),[l,i]=c.useState(d?u(o):null);return c.useEffect(()=>{const r=(t?t():null)||document.body,n=r==null?void 0:r.querySelector(`#${o}`),s=n||u(o);n||r.appendChild(s),i(s)},[]),l};export{f as o};

@@ -17,7 +17,7 @@ const Disabled = ({ darkMode }) => {
             </Text>
 
             <Text className={`text-[16px] ${darkMode ? 'text-textAltDark' : 'text-textAlt'}`}>
-                Press the <PowerSettingsNewIcon className='text-[16px]' /> button below to continue using HYS
+                You can enable HYS in the <i className='bi bi-gear text-[16px]'></i> settings menu
             </Text>
         </div>
     )

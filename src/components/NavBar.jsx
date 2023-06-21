@@ -47,9 +47,6 @@ const NavBar = ({ darkMode }) => {
                 left: 0,
                 right: 0,
                 zIndex: 999,
-                borderTopLeftRadius: '20px',
-                borderTopRightRadius: '20px',
-                filter: 'drop-shadow(2px 4px 6px #00000042)',
                 backgroundColor: darkMode ? '#1a1c1e' : '',
             }}
         >
@@ -59,9 +56,7 @@ const NavBar = ({ darkMode }) => {
                     setValue(newValue);
                 }}
                 sx={{
-                    height: '42px',
-                    borderTopLeftRadius: '20px',
-                    borderTopRightRadius: '20px',
+                    height: '45px',
                     backgroundColor: darkMode ? '#1a1c1e' : '',
                 }}
             >
@@ -73,8 +68,8 @@ const NavBar = ({ darkMode }) => {
                             height: '100%',
                             color: value === 0 ? navButtonColorActive : navButtonColorDefault,
                             backgroundColor: value === 0 ? darkMode ? '#202225' : '#f5f5f5' : '',
-                            borderTopLeftRadius: '20px',
-                            borderTopRightRadius: '20px'
+                            borderTopLeftRadius: '6px',
+                            borderTopRightRadius: '6px'
                         }} />
                 </Link>
 
@@ -86,8 +81,8 @@ const NavBar = ({ darkMode }) => {
                             height: '100%',
                             color: value === 1 ? navButtonColorActive : navButtonColorDefault,
                             backgroundColor: value === 1 ? darkMode ? '#202225' : '#f5f5f5' : '',
-                            borderTopLeftRadius: '20px',
-                            borderTopRightRadius: '20px'
+                            borderTopLeftRadius: '6px',
+                            borderTopRightRadius: '6px'
                         }} />
                 </Link>
 
@@ -99,8 +94,8 @@ const NavBar = ({ darkMode }) => {
                             height: '100%',
                             color: value === 2 ? navButtonColorActive : navButtonColorDefault,
                             backgroundColor: value === 2 ? darkMode ? '#202225' : '#f5f5f5' : '',
-                            borderTopLeftRadius: '20px',
-                            borderTopRightRadius: '20px'
+                            borderTopLeftRadius: '6px',
+                            borderTopRightRadius: '6px'
                         }} />
                 </Link>
 
@@ -112,8 +107,8 @@ const NavBar = ({ darkMode }) => {
                             height: '100%',
                             color: value === 3 ? navButtonColorActive : navButtonColorDefault,
                             backgroundColor: value === 3 ? darkMode ? '#202225' : '#f5f5f5' : '',
-                            borderTopLeftRadius: '20px',
-                            borderTopRightRadius: '20px'
+                            borderTopLeftRadius: '6px',
+                            borderTopRightRadius: '6px'
                         }} />
                 </Link>
             </BottomNavigation>

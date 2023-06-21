@@ -38,10 +38,10 @@ const ModalDisplay = () => {
             >
                 <Modal.Header className='absolute flex flex-col items-start top-0'>
                     <Text className='font-semibold' size={16}>
-                        What's New In 1.6.13
+                        What's New In 1.6.15
                     </Text>
                     <Text className='text-[12px]'>
-                        June 17, 2023
+                        June 21, 2023
                     </Text>
                 </Modal.Header>
                 <Modal.Body className='mt-[50px]'>
@@ -65,6 +65,13 @@ const ModalDisplay = () => {
                             </li>
                         </ul>
                         If you have any issues at all, please feel free to join the Discord support server by <a href="https://discord.gg/HAFP4P7Dfr" target="_blank">clicking here</a>
+                    </Text>
+
+                    <Text className='changed mb-4'>
+                        Power Button
+                    </Text>
+                    <Text className='text-[13px] mb-2'>
+                        The power button to enable/disable the extension has been moved to the settings menu (top right)
                     </Text>
 
                     <Text className='removed mb-4'>

@@ -32,13 +32,7 @@ const FeedPage = ({ darkMode }) => {
 
                 <ModalDisplay />
 
-                <div className={`w-full mt-6 mb-5`}>
-                    <Text className={`text-[12px] ${darkMode ? 'text-textAltDark' : 'text-textAlt'}`}>
-                        Control the view of Shorts videos on pages such as <Link isExternal href='https://www.youtube.com/' target='_blank'>Home</Link>, <Link isExternal href='https://www.youtube.com/feed/subscriptions' target='_blank'>Subscriptions</Link>, and <Link isExternal href='https://www.youtube.com/feed/trending' target='_blank'>Trending</Link>
-                    </Text>
-                </div>
-
-                <div className='flex flex-col w-full'>
+                <div className='flex flex-col w-full mt-4'>
                     {/* Home */}
                     <SwitchContainer
                         title={'Home Feed Shorts'}

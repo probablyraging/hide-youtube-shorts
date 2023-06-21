@@ -6,7 +6,6 @@ import Loader from "./Loader";
 import ThemeSwitch from "./ThemeSwitch";
 import SwitchContainer from "./SwitchContainer";
 import ModalDisplay from "./ModalDisplay";
-import PowerButton from "./PowerButton";
 import Badge from "./Badge";
 import InfoTooltip from "./InfoTooltip";
 
@@ -19,7 +18,6 @@ export {
     ThemeSwitch,
     SwitchContainer,
     ModalDisplay,
-    PowerButton,
     Badge,
     InfoTooltip
 }

@@ -4,7 +4,7 @@ const darkTheme = createTheme({
     type: 'dark',
     theme: {
         colors: {
-            background: '#121212',
+            background: '#1a1c1e',
             navText: '#ffffff',
             gradient: 'linear-gradient(112deg, #3694ff -63.59%, #adc8e7 -20.3%, var(--nextui-colors-blue600) 70.46%);',
             primary: '#5086c3',
