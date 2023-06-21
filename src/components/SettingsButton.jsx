@@ -10,7 +10,7 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
 
     const handleClick = (action) => {
         if (action === 'github') window.open('https://github.com/probablyraging/hide-youtube-shorts');
-        if (action === 'help') window.open('https://discord.gg/HAFP4P7Dfr');
+        if (action === 'help') window.open('https://discord.gg/HrhzwdB82j');
         if (action === 'review') window.open('https://chrome.google.com/webstore/detail/hide-youtube-shorts/aljlkinhomaaahfdojalfmimeidofpih/reviews');
         if (action === 'coffee') window.open('https://www.buymeacoffee.com/probablyraging');
     };
