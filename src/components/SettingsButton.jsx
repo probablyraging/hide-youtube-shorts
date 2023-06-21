@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Dropdown, Switch } from '@nextui-org/react';
+import { Badge, Dropdown, Switch } from '@nextui-org/react';
 import { SunIcon, MoonIcon } from '../constants/icons';
 import LanguageIcon from '@mui/icons-material/Language';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import CoffeeIcon from '@mui/icons-material/Coffee';
-import StopIcon from '@mui/icons-material/Stop';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import CircleIcon from '@mui/icons-material/Circle';
 import { getSwitchStates, updateSwitchState } from '../constants/popup';
 
 const SettingsButton = ({ darkMode, toggleDarkMode }) => {
@@ -46,9 +45,19 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
         <div className={`${darkMode ? 'text-[#e9e9e9]' : 'text-[#3b3b3b]'} cursor-pointer`}>
             <Dropdown closeOnSelect={false} placement="bottom-right">
 
-                <Dropdown.Trigger>
-                    <i className='bi bi-gear text-[22px] hover:text-[#3694ff] transition-colors duration-200'></i>
-                </Dropdown.Trigger>
+                <Badge
+                    content=""
+                    color={`${mainState ? 'success' : 'error'}`}
+                    placement="bottom-left"
+                    shape="circle"
+                    variant="dot"
+                    size="md"
+                    verticalOffset="10%"
+                    className='cursor-default'>
+                    <Dropdown.Trigger>
+                        <i className='bi bi-gear text-[22px] hover:text-[#3694ff] transition-colors duration-200 cursor-pointer'></i>
+                    </Dropdown.Trigger>
+                </Badge>
 
                 <Dropdown.Menu
                     css={{ border: `1px solid ${darkMode ? '#2f2f2f' : '#dbdbdb'}`, borderRadius: '16px', padding: '4px' }}
@@ -68,8 +77,8 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
                                 checked={mainState}
                                 onChange={updateSwitch}
                                 size="xs"
-                                iconOn={<PlayArrowIcon className={`${darkMode ? 'text-[#5086c3]' : 'text-[#3694ff]'}`} />}
-                                iconOff={<StopIcon className='text-[#df8080]' />}
+                                iconOn={<CircleIcon className='text-[#17C964]' />}
+                                iconOff={<CircleIcon className='text-[#F31260]' />}
                             />
                         </div>
                     </Dropdown.Item>

@@ -19,7 +19,7 @@ const PageHead = ({ darkMode, toggleDarkMode }) => {
     const [title, pageIcon, tooltipText] = pageData[location.pathname] || [];
 
     return (
-        <div className={`relative flex justify-between items-center w-full px-[18px] py-2 pb-1 ${darkMode ? 'bg-[#1a1c1e]' : 'bg-[#fff]'} shadow-pageHead`}>
+        <div className={`relative flex justify-between items-center w-full px-[22px] py-2 pb-1 ${darkMode ? 'bg-[#1a1c1e]' : 'bg-[#fff]'} shadow-pageHead`}>
             <div className='flex flex-row items-center gap-2'>
                 <img src={pageIcon} width={22} height={22} />
                 <Text className='font-medium select-none'>

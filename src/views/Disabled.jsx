@@ -4,7 +4,7 @@ import { plug } from '../assets';
 
 const Disabled = ({ darkMode }) => {
     return (
-        <div className='flex flex-col justify-center items-center text-center w-full mt-[15%]'>
+        <div className='flex flex-col justify-center items-center text-center w-full mt-[25%]'>
             <img src={plug} width={64} height={64} />
 
             <Text className={`text-[22px] mb-3`}>

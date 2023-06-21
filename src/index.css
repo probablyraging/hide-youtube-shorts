@@ -47,10 +47,10 @@
 body {
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
     font-size: 14px;
-    width: 450px;
     min-width: 450px !important;
-    min-height: 550px !important;
-    max-height: 550px !important;
+    max-width: 450px !important;
+    min-height: 590px !important;
+    max-height: 590px !important;
     overflow: scroll;
     background-color: var(--nextui-colors-background);
 }
@@ -62,10 +62,6 @@ p {
 .switch-container:not(:first-of-type) {
     border-top: 1px solid;
 }
-
-/* .switch-container:last-of-type {
-    border-bottom: 1px solid
-} */
 
 .nextui-modal-body .added {
     font-size: 14px;
