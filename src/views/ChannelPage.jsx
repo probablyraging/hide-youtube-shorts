@@ -28,14 +28,14 @@ const ChannelPage = ({ darkMode }) => {
                 <div className='flex flex-col w-full mt-4'>
                     <SwitchContainer
                         title={'Shorts Tab'}
-                        description={'Hide the Shorts tab on channel pages'}
+                        description={chrome.i18n.getMessage('shortsTabDesc')}
                         darkMode={darkMode}
                         switchName={'toggleTabState'}
                         state={switchState.toggleTabState} />
 
                     <SwitchContainer
                         title={'Home Tab Shorts'}
-                        description={'Hide Shorts videos in the home tab on channel pages'}
+                        description={chrome.i18n.getMessage('homeTabShortsDesc')}
                         darkMode={darkMode}
                         switchName={'toggleHomeTabState'}
                         state={switchState.toggleHomeTabState} />

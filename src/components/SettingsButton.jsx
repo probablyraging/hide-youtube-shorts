@@ -70,7 +70,7 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
                         css={{ fontSize: '14px' }}>
                         <div className='flex items-center justify-between'>
                             <div className='w-full' onClick={updateSwitch}>
-                                {mainState ? 'Enabled' : 'Disabled'}
+                                {mainState ? chrome.i18n.getMessage('enabled') : chrome.i18n.getMessage('disabled')}
                             </div>
                             <Switch
                                 id="power-switch"
@@ -112,7 +112,7 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
                         css={{ fontSize: '14px' }}
                         withDivider>
                         <div onClick={() => handleClick('website')}>
-                            Website
+                            {chrome.i18n.getMessage('website')}
                         </div>
                     </Dropdown.Item>
 
@@ -134,7 +134,7 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
                         key="support"
                         css={{ fontSize: '14px' }}>
                         <div onClick={() => handleClick('help')}>
-                            Help & Support
+                            {chrome.i18n.getMessage('helpAndSupport')}
                         </div>
                     </Dropdown.Item>
 
@@ -145,7 +145,7 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
                         key="review"
                         css={{ fontSize: '14px' }}>
                         <div onClick={() => handleClick('review')}>
-                            Leave A Review
+                            {chrome.i18n.getMessage('leaveAReview')}
                         </div>
                     </Dropdown.Item>
 
@@ -156,7 +156,7 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
                         key="coffee"
                         css={{ fontSize: '14px' }}>
                         <div onClick={() => handleClick('coffee')}>
-                            Buy Me A Coffee
+                            {chrome.i18n.getMessage('buyMeACoffee')}
                         </div>
                     </Dropdown.Item>
                 </Dropdown.Menu>

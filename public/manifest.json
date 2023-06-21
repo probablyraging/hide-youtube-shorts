@@ -2,7 +2,8 @@
     "name": "HYS BETA",
     "manifest_version": 3,
     "version": "0.0.2",
-    "description": "This is a BETA release of Hide YouTube Shorts",
+    "description": "__MSG_extDesc__",
+    "default_locale": "en",
     "permissions": [
         "storage",
         "scripting",

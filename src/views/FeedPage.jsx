@@ -36,21 +36,21 @@ const FeedPage = ({ darkMode }) => {
                     {/* Home */}
                     <SwitchContainer
                         title={'Home Feed Shorts'}
-                        description={'Hide Shorts videos on the home page'}
+                        description={chrome.i18n.getMessage('homeFeedShortsDesc')}
                         darkMode={darkMode}
                         switchName={'toggleHomeFeedState'}
                         state={switchState.toggleHomeFeedState} />
 
                     <SwitchContainer
                         title={'Home Feed Lives'}
-                        description={'Hide Live videos on the home page'}
+                        description={chrome.i18n.getMessage('homeFeedLivesDesc')}
                         darkMode={darkMode}
                         switchName={'toggleHomeFeedStateLives'}
                         state={switchState.toggleHomeFeedStateLives} />
 
                     <SwitchContainer
                         title={'Home Feed Premieres'}
-                        description={'Hide Premiere videos on the home page'}
+                        description={chrome.i18n.getMessage('homeFeedPremieresDesc')}
                         darkMode={darkMode}
                         switchName={'toggleHomeFeedStatePremieres'}
                         state={switchState.toggleHomeFeedStatePremieres} />
@@ -58,21 +58,21 @@ const FeedPage = ({ darkMode }) => {
                     {/* Subscriptions */}
                     <SwitchContainer
                         title={'Subscriptions Feed Shorts'}
-                        description={'Hide Shorts videos on the subscriptions page'}
+                        description={chrome.i18n.getMessage('subFeedShortsDesc')}
                         darkMode={darkMode}
                         switchName={'toggleSubscriptionFeedState'}
                         state={switchState.toggleSubscriptionFeedState} />
 
                     <SwitchContainer
                         title={'Subscriptions Feed Lives'}
-                        description={'Hide Live videos on the subscriptions page'}
+                        description={chrome.i18n.getMessage('subFeedLivesDesc')}
                         darkMode={darkMode}
                         switchName={'toggleSubscriptionFeedStateLives'}
                         state={switchState.toggleSubscriptionFeedStateLives} />
 
                     <SwitchContainer
                         title={'Subscriptions Feed Premieres'}
-                        description={'Hide Premiere videos on the subscriptions page'}
+                        description={chrome.i18n.getMessage('subFeedPremieresDesc')}
                         darkMode={darkMode}
                         switchName={'toggleSubscriptionFeedStatePremieres'}
                         state={switchState.toggleSubscriptionFeedStatePremieres} />
@@ -80,7 +80,7 @@ const FeedPage = ({ darkMode }) => {
                     {/* Trending */}
                     <SwitchContainer
                         title={'Trending Feed Shorts'}
-                        description={'Hide Shorts videos on the trending page'}
+                        description={chrome.i18n.getMessage('trendingFeedShortsDesc')}
                         darkMode={darkMode}
                         switchName={'toggleTrendingFeedState'}
                         state={switchState.toggleTrendingFeedState} />

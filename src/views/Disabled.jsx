@@ -8,15 +8,15 @@ const Disabled = ({ darkMode }) => {
             <img src={plug} width={64} height={64} />
 
             <Text className={`text-[22px] mb-3`}>
-                Extension disabled
+                {chrome.i18n.getMessage('disabledOne')}
             </Text>
 
             <Text className={`text-[16px] mb-6 ${darkMode ? 'text-textAltDark' : 'text-textAlt'}`}>
-                When HYS is disabled, so are all of its features. This means you will start seeing Shorts content on YouTube again
+                {chrome.i18n.getMessage('disabledTwo')}
             </Text>
 
             <Text className={`text-[16px] ${darkMode ? 'text-textAltDark' : 'text-textAlt'}`}>
-                You can enable HYS in the <i className='bi bi-gear text-[16px]'></i> settings menu
+                {chrome.i18n.getMessage('disabledThreeA')} <i className='bi bi-gear text-[16px]'></i> {chrome.i18n.getMessage('disabledThreeB')}
             </Text>
         </div>
     )

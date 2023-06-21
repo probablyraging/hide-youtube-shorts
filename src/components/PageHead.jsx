@@ -8,12 +8,12 @@ import { feed_page, channel_page, misc_page, support_page, disabled_page } from 
 const PageHead = ({ darkMode, toggleDarkMode }) => {
     const location = useLocation();
     const pageData = {
-        '/': ['Feed Pages', feed_page, `Control the view of Shorts videos on pages such as Home, Subscriptions, and Trending`],
-        '/feed': ['Feed Pages', feed_page, `Control the view of Shorts videos on pages such as Home, Subscriptions, and Trending`],
-        '/channel': ['Channel Pages', channel_page, `Control the view of the Shorts tab and Shorts videos on user's channel pages`],
-        '/misc': ['Miscellaneous', misc_page, `Miscellaneous options for hiding Shorts elements all across YouTube`],
-        '/support': ['Support', support_page, `Support`],
-        '/disabled': ['Disabled', disabled_page, `Disabled`],
+        '/': [chrome.i18n.getMessage('feedPageTitle'), feed_page, chrome.i18n.getMessage('feedPageDesc')],
+        '/feed': [chrome.i18n.getMessage('feedPageTitle'), feed_page, chrome.i18n.getMessage('feedPageDesc')],
+        '/channel': [chrome.i18n.getMessage('channelPageTitle'), channel_page, chrome.i18n.getMessage('channelPageDesc')],
+        '/misc': [chrome.i18n.getMessage('miscPageTitle'), misc_page, chrome.i18n.getMessage('miscPageDesc')],
+        '/support': [chrome.i18n.getMessage('supportPageTitle'), support_page, chrome.i18n.getMessage('supportPageDesc')],
+        '/disabled': [chrome.i18n.getMessage('disabledPageTitle'), disabled_page, chrome.i18n.getMessage('disabledPageDesc')],
     };
 
     const [title, pageIcon, tooltipText] = pageData[location.pathname] || [];

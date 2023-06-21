@@ -8,11 +8,11 @@ const StatsPage = ({ darkMode }) => {
             <img src={support} width={64} height={64} />
 
             <Text className={`text-[22px] mb-3`}>
-                Something wrong?
+                {chrome.i18n.getMessage('supportOne')}
             </Text>
 
             <Text className={`text-[16px] ${darkMode ? 'text-textAltDark' : 'text-textAlt'}`}>
-                Join the Discord support server
+                {chrome.i18n.getMessage('supportTwo')}
             </Text>
             <Button
                 onPress={() => { window.open("https://discord.gg/HAFP4P7Dfr", "_blank") }}
@@ -23,7 +23,7 @@ const StatsPage = ({ darkMode }) => {
             <Spacer y={1} />
 
             <Text className={`text-[16px] ${darkMode ? 'text-textAltDark' : 'text-textAlt'}`}>
-                Open a support ticket on GitHub
+                {chrome.i18n.getMessage('supportThree')}
             </Text>
             <Button
                 onPress={() => { window.open("https://github.com/ProbablyRaging/hide-youtube-shorts/issues/new/choose", "_blank") }}
