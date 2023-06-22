@@ -5,6 +5,12 @@ import './index.css'
 
 window.React = React;
 
+// window.chrome = {
+//     i18n: {
+//         getMessage: (messageName) => 'default'
+//     },
+// };
+
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <App />

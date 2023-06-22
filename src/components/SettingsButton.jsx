@@ -34,6 +34,8 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
     };
 
     const handleClick = (action) => {
+        if (action === 'twitter') window.open('https://twitter.com/hideshorts');
+        if (action === 'facebook') window.open('https://www.facebook.com/profile.php?id=100094122960153');
         if (action === 'website') window.open('https://hideshorts.com/');
         if (action === 'github') window.open('https://github.com/probablyraging/hide-youtube-shorts');
         if (action === 'help') window.open('https://discord.gg/HAFP4P7Dfr');
@@ -105,25 +107,47 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
                     </Dropdown.Item>
 
                     <Dropdown.Item
-                        textValue='website'
-                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
-                        icon={<LanguageIcon className={`w-[18px] ${darkMode ? 'text-[#a570c6]' : 'text-[#a570c6]'}`} />}
-                        key="website"
-                        css={{ fontSize: '14px' }}
-                        withDivider>
-                        <div onClick={() => handleClick('website')}>
-                            {chrome.i18n.getMessage('website')}
-                        </div>
-                    </Dropdown.Item>
-
-                    <Dropdown.Item
                         textValue='github'
                         className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
                         icon={<GitHubIcon className={`w-[18px] ${darkMode ? 'text-[#4f4f4f]' : 'text-[#373737]'}`} />}
                         key="github"
-                        css={{ fontSize: '14px' }}>
+                        css={{ fontSize: '14px' }}
+                        withDivider>
                         <div onClick={() => handleClick('github')}>
                             GitHub
+                        </div>
+                    </Dropdown.Item>
+
+                    <Dropdown.Item
+                        textValue='twitter'
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        icon={<i className={`bi bi-twitter text-[17px] ${darkMode ? 'text-[#1C9AEF]' : 'text-[#1C9AEF]'}`}></i>}
+                        key="twitter"
+                        css={{ fontSize: '14px' }}>
+                        <div onClick={() => handleClick('twitter')}>
+                            Twitter
+                        </div>
+                    </Dropdown.Item>
+
+                    <Dropdown.Item
+                        textValue='facebook'
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        icon={<i className={`bi bi-facebook text-[17px] ${darkMode ? 'text-[#097EEB]' : 'text-[#097EEB]'}`}></i>}
+                        css={{ fontSize: '14px' }}
+                        key="facebook">
+                        <div onClick={() => handleClick('facebook')}>
+                            Facebook
+                        </div>
+                    </Dropdown.Item>
+
+                    <Dropdown.Item
+                        textValue='website'
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        icon={<LanguageIcon className={`w-[18px] ${darkMode ? 'text-[#a570c6]' : 'text-[#a570c6]'}`} />}
+                        key="website"
+                        css={{ fontSize: '14px' }}>
+                        <div onClick={() => handleClick('website')}>
+                            {chrome.i18n.getMessage('website')}
                         </div>
                     </Dropdown.Item>
 
@@ -132,7 +156,8 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
                         className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
                         icon={<i className={`bi bi-discord w-[18px] h-[24px] text-[17px] ${darkMode ? 'text-[#515cd6]' : 'text-[#404eed]'}`}></i>}
                         key="support"
-                        css={{ fontSize: '14px' }}>
+                        css={{ fontSize: '14px' }}
+                        withDivider>
                         <div onClick={() => handleClick('help')}>
                             {chrome.i18n.getMessage('helpAndSupport')}
                         </div>
