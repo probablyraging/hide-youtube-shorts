@@ -38,18 +38,24 @@ const ModalDisplay = () => {
             >
                 <Modal.Header className='absolute flex flex-col items-start top-0'>
                     <Text className='font-semibold' size={16}>
-                        What's New In 1.6.14
+                        What's New In 1.6.14.2
                     </Text>
                     <Text className='text-[12px]'>
-                        June 18, 2023
+                        June 23, 2023
                     </Text>
                 </Modal.Header>
                 <Modal.Body className='mt-[50px]'>
-                    <Text className='changed mb-4'>
-                        Reverting Changes
+                    <Text className='added mb-4'>
+                        Try The Beta
                     </Text>
                     <Text className='text-[13px] mb-2'>
-                        I have decided to revert the most recent changes to the extension as people were not happy with the permission requirements
+                        Try the newest and most up-to-date features of HYS with our new Beta version
+                        <br></br>
+                        <br></br>
+                        Open the settings menu and click <a href="https://chrome.google.com/webstore/detail/hys-beta/mefpaebipddmdknlplfakgdoiajiifmg" target='_blank'>"Try The Beta"</a>
+                        <br></br>
+                        <br></br>
+                        Please keep in mind this an experimental version and it may contain bugs or unexpected behavior
                     </Text>
                 </Modal.Body>
                 <Modal.Footer>

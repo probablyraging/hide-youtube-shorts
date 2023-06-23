@@ -1,7 +1,9 @@
 import React from 'react';
+import { Badge } from '../components';
 import { Dropdown, Switch } from '@nextui-org/react';
-import SettingsIcon from '@mui/icons-material/Settings';
 import { SunIcon, MoonIcon } from '../constants/icons';
+import BiotechIcon from '@mui/icons-material/Biotech';
+import SettingsIcon from '@mui/icons-material/Settings';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import CoffeeIcon from '@mui/icons-material/Coffee';
@@ -9,6 +11,7 @@ import CoffeeIcon from '@mui/icons-material/Coffee';
 const SettingsButton = ({ darkMode, toggleDarkMode }) => {
 
     const handleClick = (action) => {
+        if (action === 'beta') window.open('https://chrome.google.com/webstore/detail/hys-beta/mefpaebipddmdknlplfakgdoiajiifmg');
         if (action === 'github') window.open('https://github.com/probablyraging/hide-youtube-shorts');
         if (action === 'help') window.open('https://discord.gg/HrhzwdB82j');
         if (action === 'review') window.open('https://chrome.google.com/webstore/detail/hide-youtube-shorts/aljlkinhomaaahfdojalfmimeidofpih/reviews');
@@ -30,8 +33,20 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
                     variant='light' aria-label="settings">
 
                     <Dropdown.Item
+                        textValue='beta'
+                        icon={<BiotechIcon className={`w-[18px]`} />}
+                        key="beta"
+                        css={{ fontSize: '14px' }}>
+                        <div className='flex flex-row items-center gap-2' onClick={() => handleClick('beta')}>
+                            Try The Beta
+                            <Badge content={'NEW'} />
+                        </div>
+                    </Dropdown.Item>
+
+                    <Dropdown.Item
                         textValue='theme'
-                        key="theme" css={{ fontSize: '14px' }}>
+                        key="theme" css={{ fontSize: '14px' }}
+                        withDivider>
                         <div className='flex items-center justify-between'>
                             <div className='w-full' onClick={toggleDarkMode}>
                                 {darkMode ? 'Dark' : 'Light'}
