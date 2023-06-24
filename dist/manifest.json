@@ -16,6 +16,16 @@
         "service_worker": "assets/background.js",
         "type": "module"
     },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://m.youtube.com/*"
+            ],
+            "js": [
+                "assets/mobile.js"
+            ]
+        }
+    ],
     "action": {
         "default_title": "Hide YouTube Shorts",
         "default_popup": "index.html"
