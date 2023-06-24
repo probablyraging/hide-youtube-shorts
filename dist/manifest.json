@@ -1,14 +1,16 @@
 {
     "name": "Hide YouTube Shorts",
     "manifest_version": 3,
-    "version": "1.6.14.3",
-    "description": "Disable YouTube Shorts effortlessly with this powerful browser extension",
+    "version": "1.6.15",
+    "description": "__MSG_extDesc__",
+    "default_locale": "en",
     "permissions": [
-        "storage"
+        "storage",
+        "scripting",
+        "tabs"
     ],
     "host_permissions": [
-        "https://www.youtube.com/",
-        "https://m.youtube.com/"
+        "<all_urls>"
     ],
     "background": {
         "service_worker": "assets/background.js",
@@ -17,14 +19,10 @@
     "content_scripts": [
         {
             "matches": [
-                "https://www.youtube.com/*",
                 "https://m.youtube.com/*"
             ],
             "js": [
-                "assets/main.js"
-            ],
-            "css": [
-                "assets/styles.css"
+                "assets/mobile.js"
             ]
         }
     ],

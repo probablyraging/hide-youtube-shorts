@@ -47,16 +47,20 @@
 body {
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
     font-size: 14px;
-    width: 450px;
     min-width: 450px !important;
-    min-height: 550px !important;
-    max-height: 550px !important;
+    max-width: 450px !important;
+    min-height: 590px !important;
+    max-height: 590px !important;
     overflow: scroll;
     background-color: var(--nextui-colors-background);
 }
 
 p {
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+.switch-container:not(:first-of-type) {
+    border-top: 1px solid;
 }
 
 .nextui-modal-body .added {
@@ -110,25 +114,14 @@ p {
     opacity: .6;
 }
 
+.nextui-modal-body ul {
+    list-style-type: circle;
+}
+
+.nextui-modal-body li {
+    font-size: 13px;
+}
+
 .nextui-backdrop-layer-blur {
     backdrop-filter: saturate(180%) blur(2px) !important;
-}
-
-.gradient-anim {
-    background: radial-gradient(circle, #d44242 0%, #c6a200 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent !important;
-    background-size: 600%;
-    animation: gradient 4s linear infinite;
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 100%;
-    }
-
-    100% {
-        background-position: 0%;
-    }
 }

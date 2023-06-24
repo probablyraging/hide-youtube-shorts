@@ -1,0 +1,128 @@
+{
+    "extDesc": {
+        "message": "Disable YouTube Shorts effortlessly with this powerful browser extension"
+    },
+    "homeFeedShortsDesc": {
+        "message": "Hide Shorts videos on the home page"
+    },
+    "homeFeedLivesDesc": {
+        "message": "Hide Live videos on the home page"
+    },
+    "homeFeedPremieresDesc": {
+        "message": "Hide Premiere videos on the home page"
+    },
+    "subFeedShortsDesc": {
+        "message": "Hide Shorts videos on the subscriptions page"
+    },
+    "subFeedLivesDesc": {
+        "message": "Hide Live videos on the subscriptions page"
+    },
+    "subFeedPremieresDesc": {
+        "message": "Hide Premiere videos on the subscriptions page"
+    },
+    "trendingFeedShortsDesc": {
+        "message": "Hide Shorts videos on the trending page"
+    },
+    "shortsTabDesc": {
+        "message": "Hide the Shorts tab on channel pages"
+    },
+    "homeTabShortsDesc": {
+        "message": "Hide Shorts videos in the home tab on channel pages"
+    },
+    "shortsNavigationButtonDesc": {
+        "message": "Hide the Shorts button on the navigation panel"
+    },
+    "searchResultsDesc": {
+        "message": "Hide Shorts videos in search results"
+    },
+    "recommendedListDesc": {
+        "message": "Hide Shorts videos in the recommended list on video watch pages"
+    },
+    "notificationMenuDesc": {
+        "message": "Hide notifications about Shorts in the notification menu"
+    },
+    "playInRegularModeDesc": {
+        "message": "Play Shorts videos on a regular video page"
+    },
+    "disabledOne": {
+        "message": "Extension disabled"
+    },
+    "disabledTwo": {
+        "message": "When HYS is disabled, so are all of its features. This means you will start seeing Shorts content on YouTube again"
+    },
+    "disabledThreeA": {
+        "message": "You can enable HYS in the"
+    },
+    "disabledThreeB": {
+        "message": "settings menu"
+    },
+    "supportOne": {
+        "message": "Something wrong?"
+    },
+    "supportTwo": {
+        "message": "Join the Discord support server"
+    },
+    "supportThree": {
+        "message": "Open a support ticket on GitHub"
+    },
+    "feedPageTitle": {
+        "message": "Feed Pages"
+    },
+    "feedPageDesc": {
+        "message": "Control the view of Shorts videos on pages such as Home, Subscriptions, and Trending"
+    },
+    "channelPageTitle": {
+        "message": "Channel Pages"
+    },
+    "channelPageDesc": {
+        "message": "Control the view of the Shorts tab and Shorts videos on user's channel pages"
+    },
+    "miscPageTitle": {
+        "message": "Miscellaneous"
+    },
+    "miscPageDesc": {
+        "message": "Miscellaneous options for hiding Shorts elements all across YouTube"
+    },
+    "blockPageTitle": {
+        "message": "Blocking"
+    },
+    "blockPageDesc": {
+        "message": "Custom blocking options"
+    },
+    "blockChannelsDesc": {
+        "message": "Enter a channel name to hide content from that channel on the home, subscriptions, trending, and search feeds"
+    },
+    "blockInputHelper": {
+        "message": "Channel names are case sensitive"
+    },
+    "removeAllBlocks": {
+        "message": "Remove All"
+    },
+    "emptyBlocklist": {
+        "message": "No blocked channels"
+    },
+    "disabledPageTitle": {
+        "message": "Disabled"
+    },
+    "disabledPageDesc": {
+        "message": "Disabled"
+    },
+    "enabled": {
+        "message": "Enabled"
+    },
+    "disabled": {
+        "message": "Disabled"
+    },
+    "website": {
+        "message": "Website"
+    },
+    "helpAndSupport": {
+        "message": "Help & Support"
+    },
+    "leaveAReview": {
+        "message": "Leave A Review"
+    },
+    "buyMeACoffee": {
+        "message": "Buy Me A Coffee"
+    }
+}

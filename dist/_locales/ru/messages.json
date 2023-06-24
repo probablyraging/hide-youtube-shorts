@@ -1,0 +1,128 @@
+{
+    "extDesc": {
+        "message": "Отключите YouTube Shorts без особых усилий с помощью этого мощного расширения для браузера"
+    },
+    "homeFeedShortsDesc": {
+        "message": "Скрыть видео Shorts на главной странице"
+    },
+    "homeFeedLivesDesc": {
+        "message": "Скрыть видео в прямом эфире на главной странице"
+    },
+    "homeFeedPremieresDesc": {
+        "message": "Скрыть премьерные видео на главной странице"
+    },
+    "subFeedShortsDesc": {
+        "message": "Скрыть видео Shorts на странице подписки"
+    },
+    "subFeedLivesDesc": {
+        "message": "Скрыть видео в прямом эфире на странице подписки"
+    },
+    "subFeedPremieresDesc": {
+        "message": "Скрыть премьерные видео на странице подписки"
+    },
+    "trendingFeedShortsDesc": {
+        "message": "Скрыть видео Shorts на странице трендов"
+    },
+    "shortsTabDesc": {
+        "message": "Скрывать вкладку Шорты на страницах каналов"
+    },
+    "homeTabShortsDesc": {
+        "message": "Скрыть видео Shorts на главной вкладке на страницах каналов"
+    },
+    "shortsNavigationButtonDesc": {
+        "message": "Скрыть кнопку Шорты на панели навигации"
+    },
+    "searchResultsDesc": {
+        "message": "Скрыть видео Shorts в результатах поиска"
+    },
+    "recommendedListDesc": {
+        "message": "Скрыть видеоролики Shorts в списке рекомендуемых на страницах просмотра видео"
+    },
+    "notificationMenuDesc": {
+        "message": "Скрыть уведомления о Shorts в меню уведомлений"
+    },
+    "playInRegularModeDesc": {
+        "message": "Воспроизводить видео Shorts на обычной странице видео"
+    },
+    "disabledOne": {
+        "message": "Расширение отключено"
+    },
+    "disabledTwo": {
+        "message": "Когда HYS отключен, отключены и все его функции. Это означает, что вы снова начнете видеть контент Shorts на YouTube"
+    },
+    "disabledThreeA": {
+        "message": "Вы можете включить HYS в"
+    },
+    "disabledThreeB": {
+        "message": "меню настроек"
+    },
+    "supportOne": {
+        "message": "Что-то не так?"
+    },
+    "supportTwo": {
+        "message": "Присоединяйтесь к серверу поддержки Discord"
+    },
+    "supportThree": {
+        "message": "Открыть тикет поддержки на GitHub"
+    },
+    "feedPageTitle": {
+        "message": "Страницы фида"
+    },
+    "feedPageDesc": {
+        "message": "Управление просмотром видеороликов Shorts на таких страницах, как Главная, Подписки и Trending"
+    },
+    "channelPageTitle": {
+        "message": "Страницы канала"
+    },
+    "channelPageDesc": {
+        "message": "Управление отображением вкладки Шорты и видеороликов Шорты на страницах канала пользователя"
+    },
+    "miscPageTitle": {
+        "message": "Разное"
+    },
+    "miscPageDesc": {
+        "message": "Различные опции для скрытия элементов Shorts по всему YouTube"
+    },
+    "blockPageTitle": {
+        "message": "Блокировка"
+    },
+    "blockPageDesc": {
+        "message": "Пользовательские опции блокировки"
+    },
+    "blockChannelsDesc": {
+        "message": "Введите название канала, чтобы скрыть содержимое этого канала в главной ленте, ленте подписок, ленте трендов и ленте поиска"
+    },
+    "blockInputHelper": {
+        "message": "С учетом регистра"
+    },
+    "removeAllBlocks": {
+        "message": "Удалить все"
+    },
+    "emptyBlocklist": {
+        "message": "Отсутствие заблокированных каналов"
+    },
+    "disabledPageTitle": {
+        "message": "Инвалид"
+    },
+    "disabledPageDesc": {
+        "message": "Инвалид"
+    },
+    "enabled": {
+        "message": "Включено"
+    },
+    "disabled": {
+        "message": "Инвалид"
+    },
+    "website": {
+        "message": "Веб-сайт"
+    },
+    "helpAndSupport": {
+        "message": "Помощь и поддержка"
+    },
+    "leaveAReview": {
+        "message": "Оставить отзыв"
+    },
+    "buyMeACoffee": {
+        "message": "Купите мне кофе"
+    }
+}

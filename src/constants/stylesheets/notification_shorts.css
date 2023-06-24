@@ -1,0 +1,3 @@
+ytd-notification-renderer:has(a[href*="/shorts/"]) {
+    display: none !important;
+}

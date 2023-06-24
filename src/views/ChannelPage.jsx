@@ -24,23 +24,18 @@ const ChannelPage = ({ darkMode }) => {
     return (
         <Suspense fallback={<Loader darkMode={darkMode} />}>
             <div className='flex flex-col justify-center items-center w-full h-full'>
-                <div className={`w-full mt-6 mb-5`}>
-                    <Text className={`text-[12px] ${darkMode ? 'text-textAltDark' : 'text-textAlt'}`}>
-                        Control the view of the Shorts tab and Shorts videos on user's channel pages
-                    </Text>
-                </div>
 
-                <div className='flex flex-col w-full'>
+                <div className='flex flex-col w-full mt-4'>
                     <SwitchContainer
                         title={'Shorts Tab'}
-                        description={'Hide the Shorts tab on channel pages'}
+                        description={chrome.i18n.getMessage('shortsTabDesc')}
                         darkMode={darkMode}
                         switchName={'toggleTabState'}
                         state={switchState.toggleTabState} />
 
                     <SwitchContainer
                         title={'Home Tab Shorts'}
-                        description={'Hide Shorts videos in the home tab on channel pages'}
+                        description={chrome.i18n.getMessage('homeTabShortsDesc')}
                         darkMode={darkMode}
                         switchName={'toggleHomeTabState'}
                         state={switchState.toggleHomeTabState} />

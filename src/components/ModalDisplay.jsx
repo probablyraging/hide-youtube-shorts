@@ -1,6 +1,7 @@
 // ModalDisplay.jsx
 import React, { useState, useEffect } from 'react';
 import { Modal, Text, Button } from '@nextui-org/react';
+import { Link } from 'react-router-dom';
 import { presentModal, handleCloseModal } from '../constants/popup';
 
 const ModalDisplay = () => {
@@ -34,28 +35,25 @@ const ModalDisplay = () => {
                 aria-labelledby="modal-title"
                 open={visible}
                 onClose={closeHandler}
-                className='max-h-[330px]'
+                className='max-h-[440px]'
             >
                 <Modal.Header className='absolute flex flex-col items-start top-0'>
                     <Text className='font-semibold' size={16}>
-                        What's New In 1.6.14.2
+                        What's New In 1.6.15
                     </Text>
                     <Text className='text-[12px]'>
-                        June 23, 2023
+                        June 25, 2023
                     </Text>
                 </Modal.Header>
                 <Modal.Body className='mt-[50px]'>
                     <Text className='added mb-4'>
-                        Try The Beta
+                        Major Update
                     </Text>
                     <Text className='text-[13px] mb-2'>
-                        Try the newest and most up-to-date features of HYS with our new Beta version
+                        This update contains a lot of different additions and changes
                         <br></br>
                         <br></br>
-                        Open the settings menu and click <a href="https://chrome.google.com/webstore/detail/hys-beta/mefpaebipddmdknlplfakgdoiajiifmg" target='_blank'>"Try The Beta"</a>
-                        <br></br>
-                        <br></br>
-                        Please keep in mind this an experimental version and it may contain bugs or unexpected behavior
+                        Please <a href="https://github.com/ProbablyRaging/hide-youtube-shorts/releases/tag/1.6.15" target='_blank'>click here</a> for a full change log
                     </Text>
                 </Modal.Body>
                 <Modal.Footer>

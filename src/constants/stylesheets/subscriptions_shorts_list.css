@@ -1,0 +1,4 @@
+/* Subscriptions shorts list view */
+ytd-shelf-renderer:has(a[href*="/shorts/"]) {
+    display: none !important;
+}

@@ -10,7 +10,7 @@ const InfoTooltip = ({ darkMode, content }) => {
                 color='invert'
                 offset={0}
                 css={{ backgroundColor: darkMode ? '#1c1d20' : '#f7f7f7', border: `1px solid ${darkMode ? '#2f2f2f' : '#dbdbdb'}` }}
-                content={<Text className={`text-[12px] ${darkMode ? 'text-white' : 'text-black'}`}>This feature only works on the <a href='https://i.imgur.com/j6i2yB4.png' target='_blank'>new YouTube UI</a></Text>}>
+                content={<Text className={`text-[12px] ${darkMode ? 'text-white' : 'text-black'}`}>{content}</Text>}>
                 <HelpOutlineIcon className='text-[16px] text-[gray]' />
             </Tooltip>
         </div>

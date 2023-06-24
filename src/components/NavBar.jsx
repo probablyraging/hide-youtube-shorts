@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
-import VideoLabelRoundedIcon from '@mui/icons-material/VideoLabelRounded';
-import SpeedIcon from '@mui/icons-material/Speed';
-import BarChartIcon from '@mui/icons-material/BarChart';
 import Paper from '@mui/material/Paper';
+import { feed_page, channel_page, misc_page, block_page } from '../assets';
 
 const NavBar = ({ darkMode }) => {
     const [value, setValue] = useState(0);
@@ -27,7 +24,7 @@ const NavBar = ({ darkMode }) => {
             case '/misc':
                 setValue(2);
                 break;
-            case '/stats':
+            case '/block':
                 setValue(3);
                 break;
             default:
@@ -47,9 +44,6 @@ const NavBar = ({ darkMode }) => {
                 left: 0,
                 right: 0,
                 zIndex: 999,
-                borderTopLeftRadius: '20px',
-                borderTopRightRadius: '20px',
-                filter: 'drop-shadow(2px 4px 6px #00000042)',
                 backgroundColor: darkMode ? '#1a1c1e' : '',
             }}
         >
@@ -59,61 +53,59 @@ const NavBar = ({ darkMode }) => {
                     setValue(newValue);
                 }}
                 sx={{
-                    height: '42px',
-                    borderTopLeftRadius: '20px',
-                    borderTopRightRadius: '20px',
+                    height: '45px',
                     backgroundColor: darkMode ? '#1a1c1e' : '',
                 }}
             >
                 <Link to={navDisabled ? '/disabled' : '/feed'} className='flex w-full'>
                     <BottomNavigationAction
                         className={`${darkMode ? 'hover:bg-[#202225]' : 'hover:bg-[#f5f5f5]'} transition-colors duration-200`}
-                        icon={<SubscriptionsIcon className='w-[20px]' />}
+                        icon={<img src={feed_page} width={20} height={20} />}
                         sx={{
                             height: '100%',
                             color: value === 0 ? navButtonColorActive : navButtonColorDefault,
                             backgroundColor: value === 0 ? darkMode ? '#202225' : '#f5f5f5' : '',
-                            borderTopLeftRadius: '20px',
-                            borderTopRightRadius: '20px'
+                            borderTopLeftRadius: '6px',
+                            borderTopRightRadius: '6px'
                         }} />
                 </Link>
 
                 <Link to={navDisabled ? '/disabled' : '/channel'} className='flex w-full'>
                     <BottomNavigationAction
                         className={`${darkMode ? 'hover:bg-[#202225]' : 'hover:bg-[#f5f5f5]'} transition-colors duration-200`}
-                        icon={<VideoLabelRoundedIcon className='w-[20px]' />}
+                        icon={<img src={channel_page} width={20} height={20} />}
                         sx={{
                             height: '100%',
                             color: value === 1 ? navButtonColorActive : navButtonColorDefault,
                             backgroundColor: value === 1 ? darkMode ? '#202225' : '#f5f5f5' : '',
-                            borderTopLeftRadius: '20px',
-                            borderTopRightRadius: '20px'
+                            borderTopLeftRadius: '6px',
+                            borderTopRightRadius: '6px'
                         }} />
                 </Link>
 
                 <Link to={navDisabled ? '/disabled' : '/misc'} className='flex w-full'>
                     <BottomNavigationAction
                         className={`${darkMode ? 'hover:bg-[#202225]' : 'hover:bg-[#f5f5f5]'} transition-colors duration-200`}
-                        icon={<SpeedIcon />}
+                        icon={<img src={misc_page} width={20} height={20} />}
                         sx={{
                             height: '100%',
                             color: value === 2 ? navButtonColorActive : navButtonColorDefault,
                             backgroundColor: value === 2 ? darkMode ? '#202225' : '#f5f5f5' : '',
-                            borderTopLeftRadius: '20px',
-                            borderTopRightRadius: '20px'
+                            borderTopLeftRadius: '6px',
+                            borderTopRightRadius: '6px'
                         }} />
                 </Link>
 
-                <Link to={navDisabled ? '/disabled' : '/stats'} className='flex w-full'>
+                <Link to={navDisabled ? '/disabled' : '/block'} className='flex w-full'>
                     <BottomNavigationAction
                         className={`${darkMode ? 'hover:bg-[#202225]' : 'hover:bg-[#f5f5f5]'} transition-colors duration-200`}
-                        icon={<BarChartIcon />}
+                        icon={<img src={block_page} width={24} height={20} />}
                         sx={{
                             height: '100%',
                             color: value === 3 ? navButtonColorActive : navButtonColorDefault,
                             backgroundColor: value === 3 ? darkMode ? '#202225' : '#f5f5f5' : '',
-                            borderTopLeftRadius: '20px',
-                            borderTopRightRadius: '20px'
+                            borderTopLeftRadius: '6px',
+                            borderTopRightRadius: '6px'
                         }} />
                 </Link>
             </BottomNavigation>

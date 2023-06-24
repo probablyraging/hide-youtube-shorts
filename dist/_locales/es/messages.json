@@ -1,0 +1,128 @@
+{
+    "extDesc": {
+        "message": "Desactiva YouTube Shorts sin esfuerzo con esta potente extensión del navegador"
+    },
+    "homeFeedShortsDesc": {
+        "message": "Ocultar vídeos cortos en la página de inicio"
+    },
+    "homeFeedLivesDesc": {
+        "message": "Ocultar vídeos en directo en la página de inicio"
+    },
+    "homeFeedPremieresDesc": {
+        "message": "Ocultar los vídeos de estreno en la página de inicio"
+    },
+    "subFeedShortsDesc": {
+        "message": "Ocultar los vídeos de Shorts en la página de suscripciones"
+    },
+    "subFeedLivesDesc": {
+        "message": "Ocultar los vídeos en directo en la página de suscripciones"
+    },
+    "subFeedPremieresDesc": {
+        "message": "Ocultar los vídeos de estreno en la página de suscripciones"
+    },
+    "trendingFeedShortsDesc": {
+        "message": "Ocultar los vídeos de Shorts en la página de trending"
+    },
+    "shortsTabDesc": {
+        "message": "Ocultar la pestaña Shorts en las páginas de canales"
+    },
+    "homeTabShortsDesc": {
+        "message": "Ocultar los vídeos Shorts en la pestaña de inicio en las páginas de los canales"
+    },
+    "shortsNavigationButtonDesc": {
+        "message": "Ocultar el botón Shorts en el panel de navegación"
+    },
+    "searchResultsDesc": {
+        "message": "Ocultar los vídeos de Shorts en los resultados de búsqueda"
+    },
+    "recommendedListDesc": {
+        "message": "Ocultar los vídeos de Shorts en la lista recomendada en las páginas de visualización de vídeos"
+    },
+    "notificationMenuDesc": {
+        "message": "Ocultar las notificaciones sobre Shorts en el menú de notificaciones"
+    },
+    "playInRegularModeDesc": {
+        "message": "Reproducir vídeos de Shorts en una página de vídeos normal"
+    },
+    "disabledOne": {
+        "message": "Extensión desactivada"
+    },
+    "disabledTwo": {
+        "message": "Cuando HYS está desactivado, también lo están todas sus funciones. Esto significa que empezarás a ver de nuevo el contenido de Shorts en YouTube"
+    },
+    "disabledThreeA": {
+        "message": "Puedes activar HYS en el "
+    },
+    "disabledThreeB": {
+        "message": " menú de configuración"
+    },
+    "supportOne": {
+        "message": "¿Algo mal?"
+    },
+    "supportTwo": {
+        "message": "Únete al servidor de soporte de Discord"
+    },
+    "supportThree": {
+        "message": "Abrir un ticket de soporte en GitHub"
+    },
+    "feedPageTitle": {
+        "message": "Páginas Feed"
+    },
+    "feedPageDesc": {
+        "message": "Controla la visualización de los vídeos cortos en páginas como Inicio, Suscripciones y Tendencias"
+    },
+    "channelPageTitle": {
+        "message": "Canal Páginas"
+    },
+    "channelPageDesc": {
+        "message": "Controlar la visualización de la pestaña Shorts y de los vídeos Shorts en las páginas de los canales de los usuarios"
+    },
+    "miscPageTitle": {
+        "message": "Misceláneas"
+    },
+    "miscPageDesc": {
+        "message": "Opciones varias para ocultar los elementos Shorts en todo YouTube"
+    },
+    "blockPageTitle": {
+        "message": "Bloqueo"
+    },
+    "blockPageDesc": {
+        "message": "Opciones de bloqueo personalizadas"
+    },
+    "blockChannelsDesc": {
+        "message": "Introduce el nombre de un canal para ocultar su contenido en la página de inicio, suscripciones, tendencias y búsqueda"
+    },
+    "blockInputHelper": {
+        "message": "Mayúsculas y minúsculas"
+    },
+    "removeAllBlocks": {
+        "message": "Quitar todo"
+    },
+    "emptyBlocklist": {
+        "message": "No hay canales bloqueados"
+    },
+    "disabledPageTitle": {
+        "message": "Desactivado"
+    },
+    "disabledPageDesc": {
+        "message": "Desactivado"
+    },
+    "enabled": {
+        "message": "Activado"
+    },
+    "disabled": {
+        "message": "Desactivado"
+    },
+    "website": {
+        "message": "Sitio Web"
+    },
+    "helpAndSupport": {
+        "message": "Ayuda Y Soporte"
+    },
+    "leaveAReview": {
+        "message": "Dejar Una Opinión"
+    },
+    "buyMeACoffee": {
+        "message": "Cómprame Un Café"
+    }
+}

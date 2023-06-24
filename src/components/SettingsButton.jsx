@@ -1,19 +1,44 @@
-import React from 'react';
-import { Badge } from '../components';
-import { Dropdown, Switch } from '@nextui-org/react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Badge, Dropdown, Switch } from '@nextui-org/react';
 import { SunIcon, MoonIcon } from '../constants/icons';
-import BiotechIcon from '@mui/icons-material/Biotech';
-import SettingsIcon from '@mui/icons-material/Settings';
+import LanguageIcon from '@mui/icons-material/Language';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import CoffeeIcon from '@mui/icons-material/Coffee';
+import CircleIcon from '@mui/icons-material/Circle';
+import { getSwitchStates, updateSwitchState } from '../constants/popup';
 
 const SettingsButton = ({ darkMode, toggleDarkMode }) => {
+    const [mainState, setMainState] = useState();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchSwitchData = async () => {
+            try {
+                const switchData = await getSwitchStates();
+                setMainState(switchData.toggleState);
+            } catch (error) {
+                console.error('Error fetching switch data:', error);
+            }
+        };
+
+        fetchSwitchData();
+    }, []);
+
+    const updateSwitch = async () => {
+        await updateSwitchState('toggleState');
+        setMainState(!mainState);
+        if (!mainState === false) navigate('/disabled');
+        if (!mainState === true) navigate('/');
+    };
 
     const handleClick = (action) => {
-        if (action === 'beta') window.open('https://chrome.google.com/webstore/detail/hys-beta/mefpaebipddmdknlplfakgdoiajiifmg');
+        if (action === 'twitter') window.open('https://twitter.com/hideshorts');
+        if (action === 'facebook') window.open('https://www.facebook.com/profile.php?id=100094122960153');
+        if (action === 'website') window.open('https://hideshorts.com/');
         if (action === 'github') window.open('https://github.com/probablyraging/hide-youtube-shorts');
-        if (action === 'help') window.open('https://discord.gg/HrhzwdB82j');
+        if (action === 'help') window.open('https://discord.gg/HAFP4P7Dfr');
         if (action === 'review') window.open('https://chrome.google.com/webstore/detail/hide-youtube-shorts/aljlkinhomaaahfdojalfmimeidofpih/reviews');
         if (action === 'coffee') window.open('https://www.buymeacoffee.com/probablyraging');
     };
@@ -22,30 +47,49 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
         <div className={`${darkMode ? 'text-[#e9e9e9]' : 'text-[#3b3b3b]'} cursor-pointer`}>
             <Dropdown closeOnSelect={false} placement="bottom-right">
 
-                <Dropdown.Trigger>
-                    <SettingsIcon
-                        className={`${darkMode ? 'hover:bg-[#383a3d]' : 'hover:bg-[#dfdfdf]'} hover:text-[#3694ff] transition-colors duration-200`}
-                        sx={{ width: '28px', height: '28px', padding: '4px', backgroundColor: `${darkMode ? '#2f3235' : '#e9e9e9'}`, borderRadius: '8px' }} />
-                </Dropdown.Trigger>
+                <Badge
+                    content=""
+                    color={`${mainState ? 'success' : 'error'}`}
+                    placement="bottom-left"
+                    shape="circle"
+                    variant="dot"
+                    size="md"
+                    verticalOffset="10%"
+                    className='cursor-default'>
+                    <Dropdown.Trigger>
+                        <i className='bi bi-gear text-[22px] hover:text-[#3694ff] transition-colors duration-200 cursor-pointer'></i>
+                    </Dropdown.Trigger>
+                </Badge>
 
                 <Dropdown.Menu
                     css={{ border: `1px solid ${darkMode ? '#2f2f2f' : '#dbdbdb'}`, borderRadius: '16px', padding: '4px' }}
                     variant='light' aria-label="settings">
 
                     <Dropdown.Item
-                        textValue='beta'
-                        icon={<BiotechIcon className={`w-[18px]`} />}
-                        key="beta"
+                        textValue='power'
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        key="power"
                         css={{ fontSize: '14px' }}>
-                        <div className='flex flex-row items-center gap-2' onClick={() => handleClick('beta')}>
-                            Try The Beta
-                            <Badge content={'NEW'} />
+                        <div className='flex items-center justify-between'>
+                            <div className='w-full' onClick={updateSwitch}>
+                                {mainState ? chrome.i18n.getMessage('enabled') : chrome.i18n.getMessage('disabled')}
+                            </div>
+                            <Switch
+                                id="power-switch"
+                                checked={mainState}
+                                onChange={updateSwitch}
+                                size="xs"
+                                iconOn={<CircleIcon className='text-[#17C964]' />}
+                                iconOff={<CircleIcon className='text-[#F31260]' />}
+                            />
                         </div>
                     </Dropdown.Item>
 
                     <Dropdown.Item
                         textValue='theme'
-                        key="theme" css={{ fontSize: '14px' }}
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        key="theme"
+                        css={{ fontSize: '14px' }}
                         withDivider>
                         <div className='flex items-center justify-between'>
                             <div className='w-full' onClick={toggleDarkMode}>
@@ -64,7 +108,8 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
 
                     <Dropdown.Item
                         textValue='github'
-                        icon={<GitHubIcon className={`w-[18px]`} />}
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        icon={<GitHubIcon className={`w-[18px] ${darkMode ? 'text-[#4f4f4f]' : 'text-[#373737]'}`} />}
                         key="github"
                         css={{ fontSize: '14px' }}
                         withDivider>
@@ -74,32 +119,69 @@ const SettingsButton = ({ darkMode, toggleDarkMode }) => {
                     </Dropdown.Item>
 
                     <Dropdown.Item
-                        textValue='help & support'
-                        icon={<i className="bi bi-discord w-[18px] h-[24px] text-[17px]"></i>}
-                        key="support"
+                        textValue='twitter'
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        icon={<i className={`bi bi-twitter text-[17px] ${darkMode ? 'text-[#1C9AEF]' : 'text-[#1C9AEF]'}`}></i>}
+                        key="twitter"
                         css={{ fontSize: '14px' }}>
+                        <div onClick={() => handleClick('twitter')}>
+                            Twitter
+                        </div>
+                    </Dropdown.Item>
+
+                    <Dropdown.Item
+                        textValue='facebook'
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        icon={<i className={`bi bi-facebook text-[17px] ${darkMode ? 'text-[#097EEB]' : 'text-[#097EEB]'}`}></i>}
+                        css={{ fontSize: '14px' }}
+                        key="facebook">
+                        <div onClick={() => handleClick('facebook')}>
+                            Facebook
+                        </div>
+                    </Dropdown.Item>
+
+                    <Dropdown.Item
+                        textValue='website'
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        icon={<LanguageIcon className={`w-[18px] ${darkMode ? 'text-[#a570c6]' : 'text-[#a570c6]'}`} />}
+                        key="website"
+                        css={{ fontSize: '14px' }}>
+                        <div onClick={() => handleClick('website')}>
+                            {chrome.i18n.getMessage('website')}
+                        </div>
+                    </Dropdown.Item>
+
+                    <Dropdown.Item
+                        textValue='help & support'
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        icon={<i className={`bi bi-discord w-[18px] h-[24px] text-[17px] ${darkMode ? 'text-[#515cd6]' : 'text-[#404eed]'}`}></i>}
+                        key="support"
+                        css={{ fontSize: '14px' }}
+                        withDivider>
                         <div onClick={() => handleClick('help')}>
-                            Help & Support
+                            {chrome.i18n.getMessage('helpAndSupport')}
                         </div>
                     </Dropdown.Item>
 
                     <Dropdown.Item
                         textValue='review'
-                        icon={<ThumbUpAltIcon className={`w-[18px]`} />}
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        icon={<ThumbUpAltIcon className={`w-[18px] ${darkMode ? 'text-[#3694ff]' : 'text-[#3694ff]'}`} />}
                         key="review"
                         css={{ fontSize: '14px' }}>
                         <div onClick={() => handleClick('review')}>
-                            Leave A Review
+                            {chrome.i18n.getMessage('leaveAReview')}
                         </div>
                     </Dropdown.Item>
 
                     <Dropdown.Item
                         textValue='coffee'
-                        icon={<CoffeeIcon className={`w-[18px]`} />}
+                        className={`${darkMode ? 'hover:bg-[#232323] text-[#ecedee]' : 'hover:bg-[#f5f5f5] text-[#000]'}`}
+                        icon={<CoffeeIcon className={`w-[18px] ${darkMode ? 'text-[#e1cd4a]' : 'text-[#e1cd4a]'}`} />}
                         key="coffee"
                         css={{ fontSize: '14px' }}>
                         <div onClick={() => handleClick('coffee')}>
-                            Buy Me A Coffee
+                            {chrome.i18n.getMessage('buyMeACoffee')}
                         </div>
                     </Dropdown.Item>
                 </Dropdown.Menu>

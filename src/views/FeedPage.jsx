@@ -32,69 +32,55 @@ const FeedPage = ({ darkMode }) => {
 
                 <ModalDisplay />
 
-                <div className={`w-full mt-6 mb-5`}>
-                    <Text className={`text-[12px] ${darkMode ? 'text-textAltDark' : 'text-textAlt'}`}>
-                        Control the view of Shorts videos on pages such as <Link isExternal href='https://www.youtube.com/' target='_blank'>Home</Link>, <Link isExternal href='https://www.youtube.com/feed/subscriptions' target='_blank'>Subscriptions</Link>, and <Link isExternal href='https://www.youtube.com/feed/trending' target='_blank'>Trending</Link>
-                    </Text>
-                </div>
-
-                <div className='flex flex-col w-full'>
+                <div className='flex flex-col w-full mt-4'>
                     {/* Home */}
                     <SwitchContainer
                         title={'Home Feed Shorts'}
-                        description={'Hide Shorts videos on the home page'}
+                        description={chrome.i18n.getMessage('homeFeedShortsDesc')}
                         darkMode={darkMode}
                         switchName={'toggleHomeFeedState'}
                         state={switchState.toggleHomeFeedState} />
 
                     <SwitchContainer
                         title={'Home Feed Lives'}
-                        description={'Hide Live videos on the home page'}
+                        description={chrome.i18n.getMessage('homeFeedLivesDesc')}
                         darkMode={darkMode}
                         switchName={'toggleHomeFeedStateLives'}
-                        state={switchState.toggleHomeFeedStateLives}
-                        isNew={true}
-                        hasInfo={true} />
+                        state={switchState.toggleHomeFeedStateLives} />
 
                     <SwitchContainer
                         title={'Home Feed Premieres'}
-                        description={'Hide Premiere videos on the home page'}
+                        description={chrome.i18n.getMessage('homeFeedPremieresDesc')}
                         darkMode={darkMode}
                         switchName={'toggleHomeFeedStatePremieres'}
-                        state={switchState.toggleHomeFeedStatePremieres}
-                        isNew={true}
-                        hasInfo={true} />
+                        state={switchState.toggleHomeFeedStatePremieres} />
 
                     {/* Subscriptions */}
                     <SwitchContainer
                         title={'Subscriptions Feed Shorts'}
-                        description={'Hide Shorts videos on the subscriptions page'}
+                        description={chrome.i18n.getMessage('subFeedShortsDesc')}
                         darkMode={darkMode}
                         switchName={'toggleSubscriptionFeedState'}
                         state={switchState.toggleSubscriptionFeedState} />
 
                     <SwitchContainer
                         title={'Subscriptions Feed Lives'}
-                        description={'Hide Live videos on the subscriptions page'}
+                        description={chrome.i18n.getMessage('subFeedLivesDesc')}
                         darkMode={darkMode}
                         switchName={'toggleSubscriptionFeedStateLives'}
-                        state={switchState.toggleSubscriptionFeedStateLives}
-                        isNew={true}
-                        hasInfo={true} />
+                        state={switchState.toggleSubscriptionFeedStateLives} />
 
                     <SwitchContainer
                         title={'Subscriptions Feed Premieres'}
-                        description={'Hide Premiere videos on the subscriptions page'}
+                        description={chrome.i18n.getMessage('subFeedPremieresDesc')}
                         darkMode={darkMode}
                         switchName={'toggleSubscriptionFeedStatePremieres'}
-                        state={switchState.toggleSubscriptionFeedStatePremieres}
-                        isNew={true}
-                        hasInfo={true} />
+                        state={switchState.toggleSubscriptionFeedStatePremieres} />
 
                     {/* Trending */}
                     <SwitchContainer
                         title={'Trending Feed Shorts'}
-                        description={'Hide Shorts videos on the trending page'}
+                        description={chrome.i18n.getMessage('trendingFeedShortsDesc')}
                         darkMode={darkMode}
                         switchName={'toggleTrendingFeedState'}
                         state={switchState.toggleTrendingFeedState} />

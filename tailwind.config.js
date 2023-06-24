@@ -21,7 +21,8 @@ module.exports = {
                 resourceShadow: '2px 2px 20px 0px #0000001c',
                 lgBoxLight: '0px 0px 100px 1px #ffffff14 !important',
                 lgBoxDark: '0 0 100px 1px #00000024 !important',
-                actionBtn: 'inset 0px 0px 10px 2px #0000002e'
+                actionBtn: 'inset 0px 0px 10px 2px #0000002e',
+                pageHead: '0px 0px 4px 0px #0000001a !important'
             },
             dropShadow: {
                 card: '1px 3px 6px #00000026',

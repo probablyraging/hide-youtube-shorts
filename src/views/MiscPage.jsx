@@ -1,5 +1,4 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
-import { Text } from '@nextui-org/react';
 import { Loader } from '../components';
 import { getSwitchStates } from '../constants/popup';
 
@@ -24,54 +23,42 @@ const MiscPage = ({ darkMode }) => {
     return (
         <Suspense fallback={<Loader darkMode={darkMode} />}>
             <div className='flex flex-col justify-center items-center w-full h-full'>
-                <div className={`w-full mt-6 mb-5`}>
-                    <Text className={`text-[12px] ${darkMode ? 'text-textAltDark' : 'text-textAlt'}`}>
-                        Miscellaneous options for hiding Shorts elements all across YouTube
-                    </Text>
-                </div>
-
-                <div className='flex flex-col w-full'>
+                <div className='flex flex-col w-full mt-4'>
                     <SwitchContainer
                         title={'Shorts Navigation Button'}
-                        description={'Hide the Shorts button on the navigation panel'}
+                        description={chrome.i18n.getMessage('shortsNavigationButtonDesc')}
                         darkMode={darkMode}
                         switchName={'toggleNavState'}
                         state={switchState.toggleNavState} />
 
                     <SwitchContainer
                         title={'Search Results'}
-                        description={'Hide Shorts videos in search results'}
+                        description={chrome.i18n.getMessage('searchResultsDesc')}
                         darkMode={darkMode}
                         switchName={'toggleSearchState'}
                         state={switchState.toggleSearchState} />
 
                     <SwitchContainer
                         title={'Recommended List'}
-                        description={'Hide Shorts videos in the recommended list on video watch pages'}
+                        description={chrome.i18n.getMessage('recommendedListDesc')}
                         darkMode={darkMode}
                         switchName={'toggleRecommendedState'}
                         state={switchState.toggleRecommendedState} />
 
                     <SwitchContainer
                         title={'Notification Menu'}
-                        description={'Hide notifications about Shorts in the notification menu'}
+                        description={chrome.i18n.getMessage('notificationMenuDesc')}
                         darkMode={darkMode}
                         switchName={'toggleNotificationState'}
                         state={switchState.toggleNotificationState} />
 
                     <SwitchContainer
                         title={'Play In Regular Mode'}
-                        description={'Play Shorts videos on a regular video page'}
+                        description={chrome.i18n.getMessage('playInRegularModeDesc')}
                         darkMode={darkMode}
                         switchName={'toggleRegularState'}
                         state={switchState.toggleRegularState} />
 
-                    <SwitchContainer
-                        title={'TURBO'}
-                        description={'Boosts speed and efficiency at the cost of system resources'}
-                        darkMode={darkMode}
-                        switchName={'toggleTurboState'}
-                        state={switchState.toggleTurboState} />
                 </div>
             </div>
         </Suspense>

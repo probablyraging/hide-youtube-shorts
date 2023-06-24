@@ -1,0 +1,128 @@
+{
+    "extDesc": {
+        "message": "Deaktivieren Sie YouTube Shorts mühelos mit dieser leistungsstarken Browser-Erweiterung"
+    },
+    "homeFeedShortsDesc": {
+        "message": "Shorts-Videos auf der Startseite ausblenden"
+    },
+    "homeFeedLivesDesc": {
+        "message": "Live-Videos auf der Startseite ausblenden"
+    },
+    "homeFeedPremieresDesc": {
+        "message": "Premiere-Videos auf der Startseite ausblenden"
+    },
+    "subFeedShortsDesc": {
+        "message": "Shorts-Videos auf der Abonnementseite ausblenden"
+    },
+    "subFeedLivesDesc": {
+        "message": "Live-Videos auf der Abonnementseite ausblenden"
+    },
+    "subFeedPremieresDesc": {
+        "message": "Premiere-Videos auf der Abonnementseite ausblenden"
+    },
+    "trendingFeedShortsDesc": {
+        "message": "Shorts-Videos auf der Trending-Seite ausblenden"
+    },
+    "shortsTabDesc": {
+        "message": "Die Registerkarte Shorts auf den Kanalseiten ausblenden"
+    },
+    "homeTabShortsDesc": {
+        "message": "Shorts-Videos im Home-Tab auf Kanalseiten ausblenden"
+    },
+    "shortsNavigationButtonDesc": {
+        "message": "Die Schaltfläche Shorts im Navigationsbereich ausblenden"
+    },
+    "searchResultsDesc": {
+        "message": "Kurze Videos in den Suchergebnissen ausblenden"
+    },
+    "recommendedListDesc": {
+        "message": "Shorts-Videos in der Empfehlungsliste auf Videoüberwachungsseiten ausblenden"
+    },
+    "notificationMenuDesc": {
+        "message": "Benachrichtigungen über Shorts im Benachrichtigungsmenü ausblenden"
+    },
+    "playInRegularModeDesc": {
+        "message": "Kurze Videos auf einer normalen Videoseite abspielen"
+    },
+    "disabledOne": {
+        "message": "Erweiterung deaktiviert"
+    },
+    "disabledTwo": {
+        "message": "Wenn HYS deaktiviert ist, sind auch alle seine Funktionen deaktiviert. Das bedeutet, dass Sie wieder Shorts-Inhalte auf YouTube sehen werden."
+    },
+    "disabledThreeA": {
+        "message": "Du kannst HYS im"
+    },
+    "disabledThreeB": {
+        "message": "Einstellungsmenü"
+    },
+    "supportOne": {
+        "message": "Stimmt etwas nicht?"
+    },
+    "supportTwo": {
+        "message": "Tritt dem Discord-Supportserver bei"
+    },
+    "supportThree": {
+        "message": "Eröffne ein Support-Ticket auf GitHub"
+    },
+    "feedPageTitle": {
+        "message": "Seiten füttern"
+    },
+    "feedPageDesc": {
+        "message": "Steuern Sie die Anzeige von Shorts-Videos auf Seiten wie Home, Subscriptions und Trending"
+    },
+    "channelPageTitle": {
+        "message": "Kanalseiten"
+    },
+    "channelPageDesc": {
+        "message": "Steuern Sie die Ansicht der Registerkarte Shorts und der Shorts-Videos auf den Kanalseiten der Benutzer"
+    },
+    "miscPageTitle": {
+        "message": "Verschiedenes"
+    },
+    "miscPageDesc": {
+        "message": "Verschiedenes Optionen zum Ausblenden von Shorts-Elementen in ganz YouTube"
+    },
+    "blockPageTitle": {
+        "message": "Blockieren"
+    },
+    "blockPageDesc": {
+        "message": "Benutzerdefinierte Blockierungsoptionen"
+    },
+    "blockChannelsDesc": {
+        "message": "Geben Sie einen Kanalnamen ein, um Inhalte dieses Kanals auf der Startseite, bei den Abonnements, bei den Trends und bei der Suche auszublenden"
+    },
+    "blockInputHelper": {
+        "message": "Groß- und Kleinschreibung beachten"
+    },
+    "removeAllBlocks": {
+        "message": "Alle entfernen"
+    },
+    "emptyBlocklist": {
+        "message": "Keine blockierten Kanäle"
+    },
+    "disabledPageTitle": {
+        "message": "Deaktiviert"
+    },
+    "disabledPageDesc": {
+        "message": "Deaktiviert"
+    },
+    "enabled": {
+        "message": "Aktiviert"
+    },
+    "deaktiviert": {
+        "message": "Deaktiviert"
+    },
+    "Website": {
+        "message": "Webseite"
+    },
+    "helpAndSupport": {
+        "message": "Hilfe"
+    },
+    "leaveAReview": {
+        "message": "Rezension"
+    },
+    "buyMeACoffee": {
+        "message": "Kauf Mir Ein Kaffee"
+    }
+}
