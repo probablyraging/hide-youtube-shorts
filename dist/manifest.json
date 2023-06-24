@@ -1,8 +1,8 @@
 {
     "name": "Hide YouTube Shorts",
     "manifest_version": 3,
-    "version": "1.6.14.2",
-    "description": "Block YouTube Shorts effortlessly with this powerful browser extension",
+    "version": "1.6.14.3",
+    "description": "Disable YouTube Shorts effortlessly with this powerful browser extension",
     "permissions": [
         "storage"
     ],
