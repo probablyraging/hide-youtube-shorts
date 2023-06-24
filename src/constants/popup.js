@@ -92,3 +92,36 @@ export const handleCloseModal = () => {
     chrome.action.setBadgeText({ text: '' });
     $('body').animate({ width: '400px' }, 250);
 }
+
+// Get a list of blocked channels
+export const getBlockList = async () => {
+    const { blockList } = await chrome.storage.sync.get(['blockList']);
+    if (blockList && blockList.length > 0) {
+        chrome.runtime.sendMessage({ blockList: true });
+        return blockList;
+    } else {
+        chrome.runtime.sendMessage({ checkStates: true });
+        return [];
+    }
+}
+
+// Update block list
+export const updateBlockList = async (channelToBlock, action) => {
+    if (action === 'add') {
+        const { blockList } = await chrome.storage.sync.get(['blockList']);
+        if (blockList && blockList.length > 0) {
+            await chrome.storage.sync.set({ blockList: [...blockList, channelToBlock] });
+        } else {
+            await chrome.storage.sync.set({ blockList: [channelToBlock] });
+        }
+        chrome.runtime.sendMessage({ blockList: 'add' });
+    } else if (action === 'remove') {
+        const { blockList } = await chrome.storage.sync.get(['blockList']);
+        const updatedBlockList = blockList.filter(item => item !== channelToBlock);
+        await chrome.storage.sync.set({ blockList: updatedBlockList });
+        chrome.runtime.sendMessage({ blockList: { action: 'remove', channelName: channelToBlock } });
+    } else if (action === 'clear') {
+        await chrome.runtime.sendMessage({ blockList: 'clear' });
+        await chrome.storage.sync.set({ blockList: [] });
+    }
+}

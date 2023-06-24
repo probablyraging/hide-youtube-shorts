@@ -90,6 +90,7 @@ function checkStates() {
         'toggleTurboState',
         'toggleRegularState',
         'toggleNotificationState',
+        'blockList'
     ]);
 }
 
@@ -183,6 +184,17 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
             });
         });
     }
+    if (message.blockList) {
+        // Get extension toggle states
+        const states = await checkStates();
+        chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
+            tabs.forEach(tab => {
+                if (message.blockList === 'add') hideBlockedChannels(tab.id, 'add', states.blockList);
+                if (message.blockList.action === 'remove') hideBlockedChannels(tab.id, 'remove', message.blockList.channelName);
+                if (message.blockList === 'clear') hideBlockedChannels(tab.id, 'clear', states.blockList);
+            });
+        });
+    }
 });
 
 // Handle tabs when they are updated
@@ -211,6 +223,7 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
         if (states.toggleTabState) hideShortsTabOnChannel(tab, tabId, states.toggleTabState);
         if (states.toggleHomeTabState) hideShortsHomeTab(tab, tabId, states.toggleHomeTabState);
         if (states.toggleRegularState) playAsRegularVideo(tab, tabId, states.toggleRegularState);
+        if (states.blockList.length > 0) hideBlockedChannels(tabId, 'add', states.blockList);
     }
 });
 
@@ -233,6 +246,7 @@ async function mainToggleState(tab, tabId, enabled) {
         if (states.toggleTabState) hideShortsTabOnChannel(tab, tabId, states.toggleTabState);
         if (states.toggleHomeTabState) hideShortsHomeTab(tab, tabId, states.toggleHomeTabState);
         if (states.toggleRegularState) playAsRegularVideo(tab, tabId, states.toggleRegularState);
+        if (states.blockList.length > 0) hideBlockedChannels(tabId, 'add', states.blockList);
     }
     if (!enabled) removeAllStyles(tabId);
 }
@@ -267,6 +281,61 @@ const channelPrefixes = [
     'https://m.youtube.com/user/',
     'https://m.youtube.com/c/'
 ];
+
+function hideBlockedChannels(tabId, action, blockList) {
+    if (action === 'add') {
+        blockList.forEach(channelName => {
+            chrome.scripting.insertCSS({
+                css: `
+            ytd-rich-item-renderer:has(a[href*="/@${channelName}"]) {
+                display: none !important;
+            }
+            ytd-shelf-renderer:has(a[href*="/@${channelName}"]) {
+                display: none !important;
+            }
+            ytd-video-renderer:has(a[href*="/@${channelName}"]) {
+                display: none !important;
+            }
+            `,
+                target: { tabId: tabId }
+            }).catch((err) => { console.log('Error inserting styles', err); });
+        });
+    }
+    if (action === 'remove') {
+        chrome.scripting.insertCSS({
+            css: `
+            ytd-rich-item-renderer:has(a[href*="/@${blockList}"]) {
+                display: inline-flex !important;
+            }
+            ytd-shelf-renderer:has(a[href*="/@${blockList}"]) {
+                display: inline-flex !important;
+            }
+            ytd-video-renderer:has(a[href*="/@${blockList}"]) {
+                display: inline-flex !important;
+            }
+            `,
+            target: { tabId: tabId }
+        }).catch((err) => { console.log('Error inserting styles', err); });
+    }
+    if (action === 'clear') {
+        blockList.forEach(channelName => {
+            chrome.scripting.insertCSS({
+                css: `
+                ytd-rich-item-renderer:has(a[href*="/@${channelName}"]) {
+                    display: inline-flex !important;
+                }
+                ytd-shelf-renderer:has(a[href*="/@${channelName}"]) {
+                    display: inline-flex !important;
+                }
+                ytd-video-renderer:has(a[href*="/@${channelName}"]) {
+                    display: inline-flex !important;
+                }
+            `,
+                target: { tabId: tabId }
+            }).catch((err) => { console.log('Error inserting styles', err); });
+        });
+    }
+}
 
 // Hide the shorts button in the navigation menu
 function hideShortsNavButton(tab, tabId, enabled) {

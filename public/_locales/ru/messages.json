@@ -83,11 +83,14 @@
     "miscPageDesc": {
         "message": "Различные опции для скрытия элементов Shorts по всему YouTube"
     },
-    "supportPageTitle": {
-        "message": "Поддержка"
+    "blockPageTitle": {
+        "message": "Блокировка"
     },
-    "supportPageDesc": {
-        "message": "Поддержка"
+    "blockPageDesc": {
+        "message": "Блокируйте каналы, чтобы они не появлялись в вашей ленте"
+    },
+    "blockChannelsDesc": {
+        "message": "Введите ручку канала, чтобы скрыть содержимое этого канала на главной странице, в подписках, трендах и поисковой ленте"
     },
     "disabledPageTitle": {
         "message": "Инвалид"

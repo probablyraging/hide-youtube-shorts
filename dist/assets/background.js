@@ -1,1 +1,562 @@
-chrome.runtime.onInstalled.addListener(async t=>{if(t.reason==="install"&&(chrome.storage.sync.set({presentModal:!0,toggleState:!0,toggleNavState:!0,toggleHomeFeedState:!0,toggleHomeFeedStateLives:!1,toggleHomeFeedStatePremieres:!1,toggleSubscriptionFeedState:!0,toggleSubscriptionFeedStateLives:!1,toggleSubscriptionFeedStatePremieres:!1,toggleTrendingFeedState:!0,toggleSearchState:!0,toggleRecommendedState:!0,toggleTabState:!0,toggleHomeTabState:!0,toggleTurboState:!1,toggleRegularState:!0,toggleNotificationState:!0}).catch(()=>{console.log("[STORAGE] Could not set storage item")}),chrome.tabs.query({url:["https://www.youtube.com/*","https://m.youtube.com/*"]},function(s){s.forEach(o=>{chrome.tabs.reload(o.id)})}),chrome.action.setBadgeBackgroundColor({color:"#ed5a64"}),chrome.action.setBadgeText({text:"1"})),t.reason==="update"){const s=["toggleState","toggleNavState","toggleHomeFeedState","toggleHomeFeedStateLives","toggleHomeFeedStatePremieres","toggleSubscriptionFeedState","toggleSubscriptionFeedStateLives","toggleSubscriptionFeedStatePremieres","toggleTrendingFeedState","toggleSearchState","toggleRecommendedState","toggleTabState","toggleHomeTabState","toggleTurboState","toggleRegularState","toggleNotificationState"],o=await chrome.storage.sync.get(s);for(const e of s)(!(e in o)||o[e]===void 0)&&await chrome.storage.sync.set({[e]:!1});chrome.storage.sync.set({presentModal:!1}).catch(()=>{console.log("[STORAGE] Could not set storage item")})}});function a(){return chrome.runtime.id?chrome.storage.sync.get(["toggleState","toggleNavState","toggleHomeFeedState","toggleHomeFeedStateLives","toggleHomeFeedStatePremieres","toggleSubscriptionFeedState","toggleSubscriptionFeedStateLives","toggleSubscriptionFeedStatePremieres","toggleTrendingFeedState","toggleSearchState","toggleRecommendedState","toggleTabState","toggleHomeTabState","toggleTurboState","toggleRegularState","toggleNotificationState"]):location.reload()}function c(t,s){chrome.scripting.insertCSS({files:s,target:{tabId:t}}).catch(o=>{console.log("Error inserting styles",o)})}function g(t,s){chrome.scripting.removeCSS({files:s,target:{tabId:t}}).catch(o=>{console.log("Error removing styles",o)})}function x(t){chrome.scripting.removeCSS({files:["channel_shorts_tab.css","assets/home_lives.css","assets/home_premieres.css","assets/home_shorts.css","assets/home_tab_shorts.css","assets/navigation_button.css","assets/notification_shorts.css","assets/recommended_shorts.css","assets/search_shorts.css","assets/subscriptions_feed_fix.css","assets/subscriptions_lives.css","assets/subscriptions_premieres.css","assets/subscriptions_shorts.css","assets/subscriptions_shorts_list.css","assets/trending_shorts.css"],target:{tabId:t}}).catch(s=>{console.log("Error removing styles",s)}),chrome.scripting.executeScript({function:()=>{let s=0;function o(){if(s>=25){s=0;return}const e=document.querySelectorAll(".tab-content"),r=Array.from(e).filter(i=>i.textContent.replace(/\s/g,"").replace(/\n/g,"")==="Shorts");r.length>0?(r.forEach(i=>{i.parentNode.style.display="inline-flex"}),s=0):(s++,setTimeout(o,100))}o()},target:{tabId:t}}).catch(s=>{console.log("Error executing script",s)})}chrome.runtime.onMessage.addListener(async function(t,s,o){if(t.checkStates){const e=await a();chrome.tabs.query({url:["https://www.youtube.com/*","https://m.youtube.com/*"]},function(r){r.forEach(i=>{t.checkStates==="toggleState"&&N(i,i.id,e.toggleState),t.checkStates==="toggleNavState"&&f(i,i.id,e.toggleNavState),t.checkStates==="toggleHomeFeedState"&&h(i,i.id,e.toggleHomeFeedState),t.checkStates==="toggleHomeFeedStateLives"&&m(i,i.id,e.toggleHomeFeedStateLives),t.checkStates==="toggleHomeFeedStatePremieres"&&d(i,i.id,e.toggleHomeFeedStatePremieres),t.checkStates==="toggleSubscriptionFeedState"&&p(i,i.id,e.toggleSubscriptionFeedState),t.checkStates==="toggleSubscriptionFeedStateLives"&&w(i,i.id,e.toggleSubscriptionFeedStateLives),t.checkStates==="toggleSubscriptionFeedStatePremieres"&&y(i,i.id,e.toggleSubscriptionFeedStatePremieres),t.checkStates==="toggleTrendingFeedState"&&F(i,i.id,e.toggleTrendingFeedState),t.checkStates==="toggleSearchState"&&v(i,i.id,e.toggleSearchState),t.checkStates==="toggleRecommendedState"&&_(i,i.id,e.toggleRecommendedState),t.checkStates==="toggleNotificationState"&&T(i,i.id,e.toggleNotificationState),t.checkStates==="toggleTabState"&&k(i,i.id,e.toggleTabState),t.checkStates==="toggleHomeTabState"&&H(i,i.id,e.toggleHomeTabState),t.checkStates==="toggleRegularState"&&L(i,i.id,e.toggleRegularState)})})}});chrome.tabs.onUpdated.addListener(async function(t,s,o){if(chrome.runtime.id&&(o.url.startsWith("https://www.youtube.com/")||o.url.startsWith("https://m.youtube.com/"))){const e=await a();if(!e.toggleState||s.status!=="loading")return;e.toggleNavState&&f(o,t,e.toggleNavState),e.toggleHomeFeedState&&h(o,t,e.toggleHomeFeedState),e.toggleHomeFeedStateLives&&m(o,t,e.toggleHomeFeedStateLives),e.toggleHomeFeedStatePremieres&&d(o,t,e.toggleHomeFeedStatePremieres),e.toggleSubscriptionFeedState&&p(o,t,e.toggleSubscriptionFeedState),e.toggleSubscriptionFeedStateLives&&w(o,t,e.toggleSubscriptionFeedStateLives),e.toggleSubscriptionFeedStatePremieres&&y(o,t,e.toggleSubscriptionFeedStatePremieres),e.toggleTrendingFeedState&&F(o,t,e.toggleTrendingFeedState),e.toggleSearchState&&v(o,t,e.toggleSearchState),e.toggleRecommendedState&&_(o,t,e.toggleRecommendedState),e.toggleNotificationState&&T(o,t,e.toggleNotificationState),e.toggleTabState&&k(o,t,e.toggleTabState),e.toggleHomeTabState&&H(o,t,e.toggleHomeTabState),e.toggleRegularState&&L(o,t,e.toggleRegularState)}});async function N(t,s,o){if(o){const e=await a();e.toggleNavState&&f(t,s,e.toggleNavState),e.toggleHomeFeedState&&h(t,s,e.toggleHomeFeedState),e.toggleHomeFeedStateLives&&m(t,s,e.toggleHomeFeedStateLives),e.toggleHomeFeedStatePremieres&&d(t,s,e.toggleHomeFeedStatePremieres),e.toggleSubscriptionFeedState&&p(t,s,e.toggleSubscriptionFeedState),e.toggleSubscriptionFeedStateLives&&w(t,s,e.toggleSubscriptionFeedStateLives),e.toggleSubscriptionFeedStatePremieres&&y(t,s,e.toggleSubscriptionFeedStatePremieres),e.toggleTrendingFeedState&&F(t,s,e.toggleTrendingFeedState),e.toggleSearchState&&v(t,s,e.toggleSearchState),e.toggleRecommendedState&&_(t,s,e.toggleRecommendedState),e.toggleNotificationState&&T(t,s,e.toggleNotificationState),e.toggleTabState&&k(t,s,e.toggleTabState),e.toggleHomeTabState&&H(t,s,e.toggleHomeTabState),e.toggleRegularState&&L(t,s,e.toggleRegularState)}o||x(s)}const R=["https://www.youtube.com/","https://www.youtube.com/?app=desktop","https://m.youtube.com/"],S=["https://www.youtube.com/feed/subscriptions","https://www.youtube.com/feed/subscriptions?app=desktop","https://m.youtube.com/feed/subscriptions","https://www.youtube.com/feed/subscriptions?flow=1"],E=["https://www.youtube.com/feed/trending","https://www.youtube.com/gaming","https://m.youtube.com/feed/explore","https://m.youtube.com/feed/trending"],P=["https://www.youtube.com/channel/","https://www.youtube.com/@","https://www.youtube.com/user/","https://www.youtube.com/c/","https://m.youtube.com/channel/","https://m.youtube.com/@","https://m.youtube.com/user/","https://m.youtube.com/c/"];function f(t,s,o){if(t.url.startsWith("https://www.youtube.com/")||t.url.startsWith("https://m.youtube.com/")){const e=["assets/navigation_button.css"];o&&c(s,e),o||g(s,e)}}function h(t,s,o){if(R.includes(t.url)){const e=["assets/home_shorts.css"];o&&c(s,e),o||g(s,e)}}function m(t,s,o){if(t.url==="https://www.youtube.com/"){const e=["assets/home_lives.css"];o&&c(s,e),o||g(s,e)}}function d(t,s,o){if(t.url==="https://www.youtube.com/"){const e=["assets/home_premieres.css"];o&&c(s,e),o||g(s,e)}}function p(t,s,o){if(S.includes(t.url)){const e=["assets/subscriptions_shorts.css","assets/subscriptions_shorts_list.css","assets/subscriptions_feed_fix.css"];o&&c(s,e),o||g(s,e)}if(t.url==="https://www.youtube.com/feed/subscriptions?flow=2"){const e=["assets/subscriptions_shorts_list.css"];o&&c(s,e),o||g(s,e)}}function w(t,s,o){if(S.includes(t.url)){const e=["assets/subscriptions_lives.css","assets/subscriptions_feed_fix.css"];o&&c(s,e),o||g(s,e)}}function y(t,s,o){if(S.includes(t.url)){const e=["assets/subscriptions_premieres.css","assets/subscriptions_feed_fix.css"];o&&c(s,e),o||g(s,e)}}function F(t,s,o){if(E.some(e=>t.url.startsWith(e))){const e=["assets/trending_shorts.css"];o&&c(s,e),o||g(s,e)}}function v(t,s,o){if(t.url.startsWith("https://www.youtube.com/results")||t.url.startsWith("https://m.youtube.com/results")){const e=["assets/search_shorts.css"];o&&c(s,e),o||g(s,e)}}function _(t,s,o){if(t.url.startsWith("https://www.youtube.com/watch")){const e=["assets/recommended_shorts.css"];o&&c(s,e),o||g(s,e)}}function T(t,s,o){if(t.url.startsWith("https://www.youtube.com/")){const e=["assets/notification_shorts.css"];o&&c(s,e),o||g(s,e)}}function H(t,s,o){if(P.some(e=>t.url.startsWith(e))){const e=["assets/home_tab_shorts.css"];o&&c(s,e),o||g(s,e)}}function k(t,s,o){if(P.some(e=>t.url.startsWith(e))){const e=["assets/channel_shorts_tab.css"];o?(chrome.scripting.executeScript({function:()=>{let r=0;function i(){if(r>=25){r=0;return}const l=document.querySelectorAll(".tab-content"),u=Array.from(l).filter(n=>n.textContent.replace(/\s/g,"").replace(/\n/g,"")==="Shorts");u.length>0?(u.forEach(n=>{n.parentNode.style.display="none"}),r=0):(r++,setTimeout(i,100))}i()},target:{tabId:s}}).catch(r=>{console.log("Error executing script",r)}),c(s,e)):(chrome.scripting.executeScript({function:()=>{let r=0;function i(){if(r>=25){r=0;return}const l=document.querySelectorAll(".tab-content"),u=Array.from(l).filter(n=>n.textContent.replace(/\s/g,"").replace(/\n/g,"")==="Shorts");u.length>0?(u.forEach(n=>{n.parentNode.style.display="inline-flex"}),r=0):(r++,setTimeout(i,100))}i()},target:{tabId:s}}).catch(r=>{console.log("Error executing script",r)}),g(s,e))}}function L(t,s,o){if(t.url.startsWith("https://www.youtube.com/shorts/")||t.url.startsWith("https://m.youtube.com/shorts/")){let r=function(l){const u=/\/shorts\/([^/]+)/,n=l.match(u);return n?n[1]:null};var e=r;const i=r(t.url);if(i&&o){const l=`https://youtube.com/watch?v=${i}`;chrome.tabs.update(s,{url:l})}}}
+chrome.runtime.onInstalled.addListener(async (details) => {
+  if (details.reason === "install") {
+    chrome.storage.sync.set({
+      presentModal: true,
+      toggleState: true,
+      toggleNavState: true,
+      toggleHomeFeedState: true,
+      toggleHomeFeedStateLives: false,
+      toggleHomeFeedStatePremieres: false,
+      toggleSubscriptionFeedState: true,
+      toggleSubscriptionFeedStateLives: false,
+      toggleSubscriptionFeedStatePremieres: false,
+      toggleTrendingFeedState: true,
+      toggleSearchState: true,
+      toggleRecommendedState: true,
+      toggleTabState: true,
+      toggleHomeTabState: true,
+      toggleTurboState: false,
+      toggleRegularState: true,
+      toggleNotificationState: true
+    }).catch(() => {
+      console.log("[STORAGE] Could not set storage item");
+    });
+    chrome.tabs.query({ url: ["https://www.youtube.com/*", "https://m.youtube.com/*"] }, function(tabs) {
+      tabs.forEach((tab) => {
+        chrome.tabs.reload(tab.id);
+      });
+    });
+    chrome.action.setBadgeBackgroundColor({ color: "#ed5a64" });
+    chrome.action.setBadgeText({ text: "1" });
+  }
+  if (details.reason === "update") {
+    const keys = [
+      "toggleState",
+      "toggleNavState",
+      "toggleHomeFeedState",
+      "toggleHomeFeedStateLives",
+      "toggleHomeFeedStatePremieres",
+      "toggleSubscriptionFeedState",
+      "toggleSubscriptionFeedStateLives",
+      "toggleSubscriptionFeedStatePremieres",
+      "toggleTrendingFeedState",
+      "toggleSearchState",
+      "toggleRecommendedState",
+      "toggleTabState",
+      "toggleHomeTabState",
+      "toggleTurboState",
+      "toggleRegularState",
+      "toggleNotificationState"
+    ];
+    const states = await chrome.storage.sync.get(keys);
+    for (const key of keys) {
+      if (!(key in states) || states[key] === void 0) {
+        await chrome.storage.sync.set({ [key]: false });
+      }
+    }
+    chrome.storage.sync.set({ presentModal: false }).catch(() => {
+      console.log("[STORAGE] Could not set storage item");
+    });
+  }
+});
+function checkStates() {
+  if (!chrome.runtime.id)
+    return location.reload();
+  return chrome.storage.sync.get([
+    "toggleState",
+    "toggleNavState",
+    "toggleHomeFeedState",
+    "toggleHomeFeedStateLives",
+    "toggleHomeFeedStatePremieres",
+    "toggleSubscriptionFeedState",
+    "toggleSubscriptionFeedStateLives",
+    "toggleSubscriptionFeedStatePremieres",
+    "toggleTrendingFeedState",
+    "toggleSearchState",
+    "toggleRecommendedState",
+    "toggleTabState",
+    "toggleHomeTabState",
+    "toggleTurboState",
+    "toggleRegularState",
+    "toggleNotificationState",
+    "blockList"
+  ]);
+}
+function insertStyles(tabId, filesToInsert) {
+  chrome.scripting.insertCSS({
+    files: filesToInsert,
+    target: { tabId }
+  }).catch((err) => {
+    console.log("Error inserting styles", err);
+  });
+}
+function removeStyles(tabId, filesToRemove) {
+  chrome.scripting.removeCSS({
+    files: filesToRemove,
+    target: { tabId }
+  }).catch((err) => {
+    console.log("Error removing styles", err);
+  });
+}
+function removeAllStyles(tabId) {
+  chrome.scripting.removeCSS({
+    files: [
+      "channel_shorts_tab.css",
+      "assets/home_lives.css",
+      "assets/home_premieres.css",
+      "assets/home_shorts.css",
+      "assets/home_tab_shorts.css",
+      "assets/navigation_button.css",
+      "assets/notification_shorts.css",
+      "assets/recommended_shorts.css",
+      "assets/search_shorts.css",
+      "assets/subscriptions_feed_fix.css",
+      "assets/subscriptions_lives.css",
+      "assets/subscriptions_premieres.css",
+      "assets/subscriptions_shorts.css",
+      "assets/subscriptions_shorts_list.css",
+      "assets/trending_shorts.css"
+    ],
+    target: { tabId }
+  }).catch((err) => {
+    console.log("Error removing styles", err);
+  });
+  chrome.scripting.executeScript({
+    function: () => {
+      let checkCount = 0;
+      function checkForShortsTab() {
+        if (checkCount >= 25) {
+          checkCount = 0;
+          return;
+        }
+        const elements = document.querySelectorAll(".tab-content");
+        const filteredElements = Array.from(elements).filter((element) => element.textContent.replace(/\s/g, "").replace(/\n/g, "") === "Shorts");
+        if (filteredElements.length > 0) {
+          filteredElements.forEach((element) => {
+            element.parentNode.style.display = "inline-flex";
+          });
+          checkCount = 0;
+        } else {
+          checkCount++;
+          setTimeout(checkForShortsTab, 100);
+        }
+      }
+      checkForShortsTab();
+    },
+    target: { tabId }
+  }).catch((err) => {
+    console.log("Error executing script", err);
+  });
+}
+chrome.runtime.onMessage.addListener(async function(message, sender, sendResponse) {
+  if (message.checkStates) {
+    const states = await checkStates();
+    chrome.tabs.query({ url: ["https://www.youtube.com/*", "https://m.youtube.com/*"] }, function(tabs) {
+      tabs.forEach((tab) => {
+        if (message.checkStates === "toggleState")
+          mainToggleState(tab, tab.id, states.toggleState);
+        if (message.checkStates === "toggleNavState")
+          hideShortsNavButton(tab, tab.id, states.toggleNavState);
+        if (message.checkStates === "toggleHomeFeedState")
+          hideShortsHome(tab, tab.id, states.toggleHomeFeedState);
+        if (message.checkStates === "toggleHomeFeedStateLives")
+          hideLivesHome(tab, tab.id, states.toggleHomeFeedStateLives);
+        if (message.checkStates === "toggleHomeFeedStatePremieres")
+          hidePremieresHome(tab, tab.id, states.toggleHomeFeedStatePremieres);
+        if (message.checkStates === "toggleSubscriptionFeedState")
+          hideShortsSubscriptions(tab, tab.id, states.toggleSubscriptionFeedState);
+        if (message.checkStates === "toggleSubscriptionFeedStateLives")
+          hideLivesSubscriptions(tab, tab.id, states.toggleSubscriptionFeedStateLives);
+        if (message.checkStates === "toggleSubscriptionFeedStatePremieres")
+          hidePremieresSubscriptions(tab, tab.id, states.toggleSubscriptionFeedStatePremieres);
+        if (message.checkStates === "toggleTrendingFeedState")
+          hideShortsTrending(tab, tab.id, states.toggleTrendingFeedState);
+        if (message.checkStates === "toggleSearchState")
+          hideShortsSearch(tab, tab.id, states.toggleSearchState);
+        if (message.checkStates === "toggleRecommendedState")
+          hideShortsRecommendedList(tab, tab.id, states.toggleRecommendedState);
+        if (message.checkStates === "toggleNotificationState")
+          hideShortsNotificationMenu(tab, tab.id, states.toggleNotificationState);
+        if (message.checkStates === "toggleTabState")
+          hideShortsTabOnChannel(tab, tab.id, states.toggleTabState);
+        if (message.checkStates === "toggleHomeTabState")
+          hideShortsHomeTab(tab, tab.id, states.toggleHomeTabState);
+        if (message.checkStates === "toggleRegularState")
+          playAsRegularVideo(tab, tab.id, states.toggleRegularState);
+      });
+    });
+  }
+  if (message.blockList) {
+    const states = await checkStates();
+    chrome.tabs.query({ url: ["https://www.youtube.com/*", "https://m.youtube.com/*"] }, function(tabs) {
+      tabs.forEach((tab) => {
+        if (message.blockList === "add")
+          hideBlockedChannels(tab.id, "add", states.blockList);
+        if (message.blockList.action === "remove")
+          hideBlockedChannels(tab.id, "remove", message.blockList.channelName);
+        if (message.blockList === "clear")
+          hideBlockedChannels(tab.id, "clear", states.blockList);
+      });
+    });
+  }
+});
+chrome.tabs.onUpdated.addListener(async function(tabId, changeInfo, tab) {
+  if (!chrome.runtime.id)
+    return;
+  if (tab.url.startsWith("https://www.youtube.com/") || tab.url.startsWith("https://m.youtube.com/")) {
+    const states = await checkStates();
+    if (!states.toggleState)
+      return;
+    if (changeInfo.status !== "loading")
+      return;
+    if (states.toggleNavState)
+      hideShortsNavButton(tab, tabId, states.toggleNavState);
+    if (states.toggleHomeFeedState)
+      hideShortsHome(tab, tabId, states.toggleHomeFeedState);
+    if (states.toggleHomeFeedStateLives)
+      hideLivesHome(tab, tabId, states.toggleHomeFeedStateLives);
+    if (states.toggleHomeFeedStatePremieres)
+      hidePremieresHome(tab, tabId, states.toggleHomeFeedStatePremieres);
+    if (states.toggleSubscriptionFeedState)
+      hideShortsSubscriptions(tab, tabId, states.toggleSubscriptionFeedState);
+    if (states.toggleSubscriptionFeedStateLives)
+      hideLivesSubscriptions(tab, tabId, states.toggleSubscriptionFeedStateLives);
+    if (states.toggleSubscriptionFeedStatePremieres)
+      hidePremieresSubscriptions(tab, tabId, states.toggleSubscriptionFeedStatePremieres);
+    if (states.toggleTrendingFeedState)
+      hideShortsTrending(tab, tabId, states.toggleTrendingFeedState);
+    if (states.toggleSearchState)
+      hideShortsSearch(tab, tabId, states.toggleSearchState);
+    if (states.toggleRecommendedState)
+      hideShortsRecommendedList(tab, tabId, states.toggleRecommendedState);
+    if (states.toggleNotificationState)
+      hideShortsNotificationMenu(tab, tabId, states.toggleNotificationState);
+    if (states.toggleTabState)
+      hideShortsTabOnChannel(tab, tabId, states.toggleTabState);
+    if (states.toggleHomeTabState)
+      hideShortsHomeTab(tab, tabId, states.toggleHomeTabState);
+    if (states.toggleRegularState)
+      playAsRegularVideo(tab, tabId, states.toggleRegularState);
+    if (states.blockList.length > 0)
+      hideBlockedChannels(tabId, "add", states.blockList);
+  }
+});
+async function mainToggleState(tab, tabId, enabled) {
+  if (enabled) {
+    const states = await checkStates();
+    if (states.toggleNavState)
+      hideShortsNavButton(tab, tabId, states.toggleNavState);
+    if (states.toggleHomeFeedState)
+      hideShortsHome(tab, tabId, states.toggleHomeFeedState);
+    if (states.toggleHomeFeedStateLives)
+      hideLivesHome(tab, tabId, states.toggleHomeFeedStateLives);
+    if (states.toggleHomeFeedStatePremieres)
+      hidePremieresHome(tab, tabId, states.toggleHomeFeedStatePremieres);
+    if (states.toggleSubscriptionFeedState)
+      hideShortsSubscriptions(tab, tabId, states.toggleSubscriptionFeedState);
+    if (states.toggleSubscriptionFeedStateLives)
+      hideLivesSubscriptions(tab, tabId, states.toggleSubscriptionFeedStateLives);
+    if (states.toggleSubscriptionFeedStatePremieres)
+      hidePremieresSubscriptions(tab, tabId, states.toggleSubscriptionFeedStatePremieres);
+    if (states.toggleTrendingFeedState)
+      hideShortsTrending(tab, tabId, states.toggleTrendingFeedState);
+    if (states.toggleSearchState)
+      hideShortsSearch(tab, tabId, states.toggleSearchState);
+    if (states.toggleRecommendedState)
+      hideShortsRecommendedList(tab, tabId, states.toggleRecommendedState);
+    if (states.toggleNotificationState)
+      hideShortsNotificationMenu(tab, tabId, states.toggleNotificationState);
+    if (states.toggleTabState)
+      hideShortsTabOnChannel(tab, tabId, states.toggleTabState);
+    if (states.toggleHomeTabState)
+      hideShortsHomeTab(tab, tabId, states.toggleHomeTabState);
+    if (states.toggleRegularState)
+      playAsRegularVideo(tab, tabId, states.toggleRegularState);
+    if (states.blockList.length > 0)
+      hideBlockedChannels(tabId, "add", states.blockList);
+  }
+  if (!enabled)
+    removeAllStyles(tabId);
+}
+const homePrefixes = [
+  "https://www.youtube.com/",
+  "https://www.youtube.com/?app=desktop",
+  "https://m.youtube.com/"
+];
+const subscriptionsPrefixes = [
+  "https://www.youtube.com/feed/subscriptions",
+  "https://www.youtube.com/feed/subscriptions?app=desktop",
+  "https://m.youtube.com/feed/subscriptions",
+  "https://www.youtube.com/feed/subscriptions?flow=1"
+];
+const trendingPrefixes = [
+  "https://www.youtube.com/feed/trending",
+  "https://www.youtube.com/gaming",
+  "https://m.youtube.com/feed/explore",
+  "https://m.youtube.com/feed/trending"
+];
+const channelPrefixes = [
+  "https://www.youtube.com/channel/",
+  "https://www.youtube.com/@",
+  "https://www.youtube.com/user/",
+  "https://www.youtube.com/c/",
+  "https://m.youtube.com/channel/",
+  "https://m.youtube.com/@",
+  "https://m.youtube.com/user/",
+  "https://m.youtube.com/c/"
+];
+function hideBlockedChannels(tabId, action, blockList) {
+  if (action === "add") {
+    blockList.forEach((channelName) => {
+      chrome.scripting.insertCSS({
+        css: `
+            ytd-rich-item-renderer:has(a[href*="/@${channelName}"]) {
+                display: none !important;
+            }
+            ytd-shelf-renderer:has(a[href*="/@${channelName}"]) {
+                display: none !important;
+            }
+            ytd-video-renderer:has(a[href*="/@${channelName}"]) {
+                display: none !important;
+            }
+            `,
+        target: { tabId }
+      }).catch((err) => {
+        console.log("Error inserting styles", err);
+      });
+    });
+  }
+  if (action === "remove") {
+    chrome.scripting.insertCSS({
+      css: `
+            ytd-rich-item-renderer:has(a[href*="/@${blockList}"]) {
+                display: inline-flex !important;
+            }
+            ytd-shelf-renderer:has(a[href*="/@${blockList}"]) {
+                display: inline-flex !important;
+            }
+            ytd-video-renderer:has(a[href*="/@${blockList}"]) {
+                display: inline-flex !important;
+            }
+            `,
+      target: { tabId }
+    }).catch((err) => {
+      console.log("Error inserting styles", err);
+    });
+  }
+  if (action === "clear") {
+    blockList.forEach((channelName) => {
+      chrome.scripting.insertCSS({
+        css: `
+                ytd-rich-item-renderer:has(a[href*="/@${channelName}"]) {
+                    display: inline-flex !important;
+                }
+                ytd-shelf-renderer:has(a[href*="/@${channelName}"]) {
+                    display: inline-flex !important;
+                }
+                ytd-video-renderer:has(a[href*="/@${channelName}"]) {
+                    display: inline-flex !important;
+                }
+            `,
+        target: { tabId }
+      }).catch((err) => {
+        console.log("Error inserting styles", err);
+      });
+    });
+  }
+}
+function hideShortsNavButton(tab, tabId, enabled) {
+  if (tab.url.startsWith("https://www.youtube.com/") || tab.url.startsWith("https://m.youtube.com/")) {
+    const files = ["assets/navigation_button.css"];
+    if (enabled)
+      insertStyles(tabId, files);
+    if (!enabled)
+      removeStyles(tabId, files);
+  }
+}
+function hideShortsHome(tab, tabId, enabled) {
+  if (homePrefixes.includes(tab.url)) {
+    const files = ["assets/home_shorts.css"];
+    if (enabled)
+      insertStyles(tabId, files);
+    if (!enabled)
+      removeStyles(tabId, files);
+  }
+}
+function hideLivesHome(tab, tabId, enabled) {
+  if (tab.url === "https://www.youtube.com/") {
+    const files = ["assets/home_lives.css"];
+    if (enabled)
+      insertStyles(tabId, files);
+    if (!enabled)
+      removeStyles(tabId, files);
+  }
+}
+function hidePremieresHome(tab, tabId, enabled) {
+  if (tab.url === "https://www.youtube.com/") {
+    const files = ["assets/home_premieres.css"];
+    if (enabled)
+      insertStyles(tabId, files);
+    if (!enabled)
+      removeStyles(tabId, files);
+  }
+}
+function hideShortsSubscriptions(tab, tabId, enabled) {
+  if (subscriptionsPrefixes.includes(tab.url)) {
+    const files = ["assets/subscriptions_shorts.css", "assets/subscriptions_shorts_list.css", "assets/subscriptions_feed_fix.css"];
+    if (enabled)
+      insertStyles(tabId, files);
+    if (!enabled)
+      removeStyles(tabId, files);
+  }
+  if (tab.url === "https://www.youtube.com/feed/subscriptions?flow=2") {
+    const files = ["assets/subscriptions_shorts_list.css"];
+    if (enabled)
+      insertStyles(tabId, files);
+    if (!enabled)
+      removeStyles(tabId, files);
+  }
+}
+function hideLivesSubscriptions(tab, tabId, enabled) {
+  if (subscriptionsPrefixes.includes(tab.url)) {
+    const files = ["assets/subscriptions_lives.css", "assets/subscriptions_feed_fix.css"];
+    if (enabled)
+      insertStyles(tabId, files);
+    if (!enabled)
+      removeStyles(tabId, files);
+  }
+}
+function hidePremieresSubscriptions(tab, tabId, enabled) {
+  if (subscriptionsPrefixes.includes(tab.url)) {
+    const files = ["assets/subscriptions_premieres.css", "assets/subscriptions_feed_fix.css"];
+    if (enabled)
+      insertStyles(tabId, files);
+    if (!enabled)
+      removeStyles(tabId, files);
+  }
+}
+function hideShortsTrending(tab, tabId, enabled) {
+  if (trendingPrefixes.some((prefix) => tab.url.startsWith(prefix))) {
+    const files = ["assets/trending_shorts.css"];
+    if (enabled)
+      insertStyles(tabId, files);
+    if (!enabled)
+      removeStyles(tabId, files);
+  }
+}
+function hideShortsSearch(tab, tabId, enabled) {
+  if (tab.url.startsWith("https://www.youtube.com/results") || tab.url.startsWith("https://m.youtube.com/results")) {
+    const files = ["assets/search_shorts.css"];
+    if (enabled)
+      insertStyles(tabId, files);
+    if (!enabled)
+      removeStyles(tabId, files);
+  }
+}
+function hideShortsRecommendedList(tab, tabId, enabled) {
+  if (tab.url.startsWith("https://www.youtube.com/watch")) {
+    const files = ["assets/recommended_shorts.css"];
+    if (enabled)
+      insertStyles(tabId, files);
+    if (!enabled)
+      removeStyles(tabId, files);
+  }
+}
+function hideShortsNotificationMenu(tab, tabId, enabled) {
+  if (tab.url.startsWith("https://www.youtube.com/")) {
+    const files = ["assets/notification_shorts.css"];
+    if (enabled)
+      insertStyles(tabId, files);
+    if (!enabled)
+      removeStyles(tabId, files);
+  }
+}
+function hideShortsHomeTab(tab, tabId, enabled) {
+  if (channelPrefixes.some((prefix) => tab.url.startsWith(prefix))) {
+    const files = ["assets/home_tab_shorts.css"];
+    if (enabled)
+      insertStyles(tabId, files);
+    if (!enabled)
+      removeStyles(tabId, files);
+  }
+}
+function hideShortsTabOnChannel(tab, tabId, enabled) {
+  if (channelPrefixes.some((prefix) => tab.url.startsWith(prefix))) {
+    const files = ["assets/channel_shorts_tab.css"];
+    if (enabled) {
+      chrome.scripting.executeScript({
+        function: () => {
+          let checkCount = 0;
+          function checkForShortsTab() {
+            if (checkCount >= 25) {
+              checkCount = 0;
+              return;
+            }
+            const elements = document.querySelectorAll(".tab-content");
+            const filteredElements = Array.from(elements).filter((element) => element.textContent.replace(/\s/g, "").replace(/\n/g, "") === "Shorts");
+            if (filteredElements.length > 0) {
+              filteredElements.forEach((element) => {
+                element.parentNode.style.display = "none";
+              });
+              checkCount = 0;
+            } else {
+              checkCount++;
+              setTimeout(checkForShortsTab, 100);
+            }
+          }
+          checkForShortsTab();
+        },
+        target: { tabId }
+      }).catch((err) => {
+        console.log("Error executing script", err);
+      });
+      insertStyles(tabId, files);
+    } else {
+      chrome.scripting.executeScript({
+        function: () => {
+          let checkCount = 0;
+          function checkForShortsTab() {
+            if (checkCount >= 25) {
+              checkCount = 0;
+              return;
+            }
+            const elements = document.querySelectorAll(".tab-content");
+            const filteredElements = Array.from(elements).filter((element) => element.textContent.replace(/\s/g, "").replace(/\n/g, "") === "Shorts");
+            if (filteredElements.length > 0) {
+              filteredElements.forEach((element) => {
+                element.parentNode.style.display = "inline-flex";
+              });
+              checkCount = 0;
+            } else {
+              checkCount++;
+              setTimeout(checkForShortsTab, 100);
+            }
+          }
+          checkForShortsTab();
+        },
+        target: { tabId }
+      }).catch((err) => {
+        console.log("Error executing script", err);
+      });
+      removeStyles(tabId, files);
+    }
+  }
+}
+function playAsRegularVideo(tab, tabId, enabled) {
+  if (tab.url.startsWith("https://www.youtube.com/shorts/") || tab.url.startsWith("https://m.youtube.com/shorts/")) {
+    let getVideoId2 = function(url) {
+      const regex = /\/shorts\/([^/]+)/;
+      const match = url.match(regex);
+      if (match) {
+        return match[1];
+      }
+      return null;
+    };
+    var getVideoId = getVideoId2;
+    const videoId = getVideoId2(tab.url);
+    if (videoId && enabled) {
+      const newUrl = `https://youtube.com/watch?v=${videoId}`;
+      chrome.tabs.update(tabId, { url: newUrl });
+    }
+  }
+}

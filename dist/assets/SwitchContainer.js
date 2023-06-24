@@ -1,1 +1,25 @@
-import{j as e,t as n,a,u as o,o as d,d as f}from"./index.js";const j=({darkMode:t,title:s,description:c,switchName:r,state:i,isNew:l,hasInfo:x})=>e.jsxs("div",{className:`switch-container flex flex-row justify-between items-center pl-4 pr-4 py-4 ${t?"border-[#2d2d2d]":"border-[#d5d5d5]"}`,children:[e.jsxs("div",{className:"flex flex-col justify-between",children:[e.jsxs("div",{className:"flex items-center gap-1",children:[e.jsx(n,{className:"text-[14px] font-medium",children:s}),x&&e.jsx(m,{darkMode:t}),l&&e.jsx(h,{content:"new",darkMode:t})]}),e.jsx(n,{className:`text-[12px] ${t?"text-textAltDark":"text-textAlt"} pr-5`,children:c})]}),e.jsx(a,{onChange:()=>o(r),checked:i,size:"sm",initialChecked:!0})]}),h=({darkMode:t,content:s})=>e.jsx("div",{className:`flex justify-center items-center px-[4px] py-0 ${t?"bg-[#5086c3]":"bg-[#3694ff]"} rounded-full h-[16px] select-none`,children:e.jsx("span",{className:"text-white text-[10px] font-semibold leading-[0]",children:s})}),m=({darkMode:t,content:s})=>e.jsx("div",{className:"flex justify-center items-center select-none",children:e.jsx(d,{hideArrow:!0,color:"invert",offset:0,css:{backgroundColor:t?"#1c1d20":"#f7f7f7",border:`1px solid ${t?"#2f2f2f":"#dbdbdb"}`},content:e.jsxs(n,{className:`text-[12px] ${t?"text-white":"text-black"}`,children:["This feature only works on the ",e.jsx("a",{href:"https://i.imgur.com/j6i2yB4.png",target:"_blank",children:"new YouTube UI"})]}),children:e.jsx(f,{className:"text-[16px] text-[gray]"})})});export{j as default};
+import { j as jsxRuntimeExports, t, I as InfoTooltip, B as Badge, a as t$1, u as updateSwitchState } from "./index.js";
+const SwitchContainer = ({ darkMode, title, description, switchName, state, isNew, hasInfo }) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: `switch-container flex flex-row justify-between items-center pl-4 pr-4 py-4 ${darkMode ? "border-[#2d2d2d]" : "border-[#d5d5d5]"}`, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col justify-between", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(t, { className: "text-[14px] font-medium", children: title }),
+        hasInfo && /* @__PURE__ */ jsxRuntimeExports.jsx(InfoTooltip, { darkMode }),
+        isNew && /* @__PURE__ */ jsxRuntimeExports.jsx(Badge, { content: "new", darkMode })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(t, { className: `text-[12px] ${darkMode ? "text-textAltDark" : "text-textAlt"} pr-5`, children: description })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      t$1,
+      {
+        onChange: () => updateSwitchState(switchName),
+        checked: state,
+        size: "sm",
+        initialChecked: true
+      }
+    )
+  ] });
+};
+export {
+  SwitchContainer as default
+};

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
-import { Text } from '@nextui-org/react';
 import { Loader } from '../components';
 import { getSwitchStates } from '../constants/popup';
 
@@ -24,7 +23,6 @@ const MiscPage = ({ darkMode }) => {
     return (
         <Suspense fallback={<Loader darkMode={darkMode} />}>
             <div className='flex flex-col justify-center items-center w-full h-full'>
-
                 <div className='flex flex-col w-full mt-4'>
                     <SwitchContainer
                         title={'Shorts Navigation Button'}
@@ -60,6 +58,7 @@ const MiscPage = ({ darkMode }) => {
                         darkMode={darkMode}
                         switchName={'toggleRegularState'}
                         state={switchState.toggleRegularState} />
+
                 </div>
             </div>
         </Suspense>

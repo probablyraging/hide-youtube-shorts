@@ -83,11 +83,14 @@
     "miscPageDesc": {
         "message": "Verschiedenes Optionen zum Ausblenden von Shorts-Elementen in ganz YouTube"
     },
-    "supportPageTitle": {
-        "message": "Unterstützen Sie"
+    "blockPageTitle": {
+        "message": "Blockieren"
     },
-    "supportPageDesc": {
-        "message": "Unterstützen Sie"
+    "blockPageDesc": {
+        "message": "Blockieren Sie Kanäle, die in Ihren Feeds angezeigt werden"
+    },
+    "blockChannelsDesc": {
+        "message": "Geben Sie ein Kanal-Handle ein, um Inhalte dieses Kanals auf der Startseite, bei den Abonnements, bei den Trends und bei der Suche auszublenden"
     },
     "disabledPageTitle": {
         "message": "Deaktiviert"

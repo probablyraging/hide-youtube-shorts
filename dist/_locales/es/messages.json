@@ -83,11 +83,14 @@
     "miscPageDesc": {
         "message": "Opciones varias para ocultar los elementos Shorts en todo YouTube"
     },
-    "supportPageTitle": {
-        "message": "Apoyo"
+    "blockPageTitle": {
+        "message": "Bloqueo"
     },
-    "supportPageDesc": {
-        "message": "Apoyo"
+    "blockPageDesc": {
+        "message": "Bloquea canales para que no aparezcan en tus feeds"
+    },
+    "blockChannelsDesc": {
+        "message": "Introduce el nombre de un canal para ocultar su contenido en la página de inicio, suscripciones, tendencias y búsquedas"
     },
     "disabledPageTitle": {
         "message": "Desactivado"

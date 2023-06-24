@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Paper from '@mui/material/Paper';
-import { feed_page, channel_page, misc_page, support_page, disabled_page } from '../assets';
+import { feed_page, channel_page, misc_page, block_page } from '../assets';
 
 const NavBar = ({ darkMode }) => {
     const [value, setValue] = useState(0);
@@ -24,7 +24,7 @@ const NavBar = ({ darkMode }) => {
             case '/misc':
                 setValue(2);
                 break;
-            case '/stats':
+            case '/block':
                 setValue(3);
                 break;
             default:
@@ -96,10 +96,10 @@ const NavBar = ({ darkMode }) => {
                         }} />
                 </Link>
 
-                <Link to={navDisabled ? '/disabled' : '/support'} className='flex w-full'>
+                <Link to={navDisabled ? '/disabled' : '/block'} className='flex w-full'>
                     <BottomNavigationAction
                         className={`${darkMode ? 'hover:bg-[#202225]' : 'hover:bg-[#f5f5f5]'} transition-colors duration-200`}
-                        icon={<img src={support_page} width={20} height={20} />}
+                        icon={<img src={block_page} width={24} height={20} />}
                         sx={{
                             height: '100%',
                             color: value === 3 ? navButtonColorActive : navButtonColorDefault,

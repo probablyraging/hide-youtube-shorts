@@ -83,11 +83,14 @@
     "miscPageDesc": {
         "message": "Miscellaneous options for hiding Shorts elements all across YouTube"
     },
-    "supportPageTitle": {
-        "message": "Support"
+    "blockPageTitle": {
+        "message": "Blocking"
     },
-    "supportPageDesc": {
-        "message": "Support"
+    "blockPageDesc": {
+        "message": "Block channels from appearing in your feeds"
+    },
+    "blockChannelsDesc": {
+        "message": "Enter a channel handle to hide content from that channel on the home, subscriptions, trending, and search feeds"
     },
     "disabledPageTitle": {
         "message": "Disabled"
