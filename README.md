@@ -11,6 +11,9 @@ Hide YouTube Shorts videos effortlessly with this powerful browser extension
 ## Installation - Chrome Web Store
 Install the latest stable version directly from the [Chrome Web Store](https://chrome.google.com/webstore/detail/aljlkinhomaaahfdojalfmimeidofpih)
 
+## Installation (beta) - Chrome Web Store
+Install the beta version directly from the [Chrome Web Store](https://chrome.google.com/webstore/detail/mefpaebipddmdknlplfakgdoiajiifmg)
+
 ## Installation (unstable) - Unpacked Extension
 <img width=350 style="align: center" src="https://i.imgur.com/RBUP2pE.png">
 
