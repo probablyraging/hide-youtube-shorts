@@ -5,6 +5,7 @@ const destinationDir = './dist/assets';
 
 const filesToCopy = [
     'channel_shorts_tab.css',
+    'channel_shorts_unhide.css',
     'home_lives.css',
     'home_premieres.css',
     'home_shorts.css',

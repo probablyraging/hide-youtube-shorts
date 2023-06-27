@@ -62,9 +62,9 @@ chrome.runtime.onInstalled.addListener(async (details) => {
         //         chrome.tabs.reload(tab.id);
         //     });
         // });
-        chrome.storage.sync.set({ presentModal: true }).catch(() => { console.log('[STORAGE] Could not set storage item') });
-        chrome.action.setBadgeBackgroundColor({ color: '#ed5a64' });
-        chrome.action.setBadgeText({ text: '1' });
+        chrome.storage.sync.set({ presentModal: false }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+        // chrome.action.setBadgeBackgroundColor({ color: '#ed5a64' });
+        // chrome.action.setBadgeText({ text: '1' });
     }
 });
 
@@ -115,6 +115,7 @@ function removeAllStyles(tabId) {
     chrome.scripting.removeCSS({
         files: [
             'channel_shorts_tab.css',
+            'channel_shorts_unhide.css',
             'assets/home_lives.css',
             'assets/home_premieres.css',
             'assets/home_shorts.css',
@@ -209,21 +210,21 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
         if (!states.toggleState) return;
         if (changeInfo.status !== 'loading') return;
 
-        if (states.toggleNavState) hideShortsNavButton(tab, tabId, states.toggleNavState);
-        if (states.toggleHomeFeedState) hideShortsHome(tab, tabId, states.toggleHomeFeedState);
-        if (states.toggleHomeFeedStateLives) hideLivesHome(tab, tabId, states.toggleHomeFeedStateLives);
-        if (states.toggleHomeFeedStatePremieres) hidePremieresHome(tab, tabId, states.toggleHomeFeedStatePremieres);
-        if (states.toggleSubscriptionFeedState) hideShortsSubscriptions(tab, tabId, states.toggleSubscriptionFeedState);
-        if (states.toggleSubscriptionFeedStateLives) hideLivesSubscriptions(tab, tabId, states.toggleSubscriptionFeedStateLives);
-        if (states.toggleSubscriptionFeedStatePremieres) hidePremieresSubscriptions(tab, tabId, states.toggleSubscriptionFeedStatePremieres);
-        if (states.toggleTrendingFeedState) hideShortsTrending(tab, tabId, states.toggleTrendingFeedState);
-        if (states.toggleSearchState) hideShortsSearch(tab, tabId, states.toggleSearchState);
-        if (states.toggleRecommendedState) hideShortsRecommendedList(tab, tabId, states.toggleRecommendedState);
-        if (states.toggleNotificationState) hideShortsNotificationMenu(tab, tabId, states.toggleNotificationState);
-        if (states.toggleTabState) hideShortsTabOnChannel(tab, tabId, states.toggleTabState);
-        if (states.toggleHomeTabState) hideShortsHomeTab(tab, tabId, states.toggleHomeTabState);
-        if (states.toggleRegularState) playAsRegularVideo(tab, tabId, states.toggleRegularState);
-        if (states.blockList.length > 0) hideBlockedChannels(tabId, 'add', states.blockList);
+        hideShortsNavButton(tab, tabId, states.toggleNavState);
+        hideShortsHome(tab, tabId, states.toggleHomeFeedState);
+        hideLivesHome(tab, tabId, states.toggleHomeFeedStateLives);
+        hidePremieresHome(tab, tabId, states.toggleHomeFeedStatePremieres);
+        hideShortsSubscriptions(tab, tabId, states.toggleSubscriptionFeedState);
+        hideLivesSubscriptions(tab, tabId, states.toggleSubscriptionFeedStateLives);
+        hidePremieresSubscriptions(tab, tabId, states.toggleSubscriptionFeedStatePremieres);
+        hideShortsTrending(tab, tabId, states.toggleTrendingFeedState);
+        hideShortsSearch(tab, tabId, states.toggleSearchState);
+        hideShortsRecommendedList(tab, tabId, states.toggleRecommendedState);
+        hideShortsNotificationMenu(tab, tabId, states.toggleNotificationState);
+        hideShortsTabOnChannel(tab, tabId, states.toggleTabState);
+        hideShortsHomeTab(tab, tabId, states.toggleHomeTabState);
+        playAsRegularVideo(tab, tabId, states.toggleRegularState);
+        if (states.blockList && states.blockList.length > 0) hideBlockedChannels(tabId, 'add', states.blockList);
     }
 });
 
@@ -246,7 +247,7 @@ async function mainToggleState(tab, tabId, enabled) {
         if (states.toggleTabState) hideShortsTabOnChannel(tab, tabId, states.toggleTabState);
         if (states.toggleHomeTabState) hideShortsHomeTab(tab, tabId, states.toggleHomeTabState);
         if (states.toggleRegularState) playAsRegularVideo(tab, tabId, states.toggleRegularState);
-        if (states.blockList.length > 0) hideBlockedChannels(tabId, 'add', states.blockList);
+        if (states.blockList && states.blockList.length > 0) hideBlockedChannels(tabId, 'add', states.blockList);
     }
     if (!enabled) removeAllStyles(tabId);
 }
@@ -483,6 +484,9 @@ function hideShortsTabOnChannel(tab, tabId, enabled) {
             // Mobile
             insertStyles(tabId, files);
         } else {
+            setTimeout(() => {
+                insertStyles(tabId, ['assets/channel_shorts_unhide.css']);
+            }, 500);
             chrome.scripting.executeScript({
                 function: () => {
                     let checkCount = 0;

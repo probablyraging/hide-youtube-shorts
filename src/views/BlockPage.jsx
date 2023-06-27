@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Text, Input, Button, Table, styled } from '@nextui-org/react';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { InfoTooltip, Badge } from '../components';
+import PersonOffOutlinedIcon from '@mui/icons-material/PersonOffOutlined';
+import { Badge } from '../components';
 import { getBlockList, updateBlockList } from '../constants/popup';
 
 const BlockPage = ({ darkMode }) => {
@@ -59,6 +59,10 @@ const BlockPage = ({ darkMode }) => {
         }
     });
 
+    const buttonColor = !inputValue.length ?
+        darkMode ? 'bg-[#3d3f41]' : 'bg-[#bbbbbb]' :
+        darkMode ? `bg-[#5086c3] hover:bg-[#4175b0]` : 'bg-[#3694ff] hover:bg-[#2c85e9]';
+
     return (
         <div className='flex flex-col justify-center items-center w-full h-full'>
             <div className='flex flex-col w-full mt-4'>
@@ -82,10 +86,11 @@ const BlockPage = ({ darkMode }) => {
                             onChange={(e) => setInputValue(e.target.value)} />
                         <Button
                             auto
-                            className={`h-[32px] ${darkMode ? 'bg-[#5086c3] hover:bg-[#4175b0]' : 'bg-[#3694ff] hover:bg-[#2c85e9]'}`}
+                            disabled={!inputValue.length}
+                            className={`h-[32px] ${buttonColor}`}
                             onPress={blockListAdd}>
-                            <Text className='text-[20px] text-[#f8f8f8] font-semibold'>
-                                +
+                            <Text className='flex justify-center items-center text-[20px] text-[#f8f8f8] font-semibold'>
+                                <PersonOffOutlinedIcon />
                             </Text>
                         </Button>
                     </div>
