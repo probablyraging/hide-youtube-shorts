@@ -1,0 +1,15 @@
+name: Support Request
+description: Get support regarding this project
+title: "Title"
+labels: ["help wanted"]
+assignees:
+  - "ProbablyRaging"
+body:
+  - type: textarea
+    id: support-question
+    attributes:
+      label: What do you need support with?
+      description: A clear and concise description of what you are needing support with
+      placeholder: I've installed the app but I am unsure how to disabled certain features
+    validations:
+      required: true
