@@ -1,11 +1,13 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Text, Tooltip } from '@nextui-org/react';
 import { SettingsButton } from './index';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { feed_page, channel_page, misc_page, block_page, disabled_page } from '../assets';
+import { feed_page, channel_page, misc_page, block_page, disabled_page, premium } from '../assets';
+import { checkPremium } from '../constants/popup';
 
 const PageHead = ({ darkMode, toggleDarkMode }) => {
+    const [isPremium, setIsPremium] = useState(false);
     const location = useLocation();
     const pageData = {
         '/': [chrome.i18n.getMessage('feedPageTitle'), feed_page, chrome.i18n.getMessage('feedPageDesc')],
@@ -14,7 +16,22 @@ const PageHead = ({ darkMode, toggleDarkMode }) => {
         '/misc': [chrome.i18n.getMessage('miscPageTitle'), misc_page, chrome.i18n.getMessage('miscPageDesc')],
         '/block': [chrome.i18n.getMessage('blockPageTitle'), block_page, chrome.i18n.getMessage('blockPageDesc')],
         '/disabled': [chrome.i18n.getMessage('disabledPageTitle'), disabled_page, chrome.i18n.getMessage('disabledPageDesc')],
+        '/premium': ['Get Pro', premium, 'Get HYS Pro'],
+        '/premiumactive': ['Pro Active', premium, 'Pro active']
     };
+
+    useEffect(() => {
+        const checkIfPremium = async () => {
+            try {
+                const premiumData = await checkPremium();
+                setIsPremium(premiumData);
+            } catch (error) {
+                console.error('Error checking premium status:', error);
+            }
+        }
+
+        checkIfPremium();
+    }, []);
 
     const [title, pageIcon, tooltipText] = pageData[location.pathname] || [];
 
@@ -36,7 +53,21 @@ const PageHead = ({ darkMode, toggleDarkMode }) => {
                 </Tooltip>
             </div>
 
-            <SettingsButton darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+            <div className='flex gap-6 justify-center items-center'>
+                {isPremium ? (
+                    <Link to={'/premium'}>
+                        <div className='flex justify-center items-center w-[110px] h-[32px] bg-[#ffc107] rounded-xl hover:bg-[#efb811]'>
+                            <img className='mr-2' src={premium} width={18} height={18} />
+                            <Text className='text-white text-sm font-semibold'>
+                                Get Pro
+                            </Text>
+                        </div>
+                    </Link>
+                ) : null}
+
+                <SettingsButton darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+            </div>
+
         </div>
     );
 }

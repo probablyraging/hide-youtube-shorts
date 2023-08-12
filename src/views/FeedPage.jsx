@@ -1,14 +1,14 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Text, Link } from '@nextui-org/react';
 import { Loader } from '../components';
-import { getSwitchStates } from '../constants/popup';
+import { getSwitchStates, checkPremium } from '../constants/popup';
 
 const SwitchContainer = lazy(() => import('../components/SwitchContainer'));
 const ModalDisplay = lazy(() => import('../components/ModalDisplay'));
 
 const FeedPage = ({ darkMode }) => {
     const [switchState, setSwitchState] = useState({});
+    const [isPremium, setIsPremium] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,7 +21,17 @@ const FeedPage = ({ darkMode }) => {
             }
         };
 
+        const checkIfPremium = async () => {
+            try {
+                const premiumData = await checkPremium();
+                setIsPremium(premiumData);
+            } catch (error) {
+                console.error('Error checking premium status:', error);
+            }
+        }
+
         fetchSwitchData();
+        checkIfPremium();
     }, []);
 
     if (switchState.toggleState === false) navigate('/disabled');
@@ -46,14 +56,18 @@ const FeedPage = ({ darkMode }) => {
                         description={chrome.i18n.getMessage('homeFeedLivesDesc')}
                         darkMode={darkMode}
                         switchName={'toggleHomeFeedStateLives'}
-                        state={switchState.toggleHomeFeedStateLives} />
+                        state={switchState.toggleHomeFeedStateLives}
+                        premiumFeature={true}
+                        hasPremium={isPremium} />
 
                     <SwitchContainer
                         title={'Home Feed Premieres'}
                         description={chrome.i18n.getMessage('homeFeedPremieresDesc')}
                         darkMode={darkMode}
                         switchName={'toggleHomeFeedStatePremieres'}
-                        state={switchState.toggleHomeFeedStatePremieres} />
+                        state={switchState.toggleHomeFeedStatePremieres}
+                        premiumFeature={true}
+                        hasPremium={isPremium} />
 
                     {/* Subscriptions */}
                     <SwitchContainer
@@ -68,14 +82,18 @@ const FeedPage = ({ darkMode }) => {
                         description={chrome.i18n.getMessage('subFeedLivesDesc')}
                         darkMode={darkMode}
                         switchName={'toggleSubscriptionFeedStateLives'}
-                        state={switchState.toggleSubscriptionFeedStateLives} />
+                        state={switchState.toggleSubscriptionFeedStateLives}
+                        premiumFeature={true}
+                        hasPremium={isPremium} />
 
                     <SwitchContainer
                         title={'Subscriptions Feed Premieres'}
                         description={chrome.i18n.getMessage('subFeedPremieresDesc')}
                         darkMode={darkMode}
                         switchName={'toggleSubscriptionFeedStatePremieres'}
-                        state={switchState.toggleSubscriptionFeedStatePremieres} />
+                        state={switchState.toggleSubscriptionFeedStatePremieres}
+                        premiumFeature={true}
+                        hasPremium={isPremium} />
 
                     {/* Trending */}
                     <SwitchContainer

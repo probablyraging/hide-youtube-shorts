@@ -39,21 +39,22 @@ const ModalDisplay = () => {
             >
                 <Modal.Header className='absolute flex flex-col items-start top-0'>
                     <Text className='font-semibold' size={16}>
-                        What's New In 1.6.15
+                        What's New In 1.6.15.3
                     </Text>
                     <Text className='text-[12px]'>
-                        June 25, 2023
+                        Aug 12, 2023
                     </Text>
                 </Modal.Header>
                 <Modal.Body className='mt-[50px]'>
                     <Text className='added mb-4'>
-                        Major Update
+                        HYS Pro Features
                     </Text>
                     <Text className='text-[13px] mb-2'>
-                        This update contains a lot of different additions and changes
-                        <br></br>
-                        <br></br>
-                        Please <a href="https://github.com/ProbablyRaging/hide-youtube-shorts/releases/tag/1.6.15" target='_blank'>click here</a> for a full change log
+                        While the main features of HYS will always remain free, you may notice that some of the additional features are now gates by a 'pro' subscription. This is to help fund the development of HYS, so we can keep bringing you an awesome extension.
+                        <br></br><br></br>
+                        Use code 'HYSSAVE15' at checkout to save 15% off your first month.
+                        <br></br><br></br>
+                        Thank you for the continued support!
                     </Text>
                 </Modal.Body>
                 <Modal.Footer>

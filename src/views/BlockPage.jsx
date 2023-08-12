@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Text, Input, Button, Table, styled } from '@nextui-org/react';
+import { Text, Input, Button, Table, styled, Tooltip } from '@nextui-org/react';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import PersonOffOutlinedIcon from '@mui/icons-material/PersonOffOutlined';
-import { Badge } from '../components';
-import { getBlockList, updateBlockList } from '../constants/popup';
+import { getBlockList, updateBlockList, checkPremium } from '../constants/popup';
+import { premium } from '../assets';
 
 const BlockPage = ({ darkMode }) => {
     const [blockListData, setBlockListData] = useState([]);
+    const [isPremium, setIsPremium] = useState(true);
     const [inputValue, setInputValue] = useState('');
 
     useEffect(() => {
@@ -19,7 +20,17 @@ const BlockPage = ({ darkMode }) => {
             }
         };
 
+        const checkIfPremium = async () => {
+            try {
+                const premiumData = await checkPremium();
+                setIsPremium(premiumData);
+            } catch (error) {
+                console.error('Error checking premium status:', error);
+            }
+        }
+
         fetchData();
+        checkIfPremium();
     }, []);
 
     const updateBlockListData = async (value, action) => {
@@ -70,12 +81,13 @@ const BlockPage = ({ darkMode }) => {
                 <div className={`switch-container flex flex-col justify-between pl-4 pr-4 py-4 ${darkMode ? 'border-[#2d2d2d]' : 'border-[#d5d5d5]'}`}>
                     <div className='flex items-center gap-1'>
                         <Text className='text-[14px] font-medium'>Block Channels</Text>
-                        <Badge content='NEW' />
+                        <Tooltip content='Pro Feature'><img src={premium} width={14}></img></Tooltip>
                     </div>
 
                     <Text className={`text-[12px] ${darkMode ? 'text-textAltDark' : 'text-textAlt'} pr-5 mb-8`}>{chrome.i18n.getMessage('blockChannelsDesc')}</Text>
                     <div className='flex flex-row gap-2 mb-8'>
                         <Input
+                            disabled={isPremium}
                             clearable
                             className='h-[32px] w-[315px]'
                             labelLeft={<AlternateEmailIcon className={`w-[16px] ${darkMode ? 'text-[#d2d2d2]' : 'text-[#262626]'}`} />}

@@ -124,5 +124,11 @@
     },
     "buyMeACoffee": {
         "message": "Купите мне кофе"
+    },
+    "premiumOne": {
+        "message": "Pro-подписка активирована"
+    },
+    "premiumTwo": {
+        "message": "Thank you for supporting Hide YouTube Shorts"
     }
 }

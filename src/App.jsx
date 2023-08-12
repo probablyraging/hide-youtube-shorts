@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { NextUIProvider, CssBaseline } from '@nextui-org/react';
-import { ChannelPage, FeedPage, MiscPage, BlockPage, Disabled } from './views';
+import { ChannelPage, FeedPage, MiscPage, BlockPage, Disabled, Premium, PremiumActive } from './views';
 import { NavBar, Loader, PageHead } from './components';
 import { darkTheme, lightTheme } from './constants/themes';
 
@@ -56,6 +56,8 @@ const App = () => {
                             <Route path="/misc" element={<MiscPage darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
                             <Route path="/block" element={<BlockPage darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
                             <Route path="/disabled" element={<Disabled darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+                            <Route path="/premium" element={<Premium darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+                            <Route path="/premiumactive" element={<PremiumActive darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
                             <Route path="*" element={<Navigate to='/' />} />
                         </Routes>
                     </MainPage>

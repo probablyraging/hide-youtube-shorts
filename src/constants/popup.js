@@ -125,3 +125,54 @@ export const updateBlockList = async (channelToBlock, action) => {
         await chrome.storage.sync.set({ blockList: [] });
     }
 }
+
+// Validate premium
+export const activatePremium = async (email) => {
+    return new Promise((resolve) => {
+        fetch('https://creatordiscord.xyz/api/hys_activate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email })
+        })
+            .then(res => res.json())
+            .then(async data => {
+                if (data.message) {
+                    await chrome.storage.sync.set({ premiumKey: data.message });
+                    resolve(data);
+                } else if (data.error) {
+                    await chrome.storage.sync.remove('premiumKey');
+                    resolve(data);
+                }
+            });
+    });
+}
+
+// Check if user has premium (for switch states)
+export const checkPremium = async () => {
+    return new Promise(async (resolve) => {
+        const { premiumKey } = await chrome.storage.sync.get(['premiumKey']);
+        if (premiumKey) {
+            fetch('https://creatordiscord.xyz/api/hys_activate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ premiumKey: premiumKey })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.message) {
+                        // Enable switch
+                        resolve(false);
+                    }
+                    if (data.error) {
+                        chrome.storage.sync.remove('premiumKey');
+                        // Disable switch
+                        resolve(true);
+                    }
+                });
+        } else {
+            chrome.storage.sync.remove('premiumKey');
+            // Disable switch
+            resolve(true);
+        }
+    });
+}

@@ -14,13 +14,13 @@ chrome.runtime.onInstalled.addListener(async (details) => {
             toggleSubscriptionFeedStateLives: false,
             toggleSubscriptionFeedStatePremieres: false,
             toggleTrendingFeedState: true,
-            toggleSearchState: true,
-            toggleRecommendedState: true,
+            toggleSearchState: false,
+            toggleRecommendedState: false,
             toggleTabState: true,
             toggleHomeTabState: true,
             toggleTurboState: false,
-            toggleRegularState: true,
-            toggleNotificationState: true,
+            toggleRegularState: false,
+            toggleNotificationState: false,
         }).catch(() => { console.log('[STORAGE] Could not set storage item') });
         chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
             tabs.forEach(tab => {
@@ -62,10 +62,46 @@ chrome.runtime.onInstalled.addListener(async (details) => {
         //         chrome.tabs.reload(tab.id);
         //     });
         // });
-        chrome.storage.sync.set({ presentModal: false }).catch(() => { console.log('[STORAGE] Could not set storage item') });
-        // chrome.action.setBadgeBackgroundColor({ color: '#ed5a64' });
-        // chrome.action.setBadgeText({ text: '1' });
+        chrome.storage.sync.set({ presentModal: true }).catch(() => { console.log('[STORAGE] Could not set storage item') });
+        chrome.action.setBadgeBackgroundColor({ color: '#ed5a64' });
+        chrome.action.setBadgeText({ text: '1' });
     }
+    // Periodically check premium status
+    setInterval(async () => {
+        const { premiumKey } = await chrome.storage.sync.get(['premiumKey']);
+        const keys = [
+            'toggleHomeFeedStateLives',
+            'toggleHomeFeedStatePremieres',
+            'toggleSubscriptionFeedStateLives',
+            'toggleSubscriptionFeedStatePremieres',
+            'toggleSearchState',
+            'toggleRecommendedState',
+            'toggleRegularState',
+            'toggleNotificationState',
+        ];
+        if (premiumKey) {
+            fetch('https://creatordiscord.xyz/api/hys_activate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ premiumKey: premiumKey })
+            })
+                .then(res => res.json())
+                .then(async data => {
+                    if (data.error) {
+                        // Disable premium features
+                        for (const key of keys) {
+                            await chrome.storage.sync.set({ [key]: false });
+                        }
+                        chrome.storage.sync.remove('premiumKey');
+                    }
+                });
+        } else {
+            for (const key of keys) {
+                await chrome.storage.sync.set({ [key]: false });
+            }
+            chrome.storage.sync.remove('premiumKey');
+        }
+    }, 21600 * 1000);
 });
 
 // Get stored switch states
@@ -90,7 +126,8 @@ function checkStates() {
         'toggleTurboState',
         'toggleRegularState',
         'toggleNotificationState',
-        'blockList'
+        'blockList',
+        'premiumKey'
     ]);
 }
 
@@ -170,31 +207,33 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
                 if (message.checkStates === 'toggleState') mainToggleState(tab, tab.id, states.toggleState);
                 if (message.checkStates === 'toggleNavState') hideShortsNavButton(tab, tab.id, states.toggleNavState);
                 if (message.checkStates === 'toggleHomeFeedState') hideShortsHome(tab, tab.id, states.toggleHomeFeedState);
-                if (message.checkStates === 'toggleHomeFeedStateLives') hideLivesHome(tab, tab.id, states.toggleHomeFeedStateLives);
-                if (message.checkStates === 'toggleHomeFeedStatePremieres') hidePremieresHome(tab, tab.id, states.toggleHomeFeedStatePremieres);
+                if (message.checkStates === 'toggleHomeFeedStateLives' && states.premiumKey) hideLivesHome(tab, tab.id, states.toggleHomeFeedStateLives);
+                if (message.checkStates === 'toggleHomeFeedStatePremieres' && states.premiumKey) hidePremieresHome(tab, tab.id, states.toggleHomeFeedStatePremieres);
                 if (message.checkStates === 'toggleSubscriptionFeedState') hideShortsSubscriptions(tab, tab.id, states.toggleSubscriptionFeedState);
-                if (message.checkStates === 'toggleSubscriptionFeedStateLives') hideLivesSubscriptions(tab, tab.id, states.toggleSubscriptionFeedStateLives);
-                if (message.checkStates === 'toggleSubscriptionFeedStatePremieres') hidePremieresSubscriptions(tab, tab.id, states.toggleSubscriptionFeedStatePremieres);
+                if (message.checkStates === 'toggleSubscriptionFeedStateLives' && states.premiumKey) hideLivesSubscriptions(tab, tab.id, states.toggleSubscriptionFeedStateLives);
+                if (message.checkStates === 'toggleSubscriptionFeedStatePremieres' && states.premiumKey) hidePremieresSubscriptions(tab, tab.id, states.toggleSubscriptionFeedStatePremieres);
                 if (message.checkStates === 'toggleTrendingFeedState') hideShortsTrending(tab, tab.id, states.toggleTrendingFeedState);
-                if (message.checkStates === 'toggleSearchState') hideShortsSearch(tab, tab.id, states.toggleSearchState);
-                if (message.checkStates === 'toggleRecommendedState') hideShortsRecommendedList(tab, tab.id, states.toggleRecommendedState);
-                if (message.checkStates === 'toggleNotificationState') hideShortsNotificationMenu(tab, tab.id, states.toggleNotificationState);
+                if (message.checkStates === 'toggleSearchState' && states.premiumKey) hideShortsSearch(tab, tab.id, states.toggleSearchState);
+                if (message.checkStates === 'toggleRecommendedState' && states.premiumKey) hideShortsRecommendedList(tab, tab.id, states.toggleRecommendedState);
+                if (message.checkStates === 'toggleNotificationState' && states.premiumKey) hideShortsNotificationMenu(tab, tab.id, states.toggleNotificationState);
                 if (message.checkStates === 'toggleTabState') hideShortsTabOnChannel(tab, tab.id, states.toggleTabState);
                 if (message.checkStates === 'toggleHomeTabState') hideShortsHomeTab(tab, tab.id, states.toggleHomeTabState);
-                if (message.checkStates === 'toggleRegularState') playAsRegularVideo(tab, tab.id, states.toggleRegularState);
+                if (message.checkStates === 'toggleRegularState' && states.premiumKey) playAsRegularVideo(tab, tab.id, states.toggleRegularState);
             });
         });
     }
     if (message.blockList) {
         // Get extension toggle states
         const states = await checkStates();
-        chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
-            tabs.forEach(tab => {
-                if (message.blockList === 'add') hideBlockedChannels(tab.id, 'add', states.blockList);
-                if (message.blockList.action === 'remove') hideBlockedChannels(tab.id, 'remove', message.blockList.channelName);
-                if (message.blockList === 'clear') hideBlockedChannels(tab.id, 'clear', states.blockList);
+        if (states.premiumKey) {
+            chrome.tabs.query({ url: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] }, function (tabs) {
+                tabs.forEach(tab => {
+                    if (message.blockList === 'add') hideBlockedChannels(tab.id, 'add', states.blockList);
+                    if (message.blockList.action === 'remove') hideBlockedChannels(tab.id, 'remove', message.blockList.channelName);
+                    if (message.blockList === 'clear') hideBlockedChannels(tab.id, 'clear', states.blockList);
+                });
             });
-        });
+        }
     }
 });
 
@@ -212,19 +251,19 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
 
         hideShortsNavButton(tab, tabId, states.toggleNavState);
         hideShortsHome(tab, tabId, states.toggleHomeFeedState);
-        hideLivesHome(tab, tabId, states.toggleHomeFeedStateLives);
-        hidePremieresHome(tab, tabId, states.toggleHomeFeedStatePremieres);
+        if (states.premiumKey) hideLivesHome(tab, tabId, states.toggleHomeFeedStateLives);
+        if (states.premiumKey) hidePremieresHome(tab, tabId, states.toggleHomeFeedStatePremieres);
         hideShortsSubscriptions(tab, tabId, states.toggleSubscriptionFeedState);
-        hideLivesSubscriptions(tab, tabId, states.toggleSubscriptionFeedStateLives);
-        hidePremieresSubscriptions(tab, tabId, states.toggleSubscriptionFeedStatePremieres);
+        if (states.premiumKey) hideLivesSubscriptions(tab, tabId, states.toggleSubscriptionFeedStateLives);
+        if (states.premiumKey) hidePremieresSubscriptions(tab, tabId, states.toggleSubscriptionFeedStatePremieres);
         hideShortsTrending(tab, tabId, states.toggleTrendingFeedState);
-        hideShortsSearch(tab, tabId, states.toggleSearchState);
-        hideShortsRecommendedList(tab, tabId, states.toggleRecommendedState);
-        hideShortsNotificationMenu(tab, tabId, states.toggleNotificationState);
+        if (states.premiumKey) hideShortsSearch(tab, tabId, states.toggleSearchState);
+        if (states.premiumKey) hideShortsRecommendedList(tab, tabId, states.toggleRecommendedState);
+        if (states.premiumKey) hideShortsNotificationMenu(tab, tabId, states.toggleNotificationState);
         hideShortsTabOnChannel(tab, tabId, states.toggleTabState);
         hideShortsHomeTab(tab, tabId, states.toggleHomeTabState);
-        playAsRegularVideo(tab, tabId, states.toggleRegularState);
-        if (states.blockList && states.blockList.length > 0) hideBlockedChannels(tabId, 'add', states.blockList);
+        if (states.premiumKey) playAsRegularVideo(tab, tabId, states.toggleRegularState);
+        if (states.blockList && states.blockList.length > 0 && states.premiumKey) hideBlockedChannels(tabId, 'add', states.blockList);
     }
 });
 
@@ -235,19 +274,19 @@ async function mainToggleState(tab, tabId, enabled) {
         const states = await checkStates();
         if (states.toggleNavState) hideShortsNavButton(tab, tabId, states.toggleNavState);
         if (states.toggleHomeFeedState) hideShortsHome(tab, tabId, states.toggleHomeFeedState);
-        if (states.toggleHomeFeedStateLives) hideLivesHome(tab, tabId, states.toggleHomeFeedStateLives);
-        if (states.toggleHomeFeedStatePremieres) hidePremieresHome(tab, tabId, states.toggleHomeFeedStatePremieres);
+        if (states.toggleHomeFeedStateLives && states.premiumKey) hideLivesHome(tab, tabId, states.toggleHomeFeedStateLives);
+        if (states.toggleHomeFeedStatePremieres && states.premiumKey) hidePremieresHome(tab, tabId, states.toggleHomeFeedStatePremieres);
         if (states.toggleSubscriptionFeedState) hideShortsSubscriptions(tab, tabId, states.toggleSubscriptionFeedState);
-        if (states.toggleSubscriptionFeedStateLives) hideLivesSubscriptions(tab, tabId, states.toggleSubscriptionFeedStateLives);
-        if (states.toggleSubscriptionFeedStatePremieres) hidePremieresSubscriptions(tab, tabId, states.toggleSubscriptionFeedStatePremieres);
+        if (states.toggleSubscriptionFeedStateLives && states.premiumKey) hideLivesSubscriptions(tab, tabId, states.toggleSubscriptionFeedStateLives);
+        if (states.toggleSubscriptionFeedStatePremieres && states.premiumKey) hidePremieresSubscriptions(tab, tabId, states.toggleSubscriptionFeedStatePremieres);
         if (states.toggleTrendingFeedState) hideShortsTrending(tab, tabId, states.toggleTrendingFeedState);
-        if (states.toggleSearchState) hideShortsSearch(tab, tabId, states.toggleSearchState);
-        if (states.toggleRecommendedState) hideShortsRecommendedList(tab, tabId, states.toggleRecommendedState);
-        if (states.toggleNotificationState) hideShortsNotificationMenu(tab, tabId, states.toggleNotificationState);
+        if (states.toggleSearchState && states.premiumKey) hideShortsSearch(tab, tabId, states.toggleSearchState);
+        if (states.toggleRecommendedState && states.premiumKey) hideShortsRecommendedList(tab, tabId, states.toggleRecommendedState);
+        if (states.toggleNotificationState && states.premiumKey) hideShortsNotificationMenu(tab, tabId, states.toggleNotificationState);
         if (states.toggleTabState) hideShortsTabOnChannel(tab, tabId, states.toggleTabState);
         if (states.toggleHomeTabState) hideShortsHomeTab(tab, tabId, states.toggleHomeTabState);
-        if (states.toggleRegularState) playAsRegularVideo(tab, tabId, states.toggleRegularState);
-        if (states.blockList && states.blockList.length > 0) hideBlockedChannels(tabId, 'add', states.blockList);
+        if (states.toggleRegularState && states.premiumKey) playAsRegularVideo(tab, tabId, states.toggleRegularState);
+        if (states.blockList && states.blockList.length > 0 && states.premiumKey) hideBlockedChannels(tabId, 'add', states.blockList);
     }
     if (!enabled) removeAllStyles(tabId);
 }

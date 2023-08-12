@@ -124,5 +124,11 @@
     },
     "buyMeACoffee": {
         "message": "Cómprame Un Café"
+    },
+    "premiumOne": {
+        "message": "Suscripción Pro Activada"
+    },
+    "premiumTwo": {
+        "message": "Thank you for supporting Hide YouTube Shorts"
     }
 }

@@ -1,11 +1,12 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Loader } from '../components';
-import { getSwitchStates } from '../constants/popup';
+import { getSwitchStates, checkPremium } from '../constants/popup';
 
 const SwitchContainer = lazy(() => import('../components/SwitchContainer'));
 
 const MiscPage = ({ darkMode }) => {
     const [switchState, setSwitchState] = useState({});
+    const [isPremium, setIsPremium] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -17,7 +18,17 @@ const MiscPage = ({ darkMode }) => {
             }
         };
 
+        const checkIfPremium = async () => {
+            try {
+                const premiumData = await checkPremium();
+                setIsPremium(premiumData);
+            } catch (error) {
+                console.error('Error checking premium status:', error);
+            }
+        }
+
         fetchData();
+        checkIfPremium();
     }, []);
 
     return (
@@ -36,28 +47,36 @@ const MiscPage = ({ darkMode }) => {
                         description={chrome.i18n.getMessage('searchResultsDesc')}
                         darkMode={darkMode}
                         switchName={'toggleSearchState'}
-                        state={switchState.toggleSearchState} />
+                        state={switchState.toggleSearchState}
+                        premiumFeature={true}
+                        hasPremium={isPremium} />
 
                     <SwitchContainer
                         title={'Recommended List'}
                         description={chrome.i18n.getMessage('recommendedListDesc')}
                         darkMode={darkMode}
                         switchName={'toggleRecommendedState'}
-                        state={switchState.toggleRecommendedState} />
+                        state={switchState.toggleRecommendedState}
+                        premiumFeature={true}
+                        hasPremium={isPremium} />
 
                     <SwitchContainer
                         title={'Notification Menu'}
                         description={chrome.i18n.getMessage('notificationMenuDesc')}
                         darkMode={darkMode}
                         switchName={'toggleNotificationState'}
-                        state={switchState.toggleNotificationState} />
+                        state={switchState.toggleNotificationState}
+                        premiumFeature={true}
+                        hasPremium={isPremium} />
 
                     <SwitchContainer
                         title={'Play In Regular Mode'}
                         description={chrome.i18n.getMessage('playInRegularModeDesc')}
                         darkMode={darkMode}
                         switchName={'toggleRegularState'}
-                        state={switchState.toggleRegularState} />
+                        state={switchState.toggleRegularState}
+                        premiumFeature={true}
+                        hasPremium={isPremium} />
 
                 </div>
             </div>
