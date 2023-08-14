@@ -88,7 +88,7 @@ const Premium = ({ darkMode }) => {
 
                     <div className='flex mb-1'>
                         <Text className='text-[28px] text-[#3694ff] font-semibold'>
-                            $8
+                            $2.50
                         </Text>
                         <div className='flex flex-col items-start mt-1 ml-1'>
                             <Text className='text-[14px]'>
@@ -123,7 +123,7 @@ const Premium = ({ darkMode }) => {
 
                     <div className='flex mb-1'>
                         <Text className='text-[28px] text-[#3694ff] font-semibold'>
-                            $70
+                            $25
                         </Text>
                         <div className='flex flex-col items-start mt-1 ml-1'>
                             <Text className='text-[14px]'>
