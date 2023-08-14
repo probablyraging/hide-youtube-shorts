@@ -1,7 +1,7 @@
 {
     "name": "Hide YouTube Shorts",
     "manifest_version": 3,
-    "version": "1.6.15.3",
+    "version": "1.6.15.4",
     "description": "__MSG_extDesc__",
     "default_locale": "en",
     "permissions": [
