@@ -31,13 +31,20 @@ jobs:
           sed -i "s/${{ github.event.inputs.previous_version }}/${{ github.event.inputs.version }}/g" manifest.chrome.json
           sed -i "s/${{ github.event.inputs.previous_version }}/${{ github.event.inputs.version }}/g" manifest.firefox.json
 
+      - name: Build directories
+        run: node ./build.js
+
       - name: Create Chrome ZIP
         run: |
-          zip -r hide-youtube-shorts-chrome-${{ github.event.inputs.version }}.zip .
+          cd dist/chrome
+          zip -r hide-youtube-shorts-chrome-${{ github.event.inputs.version }}.zip *
+          cd ../..
 
       - name: Create Firefox ZIP
         run: |
-          zip -r hide-youtube-shorts-firefox-${{ github.event.inputs.version }}.zip .
+          cd dist/firefox
+          zip -r hide-youtube-shorts-firefox-${{ github.event.inputs.version }}.zip *
+          cd ../..
 
       - name: Commit changes
         run: |
