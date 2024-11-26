@@ -37,13 +37,13 @@ jobs:
       - name: Create Chrome ZIP
         run: |
           cd dist/chrome
-          zip -r ../..hide-youtube-shorts-chrome-${{ github.event.inputs.version }}.zip *
+          zip -r ../../hide-youtube-shorts-chrome-${{ github.event.inputs.version }}.zip *
           cd ../..
 
       - name: Create Firefox ZIP
         run: |
           cd dist/firefox
-          zip -r ../..hide-youtube-shorts-firefox-${{ github.event.inputs.version }}.zip *
+          zip -r ../../hide-youtube-shorts-firefox-${{ github.event.inputs.version }}.zip *
           cd ../..
 
       - name: Commit changes
