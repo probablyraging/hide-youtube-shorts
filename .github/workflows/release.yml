@@ -33,11 +33,11 @@ jobs:
 
       - name: Create Chrome ZIP
         run: |
-          zip -r ../../hide-youtube-shorts-chrome-${{ github.event.inputs.version }}.zip *
+          zip -r hide-youtube-shorts-chrome-${{ github.event.inputs.version }}.zip .
 
       - name: Create Firefox ZIP
         run: |
-          zip -r ../../hide-youtube-shorts-firefox-${{ github.event.inputs.version }}.zip *
+          zip -r hide-youtube-shorts-firefox-${{ github.event.inputs.version }}.zip .
 
       - name: Commit changes
         run: |
