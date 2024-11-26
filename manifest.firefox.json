@@ -1,7 +1,7 @@
 {
     "name": "Hide YouTube Shorts",
     "description": "Hide YouTube Shorts",
-    "version": "1.6.15.3",
+    "version": "1.7.0",
     "manifest_version": 2,
     "permissions": [
         "tabs",
