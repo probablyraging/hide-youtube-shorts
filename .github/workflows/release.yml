@@ -34,12 +34,10 @@ jobs:
       - name: Create Chrome ZIP
         run: |
           zip -r ../../hide-youtube-shorts-chrome-${{ github.event.inputs.version }}.zip *
-          cd ../..
 
       - name: Create Firefox ZIP
         run: |
           zip -r ../../hide-youtube-shorts-firefox-${{ github.event.inputs.version }}.zip *
-          cd ../..
 
       - name: Commit changes
         run: |
