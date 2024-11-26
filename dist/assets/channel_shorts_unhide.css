@@ -1,3 +1,0 @@
-ytd-rich-item-renderer:has(a[href*="/shorts/"]) {
-    display: block !important;
-}

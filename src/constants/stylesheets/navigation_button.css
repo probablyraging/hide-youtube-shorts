@@ -1,9 +1,0 @@
-/* Nav button */
-#endpoint[title="Shorts"] {
-    display: none !important;
-}
-
-/* Mobile nav button */
-ytm-pivot-bar-item-renderer:has(.pivot-shorts) {
-    display: none !important;
-}

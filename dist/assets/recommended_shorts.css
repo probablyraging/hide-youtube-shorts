@@ -1,8 +1,0 @@
-/* Recommended list */
-ytd-compact-video-renderer:has(a[href*="/shorts/"]) {
-    display: none !important;
-}
-
-ytd-reel-shelf-renderer:has(a[href*="/shorts/"]) {
-    display: none !important;
-}
