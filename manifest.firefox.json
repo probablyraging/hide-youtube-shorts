@@ -1,6 +1,6 @@
 {
     "name": "Hide YouTube Shorts",
-    "description": "Hide YouTube Shorts",
+    "description": "Hide YouTube Shorts videos effortlessly with this powerful browser extension",
     "version": "1.7.0",
     "manifest_version": 2,
     "permissions": [
@@ -12,16 +12,6 @@
             "background.js"
         ]
     },
-    "content_scripts": [
-        {
-            "matches": [
-                "*://*.youtube.com/*"
-            ],
-            "css": [
-                "styles/hide.css"
-            ]
-        }
-    ],
     "browser_action": {
         "default_title": "Hide YouTube Shorts"
     },
